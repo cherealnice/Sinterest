@@ -9,25 +9,24 @@
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
-* NoteForm
+* SinsIndex
+  - SinsIndexItem
+* SinForm
 
 ### Stores
-* Note
+* Sin
 
 ### Actions
-* ApiActions.receiveAllNotes
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
+* ApiActions.receiveAllSins
+* ApiActions.receiveSingleSin
+* ApiActions.deleteSin
 
 ### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
+* ApiUtil.fetchAllSins
+* ApiUtil.fetchSingleSin
+* ApiUtil.createSin
+* ApiUtil.editSin
+* ApiUtil.destroySin
 
 ## Gems/Libraries
 * Flux Dispatcher
-* Twitter Bootstrap

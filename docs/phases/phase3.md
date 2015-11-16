@@ -2,38 +2,35 @@
 
 ## Rails
 ### Models
-* Notebook
-* Tag
-* Tagging
+* Board
 
 ### Controllers
-* Api::NotebooksController (create, destroy, index, show, update)
+* Api::BoardsController (create, destroy, index, show, update)
 
 ### Views
-* notebooks/index.json.jbuilder
-* notebooks/show.json.jbuilder
-* tags/show.json.jbuilder
+* boards/index.json.jbuilder
+* boards/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotebooksIndex
-  - NotebookIndexItem
-* NotebookForm
+* BoardsIndex
+  - BoardsIndexItem
+* BoardForm
 * SearchIndex
 
 ### Stores
-* Notebook
+* Board
 
 ### Actions
-* ApiActions.receiveAllNotebooks
-* ApiActions.receiveSingleNotebook
-* ApiActions.deleteNotebook
+* ApiActions.receiveAllBoards
+* ApiActions.receiveSingleBoard
+* ApiActions.deleteBoard
 
 ### ApiUtil
-* ApiUtil.fetchAllNotebooks
-* ApiUtil.fetchSingleNotebook
-* ApiUtil.createNotebook
-* ApiUtil.editNotebook
-* ApiUtil.destroyNotebook
+* ApiUtil.fetchAllBoards
+* ApiUtil.fetchSingleBoard
+* ApiUtil.createBoard
+* ApiUtil.editBoard
+* ApiUtil.destroyBoard
 
 ## Gems/Libraries
