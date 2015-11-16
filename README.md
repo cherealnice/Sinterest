@@ -83,7 +83,7 @@ the Main page and the User Show).
 ### Bonus Features (TBD)
 - [ ] Prettify transitions
 - [ ] Use javascript library for cleaner tag selection
-- [ ] Changelogs for Boards
+- [ ] Change logs for Boards
 - [ ] Pagination / infinite scroll for Notes Index
 - [ ] Multiple sessions
 - [ ] Messaging
