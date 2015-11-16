@@ -1,4 +1,4 @@
-# FresherNote
+# Sintrest
 
 [Heroku link][heroku]
 
