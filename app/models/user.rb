@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   before_validation :ensure_username
 
-  has_many :boards
-  has_many :sins, through: :boards
+  # has_many :boards
+  has_many :sins
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)

@@ -1,5 +1,7 @@
 (function (root) {
 
+  var Link = ReactRouter.Link;
+
   root.SinIndexItem = React.createClass({
     mixins: [ReactRouter.History],
 
@@ -14,7 +16,9 @@
       var sin = this.props.sin;
       return (
         <li>
-          <h3 onClick={this.showSinDetail} key={sin.id}>{sin.title}</h3>
+          <h3 key={sin.id}>
+            <Link to={'/sins/' + sin.id}>{sin.title}</Link>
+          </h3>
           <p>{sin.description}</p>
         </li>
       );

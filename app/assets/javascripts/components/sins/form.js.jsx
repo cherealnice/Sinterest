@@ -7,7 +7,7 @@
       title: '',
       description: '',
       link: '',
-      board_id: ''
+      boardId: ''
     },
 
     getInitialState: function () {
@@ -20,7 +20,7 @@
       sin.title = this.state.title;
       sin.description = this.state.description;
       sin.link = this.state.link;
-      sin.board_id = this.state.board_id;
+      sin.board_id = this.state.boardId;
       ApiUtil.createSin(sin);
       this.setState(this.blankAttrs);
     },
@@ -37,19 +37,14 @@
 
           <div>
             <label htmlFor='sin-description'>Description:</label>
-            <textarea id='sin-description'
-              valueLink={this.linkState("description")}>
-                {this.state.description}
-            </textarea>
+            <textarea id='sin-description' value={this.state.descripton}
+              valueLink={this.linkState("description")} />
             <br />
           </div>
 
           <div>
             <label htmlFor='sin-link'>Website:</label>
-            <textarea id='sin-link'
-              valueLink={this.linkState("link")}>
-                {this.state.link}
-            </textarea>
+            <input type='text' id='sin-link' valueLink={this.linkState("link")} />
             <br />
           </div>
 
