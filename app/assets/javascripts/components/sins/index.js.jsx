@@ -23,7 +23,7 @@
     render: function () {
       return (
         <div>
-          <ul className="sins">
+          <ul className="sins group">
             {this.state.sins.map(function (sin) {
               return <SinIndexItem sin={sin} key={sin.id} />;
             })}
