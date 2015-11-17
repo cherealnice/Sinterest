@@ -22,11 +22,15 @@
 
     render: function () {
       return (
-        <ul className="sins">
-          {this.state.sins.map(function (sin) {
-            return <SinIndexItem sin={sin} key={sin.id} />;
-          })}
-        </ul>
+        <div>
+          <ul className="sins">
+            {this.state.sins.map(function (sin) {
+              return <SinIndexItem sin={sin} key={sin.id} />;
+            })}
+          </ul>
+
+          <SinForm />
+        </div>
       );
     }
   });

@@ -19,5 +19,17 @@ ApiUtil = {
         ApiActions.receiveSingleSin(data);
       }
     });
+  },
+
+  createSin: function (sin) {
+    $.ajax({
+      url: '/api/sins',
+      type: 'POST',
+      dataType: 'json',
+      data: { sin: sin },
+      success: function (data) {
+        ApiActions.receiveSingleSin(data);
+      }
+    });
   }
 };
