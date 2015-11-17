@@ -49,6 +49,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   config.react.variant = :production
+  config.react.addons = true
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
