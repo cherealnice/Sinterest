@@ -7,16 +7,16 @@
     },
 
     componentDidMount: function () {
-      SinStore.on(SinStore.SINS_CHANGE_EVENT, this.onSinsIndexChange);
+      SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
       ApiUtil.fetchSins();
     },
 
     componentWillUnmount: function () {
       SinStore.removeListener(SinStore.SINS_CHANGE_EVENT,
-                              this.onSinsIndexChange);
+                              this._onSinsIndexChange);
     },
 
-    onSinsIndexChange: function () {
+    _onSinsIndexChange: function () {
       this.setState({ sins: SinStore.all() });
     },
 

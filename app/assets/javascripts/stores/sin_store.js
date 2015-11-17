@@ -10,7 +10,7 @@
     var switched = false;
     _sins.forEach(function (s) {
       if(s.id === sin.id) {
-        _sins[_sins.indexOf(s)] = sins;
+        _sins[_sins.indexOf(s)] = sin;
         switched = true;
       }
     });
