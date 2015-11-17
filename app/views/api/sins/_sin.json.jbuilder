@@ -6,7 +6,7 @@ json.extract!(
 if show_comments
   json.comments do
     json.array!(sin.comments) do |comment|
-      json.partial! 'comments/comment', comment: comment
+      json.partial! 'api/comments/comment', comment: comment
     end
   end
 end

@@ -15,6 +15,7 @@
       e.preventDefault();
       var comment = {};
       comment.body = this.state.body;
+      comment.sin_id = this.props.sin.id;
       ApiUtil.createComment(comment);
       this.setState(this.blankAttrs);
     },
