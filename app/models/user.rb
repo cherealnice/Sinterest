@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   # has_many :boards
   has_many :sins
+  has_many :comments, foreign_key: :author_id
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)
