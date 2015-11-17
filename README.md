@@ -9,8 +9,8 @@
 Sintrest is a web application inspired by Pintrest built using Ruby on Rails
 and React.js. Sintrest allows users to:
 
-- [ ] Create an account
-- [ ] Log in / Log out
+- [X] Create an account
+- [X] Log in / Log out
 - [ ] Create, read, edit, and delete Sins
 - [ ] Create, read, edit, and delete Boards
 - [ ] Organize Sins within Boards
