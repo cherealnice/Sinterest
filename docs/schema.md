@@ -1,32 +1,28 @@
 # Schema Information
 
-## notes
+## sins
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
-body        | text      | not null
-author_id   | integer   | not null, foreign key (references users), indexed
-notebook_id | integer   | not null, foreign key (references notebooks), indexed
-archived    | boolean   | not null, default: false
+description | text      | not null
+board_id    | integer   | not null, foreign key (references boards), indexed
 
-## notebooks
+## boards
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
 title       | string    | not null
-description | string    | 
+description | string    |
 
-## reminders
+## likes
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
+target_id   | integer   | not null, foreign key (references notes), indexed
 date        | datetime  | not null
-type        | string    | not null
-prev_id     | integer   | foreign key (references reminders), indexed
 
 ## tags
 column name | data type | details
@@ -34,13 +30,13 @@ column name | data type | details
 id          | integer   | not null, primary key
 name        | string    | not null
 
-## taggings
+## followable
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-name        | string    | not null
-note_id     | integer   | not null, foreign key (references notes), indexed, unique [tag_id]
-tag_id      | integer   | not null, foreign key (references tags), indexed
+follower_id | integer   | not null, foreign key (references users), indexed
+followable_id| integer  | not null, foreign key (references users, tags or boards), indexed
+type        | string    | nut null, in (user, tag, or board)
 
 ## users
 column name     | data type | details

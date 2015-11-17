@@ -6,8 +6,8 @@
 ## New Session
 ![new-session]
 
-## NotesIndex / NoteIndexItem / NoteForm
-![notes]
+## SinsIndex / SinIndexItem / SinForm
+![sins]
 
 ## NotebooksIndex / NotebookIndexItem
 ![notebooks]
@@ -20,7 +20,7 @@
 
 [new-user]: ./wireframes/new_user.png
 [new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
+[sins]: ./wireframes/sins_index.png
+[sin]: ./wireframes/sin_show.png
+[sin-form]: ./wireframes/sin_form.png
 [component-heirarchy]: ./wireframes/component_heirarchy.png

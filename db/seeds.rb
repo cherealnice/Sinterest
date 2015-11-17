@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+sins = Sin.create([{title: 'Rock and Roll', description: 'It is awesome', link: 'http://www.google.com', board_id: 1, user_id: 1},
+                   {title: 'Alcohol', description: 'It is also fun', link: 'http://www.reddit.com', board_id: 1, user_id: 1}])

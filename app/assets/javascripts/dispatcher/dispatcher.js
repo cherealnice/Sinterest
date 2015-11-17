@@ -1,3 +1,1 @@
-(function (root) {
-  AppDispatcher = new Flux.Dispatcher();
-}(this));
+AppDispatcher = new Flux.Dispatcher();
