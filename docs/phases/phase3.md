@@ -14,7 +14,7 @@
 ## Flux
 ### Views (React Components)
 * BoardsIndex
-  - BoardsIndexItem
+  - BoardIndexItem
 * BoardForm
 * SearchIndex
 

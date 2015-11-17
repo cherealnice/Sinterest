@@ -10,7 +10,7 @@
 ## Flux
 ### Views (React Components)
 * SinsIndex
-  - SinsIndexItem
+  - SinIndexItem
 * SinForm
 
 ### Stores

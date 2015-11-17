@@ -4,4 +4,8 @@ class Api::SinsController < ApplicationController
     @sins = Sin.all
   end
 
+  def show
+    @sin = Sin.find(params[:id])
+  end
+
 end

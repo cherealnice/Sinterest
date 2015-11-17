@@ -24,7 +24,7 @@
       return (
         <ul className="sins">
           {this.state.sins.map(function (sin) {
-            return <SinsIndexItem sin={sin} key={sin.id} />;
+            return <SinIndexItem sin={sin} key={sin.id} />;
           })}
         </ul>
       );

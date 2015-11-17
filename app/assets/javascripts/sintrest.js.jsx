@@ -17,7 +17,7 @@ $(function () {
   var routes = (
       <Route path="/" component={App}>
         <IndexRoute component={SinsIndex} />
-        <Route path="sins/:id" component={SinShow} />
+        <Route path="sins/:sinId" component={SinShow} />
       </Route>
   );
   React.render(<Router>{routes}</Router>, root);
