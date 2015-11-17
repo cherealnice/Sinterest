@@ -31,19 +31,26 @@
 
     render: function () {
       var sin = this.state.sin;
-      var print;
+      var details;
+      var comments;
       if (sin) {
-        print = (
+        details = (
         <div>
           <h1>{sin.title}</h1>
           <p>{sin.description}</p>
           <a href={sin.link}>Go to link</a>
         </div>
         );
+
+        if (sin.comments) {
+          comments = (<CommentsIndex comments={sin.comments} />);
+        }
       }
       return (
         <div className="sin-detail">
-          {print}
+          {details}
+          {comments}
+          <CommentForm sin={sin} />
         </div>
       );
     }

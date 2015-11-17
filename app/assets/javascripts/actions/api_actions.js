@@ -11,5 +11,12 @@ ApiActions = {
       actionType: SinConstants.SIN_RECEIVED,
       sin: sin
     });
+  },
+
+  receiveComment: function (comment) {
+    AppDispatcher.dispatch({
+      actionType: CommentConstants.COMMENT_RECEIVED,
+      comment: comment
+    });
   }
 };

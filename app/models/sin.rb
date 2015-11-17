@@ -4,4 +4,5 @@ class Sin < ActiveRecord::Base
   validates :description, length: {maximum: 500}
 
   belongs_to :user
+  has_many :comments
 end

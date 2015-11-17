@@ -22,11 +22,11 @@
     SINS_CHANGE_EVENT: 'sins_change',
     SIN_DETAIL_CHANGE_EVENT: 'sin_detail_change',
 
-    all: function(){
-      return _sins.slice(0);
+    all: function () {
+      return _sins.slice();
     },
 
-    dispatcherID: AppDispatcher.register(function(payload){
+    dispatcherID: AppDispatcher.register(function (payload) {
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
           resetSins(payload.sins);
