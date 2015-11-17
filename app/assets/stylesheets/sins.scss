@@ -4,13 +4,15 @@
 .sins {
   width: calc(100vw - 80px);
   margin: 10px auto;
+  min-height: 950px;
 }
 
 .sins > li {
   width: calc(16% - 20px);
-  border: 1px solid black;
   float: left;
   margin: 10px;
   min-height: 200px;
   background: white;
+  box-shadow: -1px 1px 0px lightgray;
+  border-radius: 5px;
 }

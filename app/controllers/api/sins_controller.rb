@@ -15,7 +15,6 @@ class Api::SinsController < ApplicationController
   end
 
   def create
-    debugger;
     @sin = current_user.sins.new(sin_params)
 
     if @sin.save
