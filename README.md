@@ -14,11 +14,10 @@ and React.js. Sintrest allows users to:
 - [ ] Create, read, edit, and delete Sins
 - [ ] Create, read, edit, and delete Boards
 - [ ] Organize Sins within Boards
-- [ ] Organize Sins by categories
-- [ ] Comment on Sins and Boards
-- [ ] Follow other users
-- [ ] Add notes with multiple tags on Sins and Boards
-- [ ] Message other users
+- [ ] Organize Boards by categories
+- [ ] Comment on Sins
+- [ ] Follow other Users
+- [ ] Add multiple tags on Sins and Boards
 
 ## Design Docs
 * [View Wireframes][view]
@@ -84,7 +83,7 @@ the Main page and the User Show).
 ### Bonus Features (TBD)
 - [ ] Prettify transitions
 - [ ] Use javascript library for cleaner tag selection
-- [ ] Changelogs for Boards
+- [ ] Change logs for Boards
 - [ ] Pagination / infinite scroll for Notes Index
 - [ ] Multiple sessions
 - [ ] Messaging
