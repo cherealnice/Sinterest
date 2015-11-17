@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
-  after_initialize :ensure_session_token, :ensure_username
+  after_initialize :ensure_session_token
+  before_validation :ensure_username
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)
@@ -44,7 +45,9 @@ class User < ActiveRecord::Base
   end
 
   def ensure_username
-    self.username ||= User.email.partition('@').first
+    if self.username.strip.length == 0
+      self.username = self.email.partition('@').first
+    end
   end
 
   def email_format
