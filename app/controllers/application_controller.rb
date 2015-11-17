@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    !!@current_user
+    !!(current_user)
   end
 
   def sign_in(user)
