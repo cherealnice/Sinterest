@@ -5,6 +5,7 @@ class Sin < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :board
-  has_many :comments
+  has_many   :comments
+  has_many   :images, as: :imageable
 
 end

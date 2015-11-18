@@ -11,6 +11,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'react-rails', '~> 1.3.0'
 gem 'flux-rails-assets', '~> 2.1.0'
 gem 'bcrypt', '~> 3.1.7'
+gem 'paperclip', '~> 4.3'
+gem 'figaro'
+gem 'aws-sdk', '~> 1.6'
 
 group :development, :test do
   gem 'byebug'

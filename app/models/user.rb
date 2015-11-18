@@ -7,12 +7,13 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
-  after_initialize :ensure_session_token
+  after_initialize  :ensure_session_token
   before_validation :ensure_username
 
   has_many :sins
   has_many :boards
   has_many :comments, foreign_key: :author_id, inverse_of: :author
+  has_many :images, as: :imageable
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)
