@@ -1,0 +1,4 @@
+json.extract!(
+  sin,
+  :title
+)

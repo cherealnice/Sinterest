@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :sins
     resources :comments
+    resources :boards
   end
 end

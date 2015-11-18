@@ -13,10 +13,24 @@ ApiActions = {
     });
   },
 
-  receiveComment: function (comment) {
+  receiveSingleComment: function (comment) {
     AppDispatcher.dispatch({
       actionType: CommentConstants.COMMENT_RECEIVED,
       comment: comment
+    });
+  },
+
+  receiveAllBoards: function (boards) {
+    AppDispatcher.dispatch({
+      actionType: BoardConstants.BOARDS_RECEIVED,
+      boards: boards
+    });
+  },
+
+  receiveSingleBoard: function (board) {
+    AppDispatcher.dispatch({
+      actionType: BoardConstants.BOARD_RECEIVED,
+      board: board
     });
   }
 };

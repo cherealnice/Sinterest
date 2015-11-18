@@ -18,6 +18,8 @@ $(function () {
       <Route path="/" component={App}>
         <IndexRoute component={SinsIndex} />
         <Route path="sins/:sinId" component={SinShow} />
+        <Route path="boards" component={BoardsIndex} />
+        <Route path="boards/:boardId" component={BoardShow} />
       </Route>
   );
   React.render(<Router>{routes}</Router>, root);

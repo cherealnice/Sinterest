@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   before_validation :ensure_username
 
   has_many :sins
+  has_many :boards
   has_many :comments, foreign_key: :author_id, inverse_of: :author
 
   def self.find_by_credentials (email, password)

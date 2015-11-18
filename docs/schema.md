@@ -4,8 +4,9 @@
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-title       | string    | not null
-description | text      | not null
+title       | string    | not null, limit 100
+description | string    | not null, limit 500
+link        | string    | limit 2083
 author_id   | integer   | not null, foreign key (references users), indexed
 
 ## comments
@@ -16,7 +17,7 @@ author_id   | string    | not null, foreign_key (references users), indexed
 body        | text      | not null
 sin_id      | integer   | not null, foreign key (references sins), indexed
 
-## SinBoard (join table)
+## SinBoards (join table)
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -28,8 +29,8 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
-title       | text      | not null, indexed
-description | text      | allow null
+title       | string    | not null, indexed, limit 50
+description | string    | limit 500
 
 ## imageable
 column name | data type | details

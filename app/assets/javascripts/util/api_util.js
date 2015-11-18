@@ -40,7 +40,41 @@ ApiUtil = {
       dataType: 'json',
       data: { comment: comment },
       success: function (data) {
-        ApiActions.receiveComment(data);
+        ApiActions.receiveSingleComment(data);
+      }
+    });
+  },
+
+  fetchBoards: function () {
+    $.ajax({
+      url: '/api/boards',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        ApiActions.receiveAllBoards(data);
+      }
+    });
+  },
+
+  fetchSingleBoard: function (boardId) {
+    $.ajax({
+      url: '/api/boards/' + boardId,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        ApiActions.receiveSingleBoard(data);
+      }
+    });
+  },
+
+  createBoard: function (board) {
+    $.ajax({
+      url: 'api/boards',
+      type: 'POST',
+      dataType: 'json',
+      data: { board: board },
+      success: function (data) {
+        ApiActions.receiveSingleBoard(data);
       }
     });
   }
