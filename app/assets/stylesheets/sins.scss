@@ -7,12 +7,74 @@
   min-height: 950px;
 }
 
-.sins > li {
-  width: calc(16% - 20px);
+.sin {
+  width: 200px;
   float: left;
   margin: 10px;
-  min-height: 200px;
+  // min-height: 200px;
   background: white;
-  box-shadow: -1px 1px 0px lightgray;
-  border-radius: 5px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.sin > h3 {
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  padding: 10px;
+  display: block;
+}
+
+.sin-title {
+  display: block;
+}
+
+.sin > p {
+  border-bottom: 1px solid rgb(231, 231, 231);
+  padding: 10px;
+}
+
+.sin-desc {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sin-board {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.sin-board:hover {
+  background: rgb(228, 228, 228);
+}
+
+.sin-show-section {
+  background: white;
+  margin: auto;
+  width: 700px;
+  border-radius: 6px;
+  margin-top: 10px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
+}
+
+.sin-show-desc {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sin-show-section > h1 {
+  padding: 20px;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sin-show-section > a {
+  padding: 20px;
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 1px solid rgb(231, 231, 231);
 }

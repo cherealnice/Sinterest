@@ -36,9 +36,11 @@
       if (sin) {
         details = (
         <div>
-          <h1>{sin.title}</h1>
-          <p>{sin.description}</p>
-          <a href={sin.link}>Go to link</a>
+          <section className='sin-show-section'>
+            <h1>{sin.title}</h1>
+            <a href={sin.link}>Go to link</a>
+            <p className='sin-show-desc'>{sin.description}</p>
+          </section>
         </div>
         );
 
@@ -47,10 +49,12 @@
         }
       }
       return (
-        <div className="sin-detail">
+        <div className="sin-wrapper">
           {details}
-          {comments}
-          <CommentForm sin={sin} />
+          <section className="sin-comments">
+            {comments}
+            <CommentForm sin={sin} />
+          </section>
         </div>
       );
     }

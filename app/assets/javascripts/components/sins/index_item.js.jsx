@@ -15,11 +15,12 @@
     render: function () {
       var sin = this.props.sin;
       return (
-        <li>
+        <li className="sin">
           <h3 key={sin.id}>
-            <Link to={'/sins/' + sin.id}>{sin.title}</Link>
+            <Link className='sin-title' to={'/sins/' + sin.id}>{sin.title}</Link>
           </h3>
-          <p>{sin.description}</p>
+          <p className='sin-desc'>{sin.description}</p>
+          <p className='sin-board'>{sin.board_id}</p>
         </li>
       );
     }

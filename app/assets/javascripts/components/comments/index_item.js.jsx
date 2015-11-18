@@ -5,8 +5,10 @@
       var comment = this.props.comment;
       return (
         <li className="comment">
-          <h3>{comment.author}</h3>
-          <p>{comment.body}</p>
+          <div className="comment-container">
+            <h3 id="comment-author">{comment.author_id}</h3>
+            <p className="comment-body">{comment.body}</p>
+          </div>
         </li>
       );
     }

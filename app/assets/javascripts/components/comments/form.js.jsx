@@ -24,11 +24,8 @@
       return (
         <form className="comment-form" onSubmit={this.createComment}>
 
-          <div>
-            <label htmlFor='comment-body'>Comment:</label>
-            <textarea id='comment-body' valueLink={this.linkState("body")} />
+            <input type="text" className="comment-textarea" placeholder="Add a comment..." valueLink={this.linkState("body")} />
             <br />
-          </div>
 
           <button>Submit</button>
         </form>

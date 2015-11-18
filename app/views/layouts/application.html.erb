@@ -8,6 +8,8 @@
 </head>
 <body>
 
+  <section class='page-header group'>
+
   <% if current_user %>
     <%= button_to "Logout", session_url, method: :delete %>
 
@@ -16,6 +18,8 @@
     <br><br>
 
   <% end %>
+
+</section>
 
   <% if flash[:errors] %>
     <% flash[:errors].each do |error| %>
