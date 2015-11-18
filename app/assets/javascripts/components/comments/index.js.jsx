@@ -20,7 +20,7 @@
 
     render: function () {
       return (
-        <ul>
+        <ul className='comment-list'>
           {this.props.comments.map(function (comment) {
             return (<CommentIndexItem key={comment.id} comment={comment} />);
           })}

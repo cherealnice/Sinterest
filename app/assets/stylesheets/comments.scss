@@ -5,7 +5,6 @@
 .sin-comments {
   background: white;
   margin: auto;
-  width: 700px;
   border-radius: 6px;
   margin-top: 10px;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
@@ -17,14 +16,9 @@
   border-radius: 6px;
   font-size: 14px;
   padding: 5px;
-  width: calc(100% - 10px);
+  width: calc(100% - 60px);
   height: 30px;
   display: block;
-}
-
-.comment-form {
-  padding: 20px;
-  margin: auto;
 }
 
 .comment-form > button {
@@ -36,13 +30,15 @@
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
 }
 
-.comment > h3 {
-  font-size: 14px;
+.comment-author {
+  font-size: 40px;
   font-weight: 600;
-  margin: 20px;
 }
 
-.comment-container {
-  margin: 20px;
-  display: block;
+.comment-body {
+  margin-bottom: 10px;
+}
+
+.sin-comments {
+  padding: 20px;
 }
