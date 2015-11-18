@@ -37,10 +37,14 @@
       if (board) {
         header = (
         <div>
-          <header className='board-show-header'>
-            <h1>{board.title}</h1>
-            <p>{board.author.username}</p>
-            <p className='board-show-desc'>{board.description}</p>
+          <header className='content-header'>
+            <section className='content-header-top'>
+              <h1 className='content-header-title'>{board.title}</h1>
+              <p className='content-header-desc'>{board.description}</p>
+            </section>
+            <section className='content-header-bottom'>
+              <p className='content-header-user'>{board.author.username}</p>
+            </section>
           </header>
         </div>
         );

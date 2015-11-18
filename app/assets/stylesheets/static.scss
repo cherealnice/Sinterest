@@ -31,15 +31,3 @@ body {
 button:hover {
  cursor: pointer;
 }
-
-.page-header {
- height: 55px;
- background: white;
- display: block;
- box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
-}
-
-.page-header > form {
-  border: 1px solid black;
-  float: left;
-}

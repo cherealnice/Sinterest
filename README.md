@@ -11,11 +11,11 @@ and React.js. Sintrest allows users to:
 
 - [X] Create an account
 - [X] Log in / Log out
-- [ ] Create, read, edit, and delete Sins
+- [X] Create, read, edit, and delete Sins
+- [X] Comment on Sins
 - [ ] Create, read, edit, and delete Boards
-- [ ] Organize Sins within Boards
+- [X] Organize Sins within Boards
 - [ ] Organize Boards by categories
-- [ ] Comment on Sins
 - [ ] Follow other Users
 - [ ] Add multiple tags on Sins and Boards
 
