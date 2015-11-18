@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def ensure_username
-    if self.username.strip.length == 0
+    if !self.username || self.username.strip.length == 0
       self.username = self.email.partition('@').first
     end
   end

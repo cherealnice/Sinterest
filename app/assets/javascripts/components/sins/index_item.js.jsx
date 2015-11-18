@@ -20,7 +20,9 @@
             <Link className='sin-title' to={'/sins/' + sin.id}>{sin.title}</Link>
           </h3>
           <p className='sin-desc'>{sin.description}</p>
-          <p className='sin-board'>{sin.board_id}</p>
+          <Link className='sin-board' to={'/boards/' + sin.board.id}>
+            {sin.board.title}
+          </Link>
         </li>
       );
     }

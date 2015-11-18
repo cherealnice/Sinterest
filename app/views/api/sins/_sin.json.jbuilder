@@ -1,7 +1,14 @@
 json.extract!(
   sin,
-  :title, :description, :link, :user_id, :board_id, :id
+  :title, :description, :link, :board_id, :user_id, :id
 )
+
+json.board do
+  json.extract!(
+    sin.board,
+    :title, :id
+    )
+end
 
 if show_comments
   json.comments do
