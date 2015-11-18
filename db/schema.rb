@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20151118142911) do
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
-    t.text     "title",       null: false
-    t.text     "description"
-    t.integer  "author_id",   null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "title",       limit: 50,  null: false
+    t.string   "description", limit: 500
+    t.integer  "author_id",               null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "boards", ["author_id"], name: "index_boards_on_author_id", using: :btree
