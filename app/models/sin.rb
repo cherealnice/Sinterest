@@ -8,4 +8,8 @@ class Sin < ActiveRecord::Base
   has_many :sin_boards
   has_many :boards, through: :sin_boards
 
+  def find_by_params(board_ids)
+
+  end
+
 end

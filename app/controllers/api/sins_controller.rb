@@ -1,7 +1,14 @@
 class Api::SinsController < ApplicationController
 
   def index
-    @sins = Sin.all
+    if params[:boardIds].empty?
+      @sins = Sin.all
+    else
+      @sins = []
+      params[:boardIds].each do |board_id|
+        @sins.push(Sin.find_by(board_id: board_id.to_i))
+      end
+    end
   end
 
   def show

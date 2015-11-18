@@ -8,7 +8,8 @@
 
     componentDidMount: function () {
       SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
-      ApiUtil.fetchSins();
+      var boards = this.props.boards || [];
+      ApiUtil.fetchSins(boards);
     },
 
     componentWillUnmount: function () {

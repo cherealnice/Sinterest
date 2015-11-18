@@ -3,7 +3,6 @@
   root.BoardShow = React.createClass({
 
     getInitialState: function () {
-      debugger;
       return this.getStateFromStore();
     },
 
@@ -32,6 +31,7 @@
 
     render: function () {
       var board = this.state.board;
+      var boardIds = [this.props.params.boardId];
       var header;
       var comments;
       if (board) {
@@ -50,7 +50,7 @@
         <div className="board-wrapper">
           {header}
           <section className="board-sins-index">
-            <SinsIndex boards={[board]} />
+            <SinsIndex boards={boardIds} />
           </section>
         </div>
       );

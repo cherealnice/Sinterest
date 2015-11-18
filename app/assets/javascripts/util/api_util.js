@@ -1,8 +1,9 @@
 ApiUtil = {
-  fetchSins: function () {
+  fetchSins: function (boardIds) {
     $.ajax({
       url: '/api/sins',
       type: 'GET',
+      data: { boardIds: boardIds },
       dataType: 'json',
       success: function (data) {
         ApiActions.receiveAllSins(data);
