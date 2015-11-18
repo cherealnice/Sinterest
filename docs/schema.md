@@ -28,8 +28,8 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
-title       | string    | not null, indexed
-description | string    |
+title       | text      | not null, indexed
+description | text      | allow null
 
 ## imageable
 column name | data type | details
