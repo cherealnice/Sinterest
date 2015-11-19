@@ -8,7 +8,8 @@
 }
 
 .sin {
-  width: 200px;
+  width: calc(100%/4 - 20px);
+  min-width: 200px;
   float: left;
   margin: 10px;
   background: white;

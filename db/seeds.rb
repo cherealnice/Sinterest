@@ -15,8 +15,7 @@ User.create!(email: 'dcherouny@gmail.com', password: 'password')
 end
 
 50.times do
-  Sin.create!({
-    board: Board.all[rand(0..Board.all.length-1)],
+  Board.all[rand(0..Board.all.length-1)].sins.create!({
     title: Faker::Book.title,
     description: Faker::Lorem.sentence,
     link:  Faker::Internet.url,
