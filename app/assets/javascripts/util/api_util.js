@@ -83,5 +83,17 @@ ApiUtil = {
         ApiActions.receiveSingleBoard(data);
       }
     });
+  },
+
+  setLike: function (type, id, liked) {
+    $.ajax({
+      url: 'api/likes',
+      type: 'POST',
+      dataType: 'json',
+      data: { like: {id: id, type: type, liked: liked} },
+      success: function (data) {
+        ApiActions.setLike(data);
+      }
+    });
   }
 };

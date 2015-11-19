@@ -32,5 +32,12 @@ ApiActions = {
       actionType: BoardConstants.BOARD_RECEIVED,
       board: board
     });
+  },
+
+  setLike: function (like) {
+    AppDispatcher.dispatch({
+      actionType: LikeConstants.LIKE_CHANGED,
+      like: like
+    });
   }
 };

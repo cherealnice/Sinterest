@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :sins
     resources :comments
     resources :boards
+    resources :likes, only: [:create]
   end
 end

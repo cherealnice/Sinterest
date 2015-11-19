@@ -6,4 +6,5 @@ class Board < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
   has_many   :sin_boards
   has_many   :sins, through: :sin_boards, source: :sin
+  has_many   :likes, as: :likeable
 end

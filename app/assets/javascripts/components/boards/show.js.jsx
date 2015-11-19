@@ -35,6 +35,7 @@
       var header;
       var comments;
       if (board) {
+        var liked = board.liked ? true : false;
         header = (
         <div>
           <header className='content-header'>
@@ -47,12 +48,12 @@
                 <img src={board.author_image_url} />
                 {board.author.username}
               </p>
+              <LikeButton likeClass='Board' target={board} liked={liked}/>
             </section>
           </header>
         </div>
         );
       }
-
       return (
         <div className="board-wrapper">
           {header}
