@@ -6,7 +6,7 @@ class Api::SinsController < ApplicationController
     else
       @sins = []
       params[:boardIds].each do |board_id|
-        @sins.push(Sin.find_by(board_id: board_id.to_i))
+        @sins.concat(Board.find(board_id).sins.to_a)
       end
     end
   end

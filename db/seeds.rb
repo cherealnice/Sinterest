@@ -6,10 +6,14 @@ Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', password: 'password')
 
+10.times do
+  User.create!(email: Faker::Internet.email, password: 'password')
+end
+
 20.times do
   Board.create!({
     author:   User.all[rand(0..User.all.length-1)],
-    title:       Faker::Lorem.words(2),
+    title:       Faker::Lorem.word,
     description: Faker::Hacker.say_something_smart
   })
 end

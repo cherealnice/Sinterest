@@ -1,16 +1,16 @@
 json.extract!(
   sin,
-  :title, :description, :link, :board_id, :user_id, :id
+  :title, :description, :link, :boards, :user_id, :id
 )
 
 # json.image_url asset_path(sin.image.url(:medium)) . #
 
-json.board do
-  json.extract!(
-    sin.board,
-    :title, :id
-    )
-end
+# json.boards do
+#   json.extract!(
+#     sin.board,
+#     :title, :id
+#     )
+# end
 
 if show_comments
   json.comments do
