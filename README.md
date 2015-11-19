@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: sinterest.herokuapp.com
+[heroku]: sinterest-app.herokuapp.com
 
 ## Minimum Viable Product
 
