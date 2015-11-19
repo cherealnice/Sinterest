@@ -4,10 +4,11 @@ Sin.destroy_all
 Board.destroy_all
 Comment.destroy_all
 
-User.create!(email: 'dcherouny@gmail.com', password: 'password')
+User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
 
 10.times do
-  User.create!(email: Faker::Internet.email, password: 'password')
+  number = rand(1...8)
+  User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password')
 end
 
 20.times do

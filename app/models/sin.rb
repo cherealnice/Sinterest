@@ -8,7 +8,7 @@ class Sin < ActiveRecord::Base
   has_many   :sin_boards
   has_many   :boards, through: :sin_boards, source: :board
   has_many   :comments
-  has_many    :images, as: :imageable, inverse_of: :imageable
+  has_many   :images, as: :imageable, inverse_of: :imageable
 
   def image
     images.first.image unless images.empty?

@@ -43,7 +43,10 @@
               <p className='content-header-desc'>{board.description}</p>
             </section>
             <section className='content-header-bottom'>
-              <p className='content-header-user'>{board.author.username}</p>
+              <p className='content-header-user'>
+                <img src={board.author_image_url} />
+                {board.author.username}
+              </p>
             </section>
           </header>
         </div>
