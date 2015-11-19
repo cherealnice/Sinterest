@@ -19,7 +19,9 @@ end
 end
 
 50.times do
+    number = rand(1...8)
   Board.all[rand(0..Board.all.length-1)].sins.create!({
+    image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")),
     title: Faker::Book.title,
     description: Faker::Lorem.sentence,
     link:  Faker::Internet.url,
