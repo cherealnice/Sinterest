@@ -7,26 +7,27 @@ Comment.destroy_all
 User.create!(email: 'dcherouny@gmail.com', password: 'password')
 
 20.times do
-  Board.create({
-    author_id:   User.all[rand(0..User.all.length)],
-    title:       Faker::Team.sport,
+  Board.create!({
+    author:   User.all[rand(0..User.all.length-1)],
+    title:       Faker::Lorem.words(2),
     description: Faker::Hacker.say_something_smart
   })
 end
 
 50.times do
-  Sin.create({
-    board: Board.all[rand(0..Board.all.length)],
+  Sin.create!({
+    board: Board.all[rand(0..Board.all.length-1)],
     title: Faker::Book.title,
+    description: Faker::Lorem.sentence,
     link:  Faker::Internet.url,
-    user:  User.all[rand(0..User.all.length)]
+    user:  User.all[rand(0..User.all.length-1)]
     })
 end
 
 100.times do
-  Comment.create({
-    author: User.all[rand(0..User.all.length)],
+  Comment.create!({
+    author: User.all[rand(0..User.all.length-1)],
     body:   Faker::Hacker.say_something_smart,
-    sin:    Sin.all[rand(0..Sin.all.length)]
+    sin:    Sin.all[rand(0..Sin.all.length-1)]
   })
 end
