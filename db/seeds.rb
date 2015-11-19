@@ -1,16 +1,32 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
 User.destroy_all
 Sin.destroy_all
 Board.destroy_all
 Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', password: 'password')
-boards = [Board.create({author_id: User.first.id, title: 'Music'}), Board.create({author_id: User.first.id, title: 'Libations'})]
 
-sins = [Sin.create({board: Board.first, user: User.first, title: 'hello, world', description: 'This is fun!'})]
+20.times do
+  Board.create({
+    author_id:   User.all[rand(0..User.all.length)],
+    title:       Faker::Team.sport,
+    description: Faker::Hacker.say_something_smart
+  })
+end
+
+50.times do
+  Sin.create({
+    board: Board.all[rand(0..Board.all.length)],
+    title: Faker::Book.title,
+    link:  Faker::Internet.url,
+    user:  User.all[rand(0..User.all.length)]
+    })
+end
+
+100.times do
+  Comment.create({
+    author: User.all[rand(0..User.all.length)],
+    body:   Faker::Hacker.say_something_smart,
+    sin:    Sin.all[rand(0..Sin.all.length)]
+  })
+end

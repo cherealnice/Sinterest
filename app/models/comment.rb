@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
-  validates :author, :body, presence: true
+  validates :author, :sin, :body, presence: true
 
   belongs_to :author, class_name: 'User', foreign_key: :author_id
+  belongs_to :sin
 end
