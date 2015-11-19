@@ -54,14 +54,15 @@
 .sin-show-section {
   background: white;
   border-radius: 6px;
+  overflow: hidden;
   margin-top: 10px;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
 }
 
 .sin-show-desc {
-  padding: 20px;
   font-size: 18px;
   font-weight: 500;
+  padding: 10px 20px;
 }
 
 .sin-show-section > h1 {
@@ -72,14 +73,27 @@
 }
 
 .sin-show-section > a {
-  padding: 20px;
+  padding: 10px 20px;
   display: block;
   font-size: 12px;
   font-weight: 500;
   border-bottom: 1px solid rgb(231, 231, 231);
+  border-top: 1px solid rgb(231, 231, 231);
 }
 
 .sin-wrapper {
   margin: auto;
   width: 700px;
+}
+
+.sin-show-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.sin-show-image-container {
+  background: rgb(248, 248, 248);
+  padding: 20px;
 }

@@ -22,7 +22,6 @@ class Api::SinsController < ApplicationController
   end
 
   def create
-    debugger;
     @sin = current_user.sins.new(sin_params)
 
     if @sin.save
@@ -33,7 +32,7 @@ class Api::SinsController < ApplicationController
   end
 
   def sin_params
-    params.require(:sin).permit(:title, :description, :board_id, :link)
+    params.require(:sin).permit(:title, :image, :description, :board_id, :link)
   end
 
 end

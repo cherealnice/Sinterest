@@ -8,4 +8,16 @@ class Sin < ActiveRecord::Base
   has_many   :comments
   has_many   :images, as: :imageable
 
+  def image
+    images.first.image unless images.empty?
+  end
+
+  def image=(data)
+    if image
+      images.first.image = data
+    else
+      images.new({image: image})
+    end
+  end
+
 end

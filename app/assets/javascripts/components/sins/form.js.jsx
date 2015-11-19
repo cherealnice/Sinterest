@@ -5,6 +5,8 @@
 
     blankAttrs: {
       title: '',
+      image: null,
+      imageUrl: '',
       description: '',
       link: '',
       boardId: ''
@@ -14,15 +16,45 @@
       return this.blankAttrs;
     },
 
+    resetState: function () {
+      this.setState(this.blankAttrs);
+    },
+
     createSin: function (e) {
       e.preventDefault();
       var sin = {};
-      sin.title = this.state.title;
-      sin.description = this.state.description;
-      sin.link = this.state.link;
-      sin.board_id = this.state.boardId;
-      ApiUtil.createSin(sin);
-      this.setState(this.blankAttrs);
+
+      var title = this.state.title;
+      var image = this.state.image;
+      var description = this.state.description;
+      var link = this.state.link;
+      var boardId = this.state.boardId;
+
+      var formData = new FormData();
+      formData.append("sin[title]", title);
+      formData.append("sin[image]", image);
+      formData.append("sin[description]", description);
+      formData.append("sin[link]", link);
+      formData.append("sin[board_id]", boardId);
+
+      ApiUtil.createSin(formData, this.resetState());
+    },
+
+    _changeFile: function(e) {
+      e.preventDefault();
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+      var form = this;
+
+      reader.onloadend = function() {
+        form.setState({ imageUrl: reader.result, image: file });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({ imageUrl: "", imageFile: null });
+      }
     },
 
     render: function () {
@@ -33,6 +65,11 @@
             <input type="text" id='sin-title'
               valueLink={this.linkState("title")} />
             <br />
+          </div>
+
+          <div>
+            <input type="file" id="sin-image"
+              onChange={this._changeFile} />
           </div>
 
           <div>

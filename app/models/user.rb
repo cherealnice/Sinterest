@@ -43,6 +43,14 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def image
+    self.images.first.image
+  end
+
+  def image=(url)
+    self.images.first.image = File.open(url)
+  end
+
   private
 
   def ensure_session_token

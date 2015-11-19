@@ -22,14 +22,19 @@ ApiUtil = {
     });
   },
 
-  createSin: function (sin) {
+  createSin: function (formData, callback) {
     $.ajax({
       url: '/api/sins',
       type: 'POST',
       dataType: 'json',
-      data: { sin: sin },
+      processData: false,
+      contentType: false,
+      data: formData,
       success: function (data) {
         ApiActions.receiveSingleSin(data);
+        if (callback) {
+          callback();
+        }
       }
     });
   },

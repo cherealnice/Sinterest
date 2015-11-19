@@ -17,7 +17,10 @@
       return (
         <li className="sin">
           <h3 key={sin.id}>
-            <Link className='sin-title' to={'/sins/' + sin.id}>{sin.title}</Link>
+            <Link className='sin-title' to={'/sins/' + sin.id}>
+                <img className='sin-show-image' src={sin.image_url} />
+              {sin.title}
+            </Link>
           </h3>
           <p className='sin-desc'>{sin.description}</p>
           <Link className='sin-board' to={'/boards/' + sin.board.id}>
