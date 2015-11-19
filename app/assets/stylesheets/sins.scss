@@ -22,15 +22,19 @@
   font-size: 18px;
   font-weight: 700;
   border-bottom: 1px solid rgb(231, 231, 231);
-  padding: 10px;
   display: block;
+  padding: 0;
 }
 
 .sin-title {
   display: block;
 }
 
-.sin > p {
+// .sin-title > p {
+//   padding: 10px
+// }
+
+.sin p {
   border-bottom: 1px solid rgb(231, 231, 231);
   padding: 10px;
 }

@@ -44,11 +44,12 @@ class User < ActiveRecord::Base
   end
 
   def image
-    self.images.first.image
+    images.first.image unless images.empty?
   end
 
-  def image=(url)
-    self.images.first.image = File.open(url)
+  def image=(data)
+    images.destroy_all
+    images.new(image: data)
   end
 
   private

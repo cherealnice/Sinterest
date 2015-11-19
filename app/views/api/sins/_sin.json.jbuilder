@@ -1,9 +1,8 @@
 json.extract!(
   sin,
-  :title, :description, :link, :boards, :user_id, :id
+  :title, :description, :link, :boards, :user_id, :id, :image
 )
-
-# json.image_url asset_path(sin.image.url(:medium)) . #
+# json.image_url asset_path(sin.image.url(:medium)) .
 
 # json.boards do
 #   json.extract!(

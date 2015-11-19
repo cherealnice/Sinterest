@@ -18,8 +18,8 @@
         <li className="sin">
           <h3 key={sin.id}>
             <Link className='sin-title' to={'/sins/' + sin.id}>
-                <img className='sin-show-image' src={sin.image_url} />
-              {sin.title}
+              <img className='sin-show-image' src={sin.image} />
+              <p>{sin.title}</p>
             </Link>
           </h3>
           <p className='sin-desc'>{sin.description}</p>
