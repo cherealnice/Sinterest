@@ -38,7 +38,7 @@
         <div>
           <section className='sin-show-section'>
             <div className='sin-show-image-container'>
-              <img className='sin-show-image' src={sin.image} />
+              <img className='sin-show-image' src={sin.image_url} />
             </div>
             <a href={sin.link}>Go to link</a>
             <h1>{sin.title}</h1>
