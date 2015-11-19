@@ -23,7 +23,7 @@ class Api::SinsController < ApplicationController
 
   def create
     @sin = current_user.sins.new(sin_params)
-
+    @sin.sin_boards.new(board: Board.find(params[:board_id]))
     if @sin.save
       render :show
     else
@@ -32,7 +32,7 @@ class Api::SinsController < ApplicationController
   end
 
   def sin_params
-    params.require(:sin).permit(:title, :image, :description, :board_id, :link)
+    params.require(:sin).permit(:title, :image, :description, :link)
   end
 
 end

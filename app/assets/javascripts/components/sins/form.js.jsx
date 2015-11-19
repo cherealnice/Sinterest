@@ -35,7 +35,7 @@
       formData.append("sin[image]", image);
       formData.append("sin[description]", description);
       formData.append("sin[link]", link);
-      formData.append("sin[board_id]", boardId);
+      formData.append("board_id", boardId);
 
       ApiUtil.createSin(formData, this.resetState());
     },
