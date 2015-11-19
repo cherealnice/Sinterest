@@ -1,13 +1,13 @@
-# Sintrest
+# Sinterest
 
 [Heroku link][heroku]
 
-[heroku]: sintrest.herokuapp.com
+[heroku]: sinterest.herokuapp.com
 
 ## Minimum Viable Product
 
-Sintrest is a web application inspired by Pintrest built using Ruby on Rails
-and React.js. Sintrest allows users to:
+Sinterest is a web application inspired by Pintrest built using Ruby on Rails
+and React.js. Sinterest allows users to:
 
 - [X] Create an account
 - [X] Log in / Log out

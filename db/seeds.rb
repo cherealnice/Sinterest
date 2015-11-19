@@ -5,6 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.destroy_all
+Sin.destroy_all
+Board.destroy_all
+Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', password: 'password')
 boards = [Board.create({author_id: User.first.id, title: 'Music'}), Board.create({author_id: User.first.id, title: 'Libations'})]
+
+sins = [Sin.create({board: Board.first, user: User.first, title: 'hello, world', description: 'This is fun!'})]

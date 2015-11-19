@@ -14,6 +14,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'paperclip', '~> 4.3'
 gem 'figaro'
 gem 'aws-sdk', '~> 1.6'
+gem 'rename'
 
 group :development, :test do
   gem 'byebug'
