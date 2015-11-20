@@ -5,7 +5,9 @@
       var comment = this.props.comment;
       return (
         <li className="comment">
-            <h3 className="comment-author">{comment.author_id}</h3>
+            <h3 className="comment-author">
+              <img className='user-thumb' src={comment.author_image_url} />
+            </h3>
             <p className="comment-body">{comment.body}</p>
         </li>
       );

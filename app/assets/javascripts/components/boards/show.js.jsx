@@ -42,18 +42,18 @@
           <header className='content-header'>
             <section className='content-header-top'>
               <h1 className='content-header-title'>{board.title}</h1>
-              <p className='content-header-desc'>{board.description}</p>
-            </section>
-            <section className='content-header-bottom'>
-              <p className='content-header-user'>
-                <img src={board.author_image_url} />
-                {board.author.username}
-              </p>
-              <LikeButton likeClass='Board' target={board} liked={liked}/>
               <FollowButton
                 followClass='Board'
                 target={board}
                 followed={followed}/>
+              <p className='content-header-desc'>{board.description}</p>
+            </section>
+            <section className='content-header-bottom'>
+              <p className='content-header-user'>
+                <img className='user-thumb' src={board.author_image_url} />
+                {board.author.username}
+              </p>
+              <LikeButton likeClass='Board' target={board} liked={liked}/>
             </section>
           </header>
         </div>

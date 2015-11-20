@@ -15,7 +15,7 @@
         this.props.target.id === id &&
         this.props.likeClass === likeClass
       ) {
-        this.setState({liked: !this.state.liked });
+        this.setState({ liked: !this.state.liked });
       }
     },
 
@@ -31,10 +31,10 @@
 
     render: function () {
       var className = this.state.liked ? ' liked' : ' unliked';
+      className += (this.props.likeClass === 'Sin' ? ' small' : ' big');
       var text = this.state.liked ? 'Unlike' : 'Like';
       return (
         <button onClick={this._handleClick} className={'like-button' + className}>
-          {this.state.liked ? 'Unlike' : 'Like'}
         </button>
       );
     }
