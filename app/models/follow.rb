@@ -3,5 +3,5 @@ class Follow < ActiveRecord::Base
   validates :followable_type, inclusion: {in: %w(User Board)}
 
   belongs_to :user
-  belongs_to :followable, polymorphic: true
+  belongs_to :followable, polymorphic: true, inverse_of: :user_follows
 end

@@ -10,4 +10,6 @@ class Board < ActiveRecord::Base
   has_many   :users_liked, through: :likes, source: :user
   has_many   :follows, as: :followable
   has_many   :users_following, through: :follows, source: :user
+  has_many   :user_follows, class_name: 'Follow', as: :followable
+  has_many   :users_following, through: :user_follows, source: :user
 end
