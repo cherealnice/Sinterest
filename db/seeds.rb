@@ -37,3 +37,15 @@ end
     sin:    Sin.all[rand(0..Sin.all.length-1)]
   })
 end
+
+User.all.each do |user|
+  board_ids = Board.all.ids
+  8.times do
+    next if User == User.first
+    num = rand(1...board_ids.length)
+    next if user.followed_boards.ids.include?(num)
+    user.follows.create!({followable_id: num, followable_type: 'Board'})
+  end
+end
+
+User.first.followed_boards = Board.all
