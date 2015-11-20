@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: sinterest-app.herokuapp.com
+[heroku]: http://sinterest-app.herokuapp.com
 
 ## Minimum Viable Product
 
@@ -13,10 +13,11 @@ and React.js. Sinterest allows users to:
 - [X] Log in / Log out
 - [X] Create, read, edit, and delete Sins
 - [X] Comment on Sins
-- [ ] Create, read, edit, and delete Boards
+- [X] Create, read, edit, and delete Boards
 - [X] Organize Sins within Boards
 - [ ] Organize Boards by categories
-- [ ] Follow other Users
+- [X] Like Sins and Boards
+- [ ] Follow other Users and Boards
 - [ ] Add multiple tags on Sins and Boards
 
 ## Design Docs

@@ -17,7 +17,7 @@ author_id   | string    | not null, foreign_key (references users), indexed
 body        | text      | not null
 sin_id      | integer   | not null, foreign key (references sins), indexed
 
-## SinBoards (join table)
+## sinboards
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -32,7 +32,7 @@ author_id   | integer   | not null, foreign key (references users), indexed
 title       | string    | not null, indexed, limit 50
 description | string    | limit 500
 
-## imageable
+## images
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -40,19 +40,19 @@ owner_id    | integer   | not null, foreign key (references users), indexed
 target_id   | integer   | not null, foreign key (references users or sins), indexed
 owner_type  | string    | not null, user or sin
 
-## likeable
+## likes
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-owner_id    | integer   | not null, foreign key (references users), indexed
+user_id     | integer   | not null, foreign key (references users), indexed
 target_id   | integer   | not null, foreign key (references users, boards, or sins), indexed
 target_type | string    | nut null, (board, sin, or user)
 
-## followable
+## follows
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-follower_id | integer   | not null, foreign key (references users), indexed
+user_id     | integer   | not null, foreign key (references users), indexed
 followable_id| integer  | not null, foreign key (references users, tags or boards), indexed
 type        | string    | nut null, in (user, tag, or board)
 
