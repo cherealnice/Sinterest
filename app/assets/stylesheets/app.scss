@@ -59,6 +59,7 @@
   display: block;
   float: left;
   height: 100%;
+  vertical-align: middle;
 }
 
 .user-thumb {
@@ -108,7 +109,7 @@
 .follow-button.followed {
   color: #5f5f5f;
   text-shadow: 0 1px #fff;
-  background-color: #f0f0f0;  
+  background-color: #f0f0f0;
 }
 
 .follow-button.unfollowed {

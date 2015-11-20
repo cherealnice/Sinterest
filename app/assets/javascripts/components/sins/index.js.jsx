@@ -14,8 +14,11 @@
     },
 
     componentWillReceiveProps: function (newProps) {
-      var detailSinId = parseInt(newProps.params.sinId);
-      this.setState({ detailSinId: detailSinId });
+      var detailSinId = null;
+      if (newProps.params) {
+        detailSinId = parseInt(newProps.params.sinId);
+      }
+        this.setState({ detailSinId: detailSinId });
     },
 
     componentWillUnmount: function () {
@@ -24,7 +27,7 @@
     },
 
     _checkParams: function () {
-      if (this.props.params.sinId) {
+      if (this.props.params) {
         var detailSinId = parseInt(this.props.params.sinId);
         this.setState({ detailSinId: detailSinId });
       }
@@ -35,7 +38,6 @@
     },
 
     _onModalKeydown: function (e) {
-      debugger;
     },
 
     render: function () {
@@ -54,7 +56,7 @@
       return (
         <div className='sin-index'>
           <div>
-            <ul className={"sins group" + indexHiddenClass}>
+            <ul className={"sins group " + indexHiddenClass}>
               {this.state.sins.map(function (sin) {
                 return <SinIndexItem
                   sin={sin}
