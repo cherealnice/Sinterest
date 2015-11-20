@@ -53,6 +53,23 @@
   background: rgb(228, 228, 228);
 }
 
+.sin-detail-wrapper {
+  position: fixed;
+  height: 100vh;
+  top: 0px;
+  right: calc(100vw/2);
+  transform: translateX(50%);
+  overflow: scroll;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(227,224,226,0.95);
+}
+
+.sins.hidden, html {
+  overflow: hidden;
+}
+
 .sin-show-section {
   background: white;
   border-radius: 6px;

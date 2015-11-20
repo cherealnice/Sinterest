@@ -34,23 +34,36 @@
       this.setState({ sins: SinStore.all() });
     },
 
+    _onModalKeydown: function (e) {
+      debugger;
+    },
+
     render: function () {
       var detailSinId = this.state.detailSinId;
       var sinShow;
+      var indexHiddenClass;
       if (detailSinId) {
         sinShow = (
-          <SinShow className='sin-show' key={detailSinId} sinId={detailSinId}/>
+          <SinShow className='sin-show'
+            key={detailSinId}
+            sinId={detailSinId}
+            onKeyDown={this._onModalKeydown}/>
         );
+        indexHiddenClass = ' hidden';
       }
       return (
-        <div>
-          <ul className="sins group">
-            {this.state.sins.map(function (sin) {
-              return <SinIndexItem sin={sin} key={sin.id} />;
-            })}
-          </ul>
+        <div className='sin-index'>
+          <div>
+            <ul className={"sins group" + indexHiddenClass}>
+              {this.state.sins.map(function (sin) {
+                return <SinIndexItem
+                  sin={sin}
+                  key={sin.id}/>;
+              }.bind(this))}
+            </ul>
+            <SinForm />
+          </div>
           {sinShow}
-          <SinForm />
         </div>
       );
     }

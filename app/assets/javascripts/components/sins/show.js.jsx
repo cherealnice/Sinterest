@@ -29,6 +29,10 @@
       SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
     },
 
+    onKeyDown: function () {
+      this.props.onKeyDown();
+    },
+
     render: function () {
       var sin = this.state.sin;
       var details;
@@ -52,11 +56,13 @@
         }
       }
       return (
-        <div className="sin-wrapper">
-          {details}
-          <section className="sin-comments">
-            {comments}
-            <CommentForm sin={sin} />
+        <div className="sin-detail-wrapper">
+          <section className='sin-wrapper'>
+            {details}
+            <section className="sin-comments">
+              {comments}
+              <CommentForm sin={sin} />
+            </section>
           </section>
         </div>
       );
