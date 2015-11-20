@@ -10,8 +10,13 @@
       LikeStore.addChangeHandler(this._onLikeChange);
     },
 
-    _onLikeChange: function () {
-      this.setState({liked: !this.state.liked});
+    _onLikeChange: function (id, likeClass) {
+      if (
+        this.props.target.id === id &&
+        this.props.likeClass === likeClass
+      ) {
+        this.setState({liked: !this.state.liked });
+      }
     },
 
     _handleClick: function (e) {

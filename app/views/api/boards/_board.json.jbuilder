@@ -3,4 +3,4 @@ json.extract!(
   :id, :title, :description, :author
 )
 
-json.liked asset_path(!!board.users_liked.include?(current_user))
+json.liked (board.users_liked.include?(current_user))

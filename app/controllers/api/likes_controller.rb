@@ -1,17 +1,16 @@
 class Api::LikesController < ApplicationController
 
   def create
-
     id = like_params[:id]
     type = like_params[:type]
-      like =
-      current_user.likes.where!({likeable_id: id, likeable_type: type}).first
+    @like = Like.new({likeable_id: id, likeable_type: type})
+
+      likeTarget =
+      current_user.likes.where({likeable_id: id, likeable_type: type}).first
 
     if like_params[:liked] == 'true'
 
-      like_params[:liked]
-
-      unless like
+      unless likeTarget
         current_user.likes.create!({
           likeable_id: id,
           likeable_type: type
@@ -19,8 +18,10 @@ class Api::LikesController < ApplicationController
       end
 
     else
-      like && like.destroy!
+      likeTarget && likeTarget.destroy!
     end
+
+    render :show
   end
 
   private

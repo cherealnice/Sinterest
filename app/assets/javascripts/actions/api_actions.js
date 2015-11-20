@@ -34,9 +34,10 @@ ApiActions = {
     });
   },
 
-  setLike: function () {
+  setLike: function (like) {
     AppDispatcher.dispatch({
-      actionType: LikeConstants.LIKE_CHANGED
+      actionType: LikeConstants.LIKE_CHANGED,
+      like: like
     });
   }
 };

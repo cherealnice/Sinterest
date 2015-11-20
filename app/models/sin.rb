@@ -10,6 +10,7 @@ class Sin < ActiveRecord::Base
   has_many   :comments
   has_many   :images, as: :imageable, inverse_of: :imageable
   has_many   :likes,  as: :likeable
+  has_many   :users_liked, through: :likes, source: :user
 
   def image
     images.first.image unless images.empty?

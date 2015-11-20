@@ -14,9 +14,11 @@
 
     render: function () {
       var sin = this.props.sin;
+      var liked = sin.liked ? true : false;
       return (
         <li className="sin">
           <h3 key={sin.id}>
+            <LikeButton likeClass='Sin' target={sin} liked={liked}/>
             <Link className='sin-title' to={'/sins/' + sin.id}>
               <img className='sin-show-image' src={sin.image_url} />
               <p>{sin.title}</p>

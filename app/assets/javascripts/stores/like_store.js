@@ -15,7 +15,11 @@
   dispatcherID: AppDispatcher.register(function (payload) {
     switch (payload.actionType) {
       case LikeConstants.LIKE_CHANGED:
-        LikeStore.emit(LIKE_CHANGE);
+        LikeStore.emit(
+          LIKE_CHANGE,
+          payload.like.likeable_id,
+          payload.like.likeable_type
+        );
         break;
     }
   })
