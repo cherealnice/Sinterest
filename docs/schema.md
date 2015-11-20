@@ -49,12 +49,12 @@ target_id   | integer   | not null, foreign key (references users, boards, or si
 target_type | string    | nut null, (board, sin, or user)
 
 ## follows
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key (references users), indexed
-followable_id| integer  | not null, foreign key (references users, tags or boards), indexed
-type        | string    | nut null, in (user, tag, or board)
+column name    | data type | details
+---------------|-----------|-----------------------
+id             | integer   | not null, primary key
+user_id        | integer   | not null, foreign key (references users), indexed
+followable_id  | integer   | not null, foreign key (references users, tags or boards), indexed
+followable_type| string    | nut null, in (user, tag, or board)
 
 ## categories
 column name | data type | details

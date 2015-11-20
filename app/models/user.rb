@@ -27,6 +27,25 @@ class User < ActiveRecord::Base
     source: :likeable,
     source_type: 'Sin'
     )
+  has_many :items_followed, class_name: 'Follow'
+  has_many(
+    :followed_boards,
+    through: :items_followed,
+    source: :followable,
+    source_type: 'Board'
+    )
+  has_many(
+    :followed_users,
+    through: :items_followed,
+    source: :followable,
+    source_type: 'User'
+  )
+  has_many :user_follows,
+    class_name: 'Follow',
+    source: :user,
+    foreign_key: :followable_id
+  has_many :users_following, through: :user_follows
+
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)

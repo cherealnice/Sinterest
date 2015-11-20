@@ -8,4 +8,6 @@ class Board < ActiveRecord::Base
   has_many   :sins, through: :sin_boards, source: :sin
   has_many   :likes, as: :likeable
   has_many   :users_liked, through: :likes, source: :user
+  has_many   :follows, as: :followable
+  has_many   :users_following, through: :follows, source: :user
 end
