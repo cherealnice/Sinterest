@@ -7,7 +7,8 @@
     },
 
     getStateFromStore: function () {
-      return { sin: SinStore.find(parseInt(this.props.params.sinId)) };
+      var sin = SinStore.find(this.props.sinId);
+      return { sin: sin };
     },
 
     _onChange: function () {
@@ -15,14 +16,13 @@
     },
 
     componentWillReceiveProps: function (newProps) {
-      var sinId = parseInt(newProps.params.sinId);
+      var sinId = newProps.sinId;
       ApiUtil.fetchSingleSin(sinId);
     },
 
     componentDidMount: function () {
       SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
-      var sinId = parseInt(this.props.params.sinId);
-      ApiUtil.fetchSingleSin(sinId);
+      ApiUtil.fetchSingleSin(this.props.sinId);
     },
 
     componentWillUnmount: function () {
@@ -62,6 +62,4 @@
       );
     }
   });
-
-
 }(this));
