@@ -36,6 +36,7 @@
       var comments;
       if (board) {
         var liked = board.liked ? true : false;
+        var followed = board.followed ? true : false;
         header = (
         <div>
           <header className='content-header'>
@@ -49,6 +50,10 @@
                 {board.author.username}
               </p>
               <LikeButton likeClass='Board' target={board} liked={liked}/>
+              <FollowButton
+                followClass='Board'
+                target={board}
+                followed={followed}/>
             </section>
           </header>
         </div>

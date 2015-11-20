@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :sins
     resources :comments
     resources :boards
-    resources :likes, only: [:create]
+    post '/likes', to: 'likes#toggle'
+    post '/follows', to: 'follows#toggle'
   end
 end

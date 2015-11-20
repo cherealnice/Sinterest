@@ -95,5 +95,17 @@ ApiUtil = {
         ApiActions.setLike(data);
       }
     });
+  },
+
+  setFollow: function (type, id, followed) {
+    $.ajax({
+      url: 'api/follows',
+      type: 'POST',
+      dataType: 'json',
+      data: { follow: {id: id, type: type, followed: followed} },
+      success: function (data) {
+        ApiActions.setFollow(data);
+      }
+    });
   }
 };

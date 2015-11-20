@@ -1,12 +1,15 @@
 class Api::LikesController < ApplicationController
 
-  def create
+  def toggle
     id = like_params[:id]
     type = like_params[:type]
     @like = Like.new({likeable_id: id, likeable_type: type})
 
-      likeTarget =
-      current_user.likes.where({likeable_id: id, likeable_type: type}).first
+    likeTarget =
+      current_user.likes.where({
+        likeable_id: id,
+        likeable_type: type
+      }).first
 
     if like_params[:liked] == 'true'
 

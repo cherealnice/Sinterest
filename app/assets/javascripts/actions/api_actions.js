@@ -39,5 +39,12 @@ ApiActions = {
       actionType: LikeConstants.LIKE_CHANGED,
       like: like
     });
-  }
+  },
+
+  setFollow: function (follow) {
+    AppDispatcher.dispatch({
+      actionType: FollowConstants.FOLLOW_CHANGED,
+      follow: follow
+    });
+  },
 };
