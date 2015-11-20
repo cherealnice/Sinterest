@@ -37,6 +37,8 @@
       var sin = this.state.sin;
       var details;
       var comments;
+      var sinBoards = [];
+      var sinBoardIndex;
       if (sin) {
         details = (
         <div>
@@ -51,6 +53,11 @@
         </div>
         );
 
+        sin.boards.forEach(function (board) {
+          sinBoards.push(board.id);
+        });
+
+        sinBoardIndex = <SinsIndex boards={sinBoards} />;
         if (sin.comments) {
           comments = (<CommentsIndex comments={sin.comments} />);
         }
@@ -63,6 +70,9 @@
               {comments}
               <CommentForm sin={sin} />
             </section>
+          </section>
+          <section className='sin-show-sins-index'>
+            {sinBoardIndex}
           </section>
         </div>
       );

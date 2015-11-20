@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .sins {
-  width: calc(90vw + 80px);
+  width: calc(90% + 80px);
   margin: 10px auto;
   min-height: 950px;
   position: relative;
@@ -115,4 +115,9 @@
 .sin-show-image-container {
   background: rgb(248, 248, 248);
   padding: 20px;
+}
+
+.sin-show-sins-index {
+  width: 763px;
+  margin: auto;
 }
