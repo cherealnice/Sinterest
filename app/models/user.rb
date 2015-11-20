@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   before_validation :ensure_username
 
   has_many :sins
-  has_many :boards
+  has_many :boards, foreign_key: :author_id
   has_many :comments, foreign_key: :author_id, inverse_of: :author
   has_many :images, as: :imageable, inverse_of: :imageable
   has_many :likes
@@ -79,6 +79,15 @@ class User < ActiveRecord::Base
   def image=(data)
     images.destroy_all
     images.new(image: data)
+  end
+
+  def all_followed_boards_ids
+    boards = followed_boards.ids
+    followed_users.each do |user|
+      boards.concat(user.boards.ids)
+    end
+
+    boards.uniq
   end
 
   private
