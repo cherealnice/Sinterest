@@ -6,7 +6,12 @@
       return {liked: this.props.liked};
     },
 
-    componentWillUnmount: function () {
+    componentDidMount: function () {
+      LikeStore.addChangeHandler(this._onLikeChange);
+    },
+
+    _onLikeChange: function () {
+      this.setState({liked: !this.state.liked});
     },
 
     _handleClick: function (e) {
@@ -15,7 +20,7 @@
       ApiUtil.setLike(
         this.props.likeClass,
         this.props.target.id,
-        this.state.liked
+        !this.state.liked
       );
     },
 

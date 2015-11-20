@@ -35,7 +35,7 @@
       var header;
       var comments;
       if (board) {
-        var liked = board.liked ? true : false;
+        var liked = board.liked.slice(1) === 'true' ? true : false;
         header = (
         <div>
           <header className='content-header'>

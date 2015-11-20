@@ -15,6 +15,18 @@ class User < ActiveRecord::Base
   has_many :comments, foreign_key: :author_id, inverse_of: :author
   has_many :images, as: :imageable, inverse_of: :imageable
   has_many :likes
+  has_many(
+    :liked_boards,
+    through: :likes,
+    source: :likeable,
+    source_type: 'Board'
+    )
+  has_many(
+    :liked_sins,
+    through: :likes,
+    source: :likeable,
+    source_type: 'Sin'
+    )
 
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)

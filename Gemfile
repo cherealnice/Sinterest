@@ -15,6 +15,7 @@ gem 'paperclip', '~> 4.3'
 gem 'figaro'
 gem 'aws-sdk', '~> 1.6'
 gem 'rename'
+gem 'faker', '~> 1.5'
 
 group :development, :test do
   gem 'byebug'
@@ -26,7 +27,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'
-  gem 'faker', '~> 1.5'
 end
 
 group :production do

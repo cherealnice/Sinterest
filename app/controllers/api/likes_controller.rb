@@ -4,15 +4,14 @@ class Api::LikesController < ApplicationController
 
     id = like_params[:id]
     type = like_params[:type]
-
-    if like_params[:liked]
-
-      like_params[:liked]
       like =
       current_user.likes.where!({likeable_id: id, likeable_type: type}).first
 
+    if like_params[:liked] == 'true'
+
+      like_params[:liked]
+
       unless like
-        debugger;
         current_user.likes.create!({
           likeable_id: id,
           likeable_type: type
@@ -20,7 +19,7 @@ class Api::LikesController < ApplicationController
       end
 
     else
-      like && like.destroy
+      like && like.destroy!
     end
   end
 
