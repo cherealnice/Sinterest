@@ -26,11 +26,14 @@
       return _sins.slice();
     },
 
-    dispatcherID: AppDispatcher.register(function (payload, boardIds) {
+    dispatcherID: AppDispatcher.register(function (payload) {
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
-          resetSins(payload.sins);
-          SinStore.emit(SinStore.SINS_CHANGE_EVENT, boardIds);
+          if (typeof(payload.sins.boardIds) === 'undefined' ||
+                          payload.sins.boardIds.length === 0) {
+            resetSins(payload.sins.sins);
+            SinStore.emit(SinStore.SINS_CHANGE_EVENT);
+          }
           break;
         case SinConstants.SIN_RECEIVED:
           updateSin(payload.sin);

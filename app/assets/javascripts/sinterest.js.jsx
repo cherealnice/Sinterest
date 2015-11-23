@@ -6,8 +6,12 @@ $(function () {
 
   var SinsIndexWrapper = React.createClass({
     render: function () {
+        var id;
+        if (this.props.params) {
+          id = this.props.params.sinId;
+        }
       return (
-          <SinsIndex store={SinsStore} />
+          <SinsIndex store={SinStore} sinId={id} />
       );
     }
   });

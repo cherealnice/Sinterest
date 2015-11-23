@@ -6,7 +6,6 @@ ApiUtil = {
       data: { boardIds: boardIds },
       dataType: 'json',
       success: function (data) {
-        debugger;
         ApiActions.receiveAllSins(data, boardIds);
       }
     });

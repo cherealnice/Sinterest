@@ -26,15 +26,13 @@
       return _sins.slice();
     },
 
-    dispatcherID: AppDispatcher.register(function (payload, boardIds) {
+    dispatcherID: AppDispatcher.register(function (payload) {
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
-          resetSins(payload.sins);
-          ShowIndex.emit(ShowIndex.SINS_CHANGE_EVENT, boardIds);
-          break;
-        case SinConstants.SIN_RECEIVED:
-          updateSin(payload.sin);
-          ShowIndex.emit(ShowIndex.SIN_DETAIL_CHANGE_EVENT);
+          if (payload.sins.boardIds && payload.sins.boardIds.length > 0) {
+            resetSins(payload.sins.sins);
+            ShowIndexStore.emit(ShowIndexStore.SINS_CHANGE_EVENT);
+          }
           break;
       }
     }),

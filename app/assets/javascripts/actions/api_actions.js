@@ -2,7 +2,7 @@ ApiActions = {
   receiveAllSins: function (sins, boardIds) {
     AppDispatcher.dispatch({
       actionType: SinConstants.SINS_RECEIVED,
-      sins: sins
+      sins: { sins: sins, boardIds: boardIds }
     });
   },
 

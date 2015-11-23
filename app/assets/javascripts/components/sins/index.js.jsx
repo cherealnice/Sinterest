@@ -3,42 +3,41 @@
   root.SinsIndex = React.createClass({
 
     getInitialState: function () {
-      return ({ sins: SinStore.all(), detailSinId: null });
+      return ({ sins: this.props.store.all(), detailSinId: null });
     },
 
     componentDidMount: function () {
-      SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
-      var boardIds = this.props.boardIds || [];
+      var store = this.props.store;
+      store.on(store.SINS_CHANGE_EVENT, this._onSinsIndexChange);
+      var boardIds = this.props.boardIds;
       ApiUtil.fetchSins(boardIds);
       this._checkParams();
-
     },
 
     componentWillReceiveProps: function (newProps) {
       var detailSinId = null;
-      if (newProps.params) {
-        if (newProps.params.sinId) {
-          detailSinId = parseInt(newProps.params.sinId);
-        }
-
-        this.setState({ detailSinId: detailSinId });
+      if (newProps.sinId) {
+        detailSinId = parseInt(newProps.sinId);
       }
+
+      this.setState({ detailSinId: detailSinId });
     },
 
     componentWillUnmount: function () {
-      SinStore.removeListener(SinStore.SINS_CHANGE_EVENT,
+      var store = this.props.store;
+      store.removeListener(store.SINS_CHANGE_EVENT,
                               this._onSinsIndexChange);
     },
 
     _checkParams: function () {
-      if (this.props.params) {
-        var detailSinId = parseInt(this.props.params.sinId);
+      if (this.props.sinId) {
+        var detailSinId = parseInt(this.props.sinId);
         this.setState({ detailSinId: detailSinId });
       }
     },
 
     _onSinsIndexChange: function () {
-      this.setState({ sins: SinStore.all() });
+      this.setState({ sins: this.props.store.all() });
     },
 
     _onModalKeydown: function (e) {
