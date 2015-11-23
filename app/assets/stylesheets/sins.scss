@@ -2,14 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .sins {
-  width: calc(90% + 80px);
-  margin: 10px auto;
+  padding: 10px 50px;
+  width: calc(100% - 50px);
+  margin: auto;
   min-height: 950px;
   position: relative;
 }
 
 .sin {
-  width: 235px;
+  width: calc(100% / 6 - 65px);
+  min-width: 200px;
   float: left;
   margin: 10px;
   background: white;
@@ -65,7 +67,7 @@
   width: 100%;
   background-color: rgba(227,224,226,0.95);
 }
-// 
+//
 // .hidden, html {
 //   overflow: hidden;
 // }

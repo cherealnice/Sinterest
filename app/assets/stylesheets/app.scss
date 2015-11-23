@@ -80,22 +80,20 @@
 }
 
 .like-button.unliked:before {
-  content: '♥';
-  color: red;
+  content: image-url('heart-black.png');
   position: absolute;
   top: 15px;
+  left: 7px;
   transform: translateY(-50%);
-  text-align: center;
 }
 
 
 .like-button.liked:before {
-  content: '♥';
-  color: black;
+  content: image-url('heart-red.png');
   position: absolute;
   top: 15px;
+  left: 7px;
   transform: translateY(-50%);
-  text-align: center;
 }
 
 .follow-button {
