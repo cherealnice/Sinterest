@@ -4,6 +4,14 @@ $(function () {
   var Route = ReactRouter.Route;
   var IndexRoute = ReactRouter.IndexRoute;
 
+  var SinsIndexWrapper = React.createClass({
+    render: function () {
+      return (
+          <SinsIndex store={SinsStore} />
+      );
+    }
+  });
+
   var App = React.createClass({
     render: function(){
       return (
@@ -16,9 +24,9 @@ $(function () {
 
   var routes = (
       <Route path="/" component={App}>
-        <IndexRoute component={SinsIndex} />
-        <Route path="sins/:sinId" component={SinsIndex} />
+        <IndexRoute component={SinsIndexWrapper} />
         <Route path="boards" component={BoardsIndex} />
+        <Route path="sins/:sinId" component={SinsIndexWrapper} />
         <Route path="boards/:boardId" component={BoardShow} />
       </Route>
   );

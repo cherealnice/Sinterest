@@ -8,8 +8,8 @@
 
     componentDidMount: function () {
       SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
-      var boards = this.props.boards || [];
-      ApiUtil.fetchSins(boards);
+      var boardIds = this.props.boardIds || [];
+      ApiUtil.fetchSins(boardIds);
       this._checkParams();
 
     },
@@ -17,9 +17,12 @@
     componentWillReceiveProps: function (newProps) {
       var detailSinId = null;
       if (newProps.params) {
-        detailSinId = parseInt(newProps.params.sinId);
-      }
+        if (newProps.params.sinId) {
+          detailSinId = parseInt(newProps.params.sinId);
+        }
+
         this.setState({ detailSinId: detailSinId });
+      }
     },
 
     componentWillUnmount: function () {

@@ -17,10 +17,10 @@
     if(!switched) { _sins.push(sin); }
   };
 
-  root.SinStore = $.extend({}, EventEmitter.prototype, {
+  root.ShowIndexStore = $.extend({}, EventEmitter.prototype, {
 
-    SINS_CHANGE_EVENT: 'sins_change',
-    SIN_DETAIL_CHANGE_EVENT: 'sin_detail_change',
+    SINS_CHANGE_EVENT: 'show_index_sins_change',
+    SIN_DETAIL_CHANGE_EVENT: 'show_index_sin_detail_change',
 
     all: function () {
       return _sins.slice();
@@ -30,11 +30,11 @@
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
           resetSins(payload.sins);
-          SinStore.emit(SinStore.SINS_CHANGE_EVENT, boardIds);
+          ShowIndex.emit(ShowIndex.SINS_CHANGE_EVENT, boardIds);
           break;
         case SinConstants.SIN_RECEIVED:
           updateSin(payload.sin);
-          SinStore.emit(SinStore.SIN_DETAIL_CHANGE_EVENT);
+          ShowIndex.emit(ShowIndex.SIN_DETAIL_CHANGE_EVENT);
           break;
       }
     }),

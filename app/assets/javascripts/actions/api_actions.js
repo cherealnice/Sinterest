@@ -1,5 +1,5 @@
 ApiActions = {
-  receiveAllSins: function (sins) {
+  receiveAllSins: function (sins, boardIds) {
     AppDispatcher.dispatch({
       actionType: SinConstants.SINS_RECEIVED,
       sins: sins
