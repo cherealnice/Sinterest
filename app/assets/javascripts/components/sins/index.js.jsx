@@ -11,6 +11,7 @@
       var boards = this.props.boards || [];
       ApiUtil.fetchSins(boards);
       this._checkParams();
+
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -56,7 +57,7 @@
       return (
         <div className='sin-index'>
           <div>
-            <ul className={"sins group " + indexHiddenClass}>
+            <ul id='sins-container' className={"sins group " + indexHiddenClass}>
               {this.state.sins.map(function (sin) {
                 return <SinIndexItem
                   sin={sin}

@@ -5,6 +5,13 @@
   root.SinIndexItem = React.createClass({
     mixins: [ReactRouter.History],
 
+    componentDidMount: function () {
+      var $container = $('#sins-container');
+      $container.imagesLoaded( function () {
+        $container.masonry({itemSelector : '.sin', columnWidth: 240 });
+      });
+    },
+
     showSinDetail: function (e) {
       e.preventDefault();
 

@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .sins {
+  
   padding: 10px 50px;
   width: calc(100% - 50px);
   margin: auto;
@@ -11,14 +12,14 @@
 
 .sin {
   width: calc(100% / 6 - 65px);
-  min-width: 200px;
+  width: 200px;
   float: left;
   margin: 10px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
   border-radius: 6px;
   overflow: hidden;
-  top: 5px;
+  // top: 5px;
 }
 
 .sin > h3 {

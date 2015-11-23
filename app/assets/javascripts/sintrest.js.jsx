@@ -23,4 +23,5 @@ $(function () {
       </Route>
   );
   React.render(<Router>{routes}</Router>, root);
-});
+
+}.bind(this));
