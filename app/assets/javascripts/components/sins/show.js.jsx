@@ -57,7 +57,7 @@
           sinBoards.push(board.id);
         });
 
-        sinBoardIndex = <SinsIndex store={ShowIndexStore} boardIds={sinBoards}/>;
+        sinBoardIndex = <SinsIndex store={SinShowIndexStore} boardIds={sinBoards}/>;
         if (sin.comments) {
           comments = (<CommentsIndex comments={sin.comments} />);
         }

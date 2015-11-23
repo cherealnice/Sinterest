@@ -10,6 +10,10 @@
       LikeStore.addChangeHandler(this._onLikeChange);
     },
 
+    componentWillUnmount: function () {
+      LikeStore.removeChangeHandler(this._onLikeChange);
+    },
+
     _onLikeChange: function (id, likeClass) {
       if (
         this.props.target.id === id &&

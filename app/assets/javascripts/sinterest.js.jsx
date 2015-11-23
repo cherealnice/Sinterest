@@ -4,18 +4,6 @@ $(function () {
   var Route = ReactRouter.Route;
   var IndexRoute = ReactRouter.IndexRoute;
 
-  var SinsIndexWrapper = React.createClass({
-    render: function () {
-        var id;
-        if (this.props.params) {
-          id = this.props.params.sinId;
-        }
-      return (
-          <SinsIndex store={SinStore} sinId={id} />
-      );
-    }
-  });
-
   var App = React.createClass({
     render: function(){
       return (

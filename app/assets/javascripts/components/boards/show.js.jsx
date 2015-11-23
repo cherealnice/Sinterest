@@ -63,7 +63,7 @@
         <div className="board-wrapper">
           {header}
           <section className="board-sins-index">
-            <SinsIndex boards={boardIds} />
+            <SinsIndex store={BoardShowIndexStore} boardIds={boardIds} />
           </section>
         </div>
       );

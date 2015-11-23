@@ -17,10 +17,10 @@
     if(!switched) { _sins.push(sin); }
   };
 
-  root.ShowIndexStore = $.extend({}, EventEmitter.prototype, {
+  root.SinShowIndexStore = $.extend({}, EventEmitter.prototype, {
 
-    SINS_CHANGE_EVENT: 'show_index_sins_change',
-    SIN_DETAIL_CHANGE_EVENT: 'show_index_sin_detail_change',
+    SINS_CHANGE_EVENT: 'Sin_show_index_sins_change',
+    SIN_DETAIL_CHANGE_EVENT: 'Sin_show_index_sin_detail_change',
 
     all: function () {
       return _sins.slice();
@@ -29,9 +29,9 @@
     dispatcherID: AppDispatcher.register(function (payload) {
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
-          if (payload.sins.boardIds && payload.sins.boardIds.length > 0) {
+          if (payload.sins.SinIds && payload.sins.SinIds.length > 0) {
             resetSins(payload.sins.sins);
-            ShowIndexStore.emit(ShowIndexStore.SINS_CHANGE_EVENT);
+            SinShowIndexStore.emit(SinShowIndexStore.SINS_CHANGE_EVENT);
           }
           break;
       }
