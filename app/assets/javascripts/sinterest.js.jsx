@@ -16,13 +16,13 @@ $(function () {
 
   var routes = (
       <Route path="/" component={App}>
-        <IndexRoute component={SinsIndexWrapper} />
+        <IndexRoute component={SinterestLanding} />
         <Route path="boards" component={BoardsIndex} />
-        <Route path="sins/:sinId" component={SinsIndexWrapper} />
+        <Route path="sins/:sinId" component={SinShow} />
         <Route path="boards/:boardId" component={BoardShow} />
       </Route>
   );
-  
+
   React.render(<Router>{routes}</Router>, root);
 
 }.bind(this));

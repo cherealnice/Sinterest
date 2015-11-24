@@ -42,7 +42,7 @@ button {
   text-align: center;
 }
 
-button:focus {
+button:focus, input:focus, textarea:focus {
   outline:0;
 }
 

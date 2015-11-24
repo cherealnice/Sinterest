@@ -31,37 +31,31 @@
 
     render: function () {
       var board = this.state.board;
+      var title;
+      var description;
       var boardIds = [this.props.params.boardId];
-      var header;
+      var followButton;
       var comments;
       if (board) {
         var liked = board.liked ? true : false;
         var followed = board.followed ? true : false;
-        header = (
-        <div>
-          <header className='content-header'>
-            <section className='content-header-top'>
-              <h1 className='content-header-title'>{board.title}</h1>
+        title = board.title;
+        description = board.description;
+
+        followButton = (
               <FollowButton
                 followClass='Board'
                 target={board}
                 followed={followed}/>
-              <p className='content-header-desc'>{board.description}</p>
-            </section>
-            <section className='content-header-bottom'>
-              <p className='content-header-user'>
-                <img className='user-thumb' src={board.author_image_url} />
-                {board.author.username}
-              </p>
-              <LikeButton likeClass='Board' target={board} liked={liked}/>
-            </section>
-          </header>
-        </div>
         );
+
       }
       return (
         <div className="board-wrapper">
-          {header}
+          <SinterestHeader
+            title={title}
+            description={description}
+            button={followButton} />
           <section className="board-sins-index">
             <SinsIndex store={BoardShowIndexStore} boardIds={boardIds} />
           </section>
