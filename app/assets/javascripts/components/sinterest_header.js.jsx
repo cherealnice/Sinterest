@@ -16,15 +16,17 @@
           <header className='content-header'>
             <div>
               <section className='navbar group' >
-                <Link className='root-link' to={'/'} />
                 <input type='text' placeholder='Search...' />
               </section>
               <section className='content-header-top'>
-                <h1 className='content-header-title'>{title}</h1>
-                {button}
+                <div className='header-title group'>
+                  <Link className='root-link' to={'/'} />
+                  <h1 className='content-header-title'>{title}</h1>
+                </div>
                 <p className='content-header-desc'>{description}</p>
               </section>
               <section className='content-header-bottom'>
+                {button}
                 <p className='content-header-user'>
                 </p>
               </section>
