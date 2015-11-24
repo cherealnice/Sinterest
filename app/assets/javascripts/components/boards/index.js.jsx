@@ -28,8 +28,6 @@
               return <BoardIndexItem board={board} key={board.id} />;
             })}
           </ul>
-
-          <BoardForm />
         </div>
       );
     }
