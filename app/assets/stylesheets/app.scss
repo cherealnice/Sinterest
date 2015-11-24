@@ -68,10 +68,13 @@
   border-radius: 50%;
 }
 
+.like-button {
+  background-image: linear-gradient(#e2e2e2, #d1d1d1);
+}
+
 .like-button.small {
   height: 30px;
   width: 30px;
-  background-color: #f0f0f0;
   border-radius: 4px;
   float: right;
   border: 1px solid rgba(0, 0, 0, 0.298039);
@@ -103,15 +106,17 @@
   font-size: 11px;
 }
 
+.like-button:active, .follow-button.followed:active {
+  background-image: linear-gradient(#d1d1d1, #e2e2e2);
+}
+
 .follow-button.followed {
+  background-image: linear-gradient(#e2e2e2, #d1d1d1);
   color: #5f5f5f;
   text-shadow: 0 1px #fff;
-  background-color: #f0f0f0;
 }
 
 .follow-button.unfollowed {
-  color: white;
-  background: red;
 }
 
 .login-container {
@@ -155,15 +160,9 @@
 }
 
 .login-form > button {
-  background-image: linear-gradient(#e3262e, #ab171e);
   height: 35px;
-  border-radius: 6px;
   display: block;
   margin: auto;
   width: 260px;
   padding: 5px;
-  border: 1px solid #820a0f;
-  color: white;
-  box-sizing: border-box;
-  text-align: center;
 }

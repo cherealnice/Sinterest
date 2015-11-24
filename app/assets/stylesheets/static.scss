@@ -32,3 +32,16 @@ body {
 button:hover {
  cursor: pointer;
 }
+
+button {
+  background-image: linear-gradient(#e3262e, #ab171e);
+  border: 1px solid #820a0f;
+  border-radius: 6px;
+  color: white;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+button:active {
+  background-image: linear-gradient(#ab171e, #e3262e);
+}
