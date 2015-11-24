@@ -23,17 +23,20 @@
 
     render: function () {
       return (
-        <form className="board-form" onSubmit={this.createBoard}>
+        <form className="new-form board-form" onSubmit={this.createBoard}>
           <div>
-            <label htmlFor='board-title'>Title:</label>
+
             <input type="text" id='board-title'
+              placeholder='Title'
               valueLink={this.linkState("title")} />
             <br />
           </div>
 
           <div>
-            <label htmlFor='board-description'>Description:</label>
-            <textarea id='board-description' value={this.state.descripton}
+
+            <textarea id='board-description'
+              placeholder='Description'
+              value={this.state.descripton}
               valueLink={this.linkState("description")} />
             <br />
           </div>

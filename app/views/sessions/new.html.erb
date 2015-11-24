@@ -1,31 +1,30 @@
+  <div class='page'>
+    <div class='login-container group'>
+      <%= link_to "Sign up!", new_user_url, {class: 'sign-up-link'} %>
 
-<div class='page'>
-  <div class='login-container group'>
-    <%= link_to "Sign up!", new_user_url, {class: 'sign-up-link'} %>
+      <form class='login-form' action="<%= session_url %>" method="post">
+        <input type="hidden"
+          name="authenticity_token"
+          id=""
+          value="<%= form_authenticity_token %>">
+        <br>
 
-    <form class='login-form' action="<%= session_url %>" method="post">
-      <input type="hidden"
-        name="authenticity_token"
-        id=""
-        value="<%= form_authenticity_token %>">
-      <br>
+        <input
+          type="text"
+          name="user[email]"
+          id="user_email"
+          placeholder="Email">
+        <br>
 
-      <input
-        type="text"
-        name="user[email]"
-        id="user_email"
-        placeholder="Email">
-      <br>
+        <input
+          type="password"
+          name="user[password]"
+          id="user_password"
+          placeholder="Password">
+        <br>
 
-      <input
-        type="password"
-        name="user[password]"
-        id="user_password"
-        placeholder="Password">
-      <br>
+        <button>Sign In</button>
+      </form>
 
-      <button>Sign In</button>
-    </form>
-
+    </div>
   </div>
-</div>

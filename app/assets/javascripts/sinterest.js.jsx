@@ -20,6 +20,8 @@ $(function () {
         <Route path="boards" component={BoardsIndex} />
         <Route path="sins/:sinId" component={SinterestLanding} />
         <Route path="boards/:boardId" component={BoardShow} />
+        <Route path="board/new" component={NewBoard} />
+        <Route path="sin/new" component={NewSin} />
       </Route>
   );
 

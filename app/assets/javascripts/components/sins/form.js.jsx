@@ -59,7 +59,7 @@
 
     render: function () {
       return (
-        <form className="sin-form" onSubmit={this.createSin}>
+        <form className="new-form sin-form" onSubmit={this.createSin}>
           <div>
             <label htmlFor='sin-title'>Title:</label>
             <input type="text" id='sin-title'

@@ -20,7 +20,7 @@
   padding: 0 0 20px;
   display: block;
   z-index: 100;
-  
+
 }
 
 .root-link:before {
@@ -200,6 +200,12 @@
   background: white;
   font-size: 14px;
   color: #333;
+}
+
+.page {
+  height: 100vw;
+  width: 100vw;
+  background-image: image-url('sinterest-background.png');
 }
 
 .sign-up-link {
