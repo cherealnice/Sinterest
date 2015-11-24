@@ -32,6 +32,8 @@
               </section>
             </div>
           </header>
+          <Link className='fixed-link new-board-link' to={'/board/new'} />
+          <Link className='fixed-link view-boards-link' to={'/boards'} />
         </div>
       );
     }

@@ -58,6 +58,43 @@
   border-bottom: 2px solid #e3262e;
   padding: 20px;
 }
+
+.new-board-link:after {
+  content: '+';
+  color: white;
+  font-size: 20px;
+}
+
+.view-boards-link:after {
+  content: '$';
+  color: white;
+  font-size: 20px;
+}
+
+.view-boards-link {
+  bottom: 30px;
+  right: 30px;
+  padding: 2px 7px 1px 7px;
+}
+
+.new-board-link {
+  bottom: 70px;
+  right: 30px;
+  padding: 0 7px 3px 7px;
+}
+
+.fixed-link {
+  background: rgba(143,2,34,1);
+  border-radius: 50%;
+  border: 2px solid black;
+  position: fixed;
+  z-index: 50;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+// .fixed-link:hover {
+//
+// }
 // .navbar > input:input-placeholder {
 //   content: '🔎';
 // }

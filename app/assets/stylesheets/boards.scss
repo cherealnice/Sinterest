@@ -15,7 +15,7 @@
   margin-top: 30px;
   padding: 20px;
   border-radius: 6px;
-  background-image: linear-gradient(#b6b6b6, #c1c1c1);
+  background: rgba(143,2,34,1);
   box-shadow: 3px 6px 36px -2px rgba(122,122,122,0.23);
 }
 
@@ -31,7 +31,7 @@
   background: white;
   font-size: 14px;
   color: #333;
-  // backgrounds: white;
+  border: 2px solid black;
 }
 
 .new-form textarea{
@@ -42,7 +42,7 @@
   padding: 5px 10px;
   margin: auto;
   display: block;
-  background: linear-gradient(#e3262e, #ab171e);
+  background: linear-gradient(#e2e2e2, #d1d1d1);
   color: black;
 }
 
