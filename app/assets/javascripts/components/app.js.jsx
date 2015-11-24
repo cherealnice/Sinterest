@@ -25,7 +25,7 @@
       }
 
       return (
-        <div>
+        <div className='top-header'>
           { this.props.children }
         </div>
       );

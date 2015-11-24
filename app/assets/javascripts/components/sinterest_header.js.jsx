@@ -16,6 +16,7 @@
           <header className='content-header'>
             <div>
               <section className='navbar group' >
+                <LogoutButton />
                 <input type='text' placeholder='Search...' />
               </section>
               <section className='content-header-top'>
@@ -29,7 +30,6 @@
                 {button}
                 <p className='content-header-user'>
                 </p>
-                <LogoutButton />
               </section>
             </div>
           </header>

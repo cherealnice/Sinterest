@@ -15,22 +15,30 @@
     render: function() {
 
       return (
-        <form onSubmit={this.submit}>
+        <div className='page'>
+          <div className='login-container group'>
+            <form className='login-form' onSubmit={this.submit}>
 
-          <h1>Logn In!</h1>
+              <input
+                id="user_email"
+                type="text"
+                name="email"
+                placeholder="Email"/>
 
-          <label>
-            Email
-            <input type="text" name="email" />
-          </label>
 
-          <label>
-            Password
-            <input type="password" name="password" />
-          </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"/>
 
-          <button>Log In!</button>
-        </form>
+              <button>Sign In!</button>
+            </form>
+
+
+          </div>
+
+
+        </div>
       );
     },
 
