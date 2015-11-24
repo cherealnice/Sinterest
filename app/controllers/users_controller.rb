@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :require_signed_in!, only: [:show]
-  before_action :require_signed_out!, only: [:new, :create]
-  before_action :require_current_user!, only: [:edit, :update, :destroy]
+  # before_action :require_signed_in!, only: [:show]
+  # before_action :require_signed_out!, only: [:new, :create]
+  # before_action :require_current_user!, only: [:edit, :update, :destroy]
 
   def index
     @user = User.find(params[:id])

@@ -29,6 +29,7 @@
                 {button}
                 <p className='content-header-user'>
                 </p>
+                <LogoutButton />
               </section>
             </div>
           </header>

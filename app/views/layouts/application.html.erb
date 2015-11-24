@@ -8,12 +8,6 @@
 </head>
 <body>
 
-  <header>
-    <% if signed_in? %>
-      <%= button_to 'Log Out', session_url, method: :delete %>
-    <% end %>
-  </header>
-
 
   <% if flash[:errors] %>
     <% flash[:errors].each do |error| %>

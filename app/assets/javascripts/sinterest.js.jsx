@@ -4,16 +4,6 @@ $(function () {
   var Route = ReactRouter.Route;
   var IndexRoute = ReactRouter.IndexRoute;
 
-  var App = React.createClass({
-    render: function(){
-      return (
-          <div>
-            {this.props.children}
-          </div>
-      );
-    }
-  });
-
   var routes = (
       <Route path="/" component={App}>
         <IndexRoute component={SinterestLanding} />
@@ -22,6 +12,8 @@ $(function () {
         <Route path="boards/:boardId" component={BoardShow} />
         <Route path="board/new" component={NewBoard} />
         <Route path="sin/new" component={NewSin} />
+        <Route path="login" component={ SessionForm }/>
+        <Route path="users/:id" component={ UserShow } />
       </Route>
   );
 
