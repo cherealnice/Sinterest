@@ -16,10 +16,15 @@
   background: white;
 }
 
-.root-link:before {
-  content: image-url('logo-thumb.png');
+.root-link {
   padding: 0 0 20px;
   display: block;
+  z-index: 100;
+  
+}
+
+.root-link:before {
+  content: image-url('logo-thumb.png');
 }
 
 .navbar {

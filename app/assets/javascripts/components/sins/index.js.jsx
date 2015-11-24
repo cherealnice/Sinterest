@@ -37,10 +37,24 @@
       }
     },
 
+    componentDidUpdate: function () {
+      var $container = $('#sins-container');
+      $container.imagesLoaded( function () {
+        $container.masonry({itemSelector : '.sin', columnWidth: 220 });
+      });
+    },
+
     _onSinsIndexChange: function (changeType) {
       if (changeType === this.props.id) {
         this.setState({ sins: SinStore.all() });
       }
+    },
+
+    _onChange: function () {
+      var $container = $('#sins-container');
+      $container.imagesLoaded( function () {
+        $container.masonry({itemSelector : '.sin', columnWidth: 220 });
+      });
     },
 
     render: function () {
