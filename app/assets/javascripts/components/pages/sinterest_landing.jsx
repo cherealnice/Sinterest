@@ -11,7 +11,7 @@
           <SinterestHeader
             title='Sinterest'
             description='Go ahead, indulge.'/>
-          <SinsIndex store={SinStore} detailSinId={detailSinId} />
+          <SinsIndex id='main-index' store={SinStore} detailSinId={detailSinId} />
         </div>
       );
     }

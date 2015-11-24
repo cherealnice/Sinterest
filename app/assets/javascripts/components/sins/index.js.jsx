@@ -4,11 +4,11 @@
 
     getInitialState: function () {
       var detailSinId = this.props.detailSinId || null;
-      return ({ sins: this.props.store.all(), detailSinId: detailSinId });
+      return ({ sins: SinStore.all(), detailSinId: detailSinId });
     },
 
     componentDidMount: function () {
-      var store = this.props.store;
+      var store = SinStore;
       store.on(store.SINS_CHANGE_EVENT, this._onSinsIndexChange);
       var boardIds = this.props.boardIds;
       ApiUtil.fetchSins(boardIds);
@@ -25,7 +25,7 @@
     },
 
     componentWillUnmount: function () {
-      var store = this.props.store;
+      var store = SinStore;
       store.removeListener(store.SINS_CHANGE_EVENT,
                               this._onSinsIndexChange);
     },
@@ -37,8 +37,10 @@
       }
     },
 
-    _onSinsIndexChange: function () {
-      this.setState({ sins: this.props.store.all() });
+    _onSinsIndexChange: function (changeType) {
+      if (changeType === this.props.id) {
+        this.setState({ sins: SinStore.all() });
+      }
     },
 
     render: function () {

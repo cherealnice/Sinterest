@@ -29,10 +29,11 @@
     dispatcherID: AppDispatcher.register(function (payload) {
       switch (payload.actionType) {
         case SinConstants.SINS_RECEIVED:
-          if (typeof(payload.sins.boardIds) === 'undefined' ||
-                          payload.sins.boardIds.length === 0) {
-            resetSins(payload.sins.sins);
-            SinStore.emit(SinStore.SINS_CHANGE_EVENT);
+          resetSins(payload.sins.sins);
+          if (window.location.hash.slice(2, 6) === 'sins') {
+            SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
+          } else {
+            SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
           }
           break;
         case SinConstants.SIN_RECEIVED:

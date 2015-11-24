@@ -7,7 +7,6 @@
     },
 
     getStateFromStore: function () {
-      debugger;
       var sin = SinStore.find(this.props.sinId);
       return { sin: sin };
     },
@@ -58,7 +57,7 @@
           sinBoards.push(board.id);
         });
 
-        sinBoardIndex = <SinsIndex store={SinShowIndexStore} boardIds={sinBoards}/>;
+        sinBoardIndex = <SinsIndex id='sin-show-index' boardIds={sinBoards}/>;
         if (sin.comments) {
           comments = (<CommentsIndex comments={sin.comments} />);
         }

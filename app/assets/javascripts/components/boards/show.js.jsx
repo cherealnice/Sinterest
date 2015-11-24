@@ -57,7 +57,7 @@
             description={description}
             button={followButton} />
           <section className="board-sins-index">
-            <SinsIndex store={BoardShowIndexStore} boardIds={boardIds} />
+            <SinsIndex id='main-index' store={SinStore} boardIds={boardIds} />
           </section>
         </div>
       );
