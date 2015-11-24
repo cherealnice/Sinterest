@@ -11,13 +11,12 @@
         $container.masonry({itemSelector : '.sin', columnWidth: 220 });
       });
     },
-
-    showSinDetail: function (e) {
-      e.preventDefault();
-
-      var sin = this.props.sin;
-      this.history.pushState(null, "/sins/" + sin.id, {});
-    },
+    //
+    // showSinDetail: function (e) {
+    //   e.preventDefault();
+    //   var sin = this.props.sin;
+    //   this.history.pushState(null, "/sins/" + sin.id, {});
+    // },
 
     render: function () {
       var sin = this.props.sin;
@@ -25,7 +24,7 @@
       return (
         <li className="sin">
           <h3 key={sin.id}>
-            <LikeButton likeClass='Sin' target={sin} liked={liked}/>
+            <LikeButton likeClass='Sin' target={sin} liked={liked} />
             <Link className='sin-title' to={'/sins/' + sin.id}>
               <img className='sin-show-image' src={sin.image_url} />
               <p>{sin.title}</p>

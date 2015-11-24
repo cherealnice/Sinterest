@@ -3,7 +3,8 @@
   root.SinsIndex = React.createClass({
 
     getInitialState: function () {
-      return ({ sins: this.props.store.all(), detailSinId: null });
+      var detailSinId = this.props.detailSinId || null;
+      return ({ sins: this.props.store.all(), detailSinId: detailSinId });
     },
 
     componentDidMount: function () {
@@ -16,8 +17,8 @@
 
     componentWillReceiveProps: function (newProps) {
       var detailSinId = null;
-      if (newProps.sinId) {
-        detailSinId = parseInt(newProps.sinId);
+      if (newProps.detailSinId) {
+        detailSinId = parseInt(newProps.detailSinId);
       }
 
       this.setState({ detailSinId: detailSinId });
@@ -40,23 +41,14 @@
       this.setState({ sins: this.props.store.all() });
     },
 
-    _onModalKeydown: function (e) {
-    },
-
     render: function () {
       var detailSinId = this.state.detailSinId;
       var sinShow;
       var indexHiddenClass;
       if (detailSinId) {
-        sinShow = (
-          <SinShow className='sin-show'
-            key={detailSinId}
-            sinId={detailSinId}
-            onKeyDown={this._onModalKeydown}/>
-        );
+        sinShow = <SinShow className='sin-show' key={detailSinId} sinId={detailSinId} />;
         indexHiddenClass = ' hidden';
       }
-
       return (
         <div className='sin-index'>
           <div>
@@ -67,7 +59,6 @@
                   key={sin.id}/>;
               }.bind(this))}
             </ul>
-            <SinForm />
           </div>
           {sinShow}
         </div>

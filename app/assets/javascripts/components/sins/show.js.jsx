@@ -7,6 +7,7 @@
     },
 
     getStateFromStore: function () {
+      debugger;
       var sin = SinStore.find(this.props.sinId);
       return { sin: sin };
     },

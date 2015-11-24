@@ -2,16 +2,16 @@
 
   root.SinterestLanding = React.createClass({
     render: function () {
-        var id;
+        var detailSinId;
         if (this.props.params) {
-          id = this.props.params.sinId;
+          detailSinId = parseInt(this.props.params.sinId);
         }
       return (
         <div>
           <SinterestHeader
             title='Sinterest'
-            description='Go ahead, indulge.' />
-          <SinsIndex store={SinStore} />
+            description='Go ahead, indulge.'/>
+          <SinsIndex store={SinStore} detailSinId={detailSinId} />
         </div>
       );
     }

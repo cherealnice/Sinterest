@@ -18,7 +18,7 @@ $(function () {
       <Route path="/" component={App}>
         <IndexRoute component={SinterestLanding} />
         <Route path="boards" component={BoardsIndex} />
-        <Route path="sins/:sinId" component={SinShow} />
+        <Route path="sins/:sinId" component={SinterestLanding} />
         <Route path="boards/:boardId" component={BoardShow} />
       </Route>
   );
