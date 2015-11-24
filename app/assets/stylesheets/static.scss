@@ -42,6 +42,10 @@ button {
   text-align: center;
 }
 
+button:focus {
+  outline:0;
+}
+
 button:active {
   background-image: linear-gradient(#ab171e, #e3262e);
 }
