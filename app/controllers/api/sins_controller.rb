@@ -2,13 +2,17 @@ class Api::SinsController < ApplicationController
 
   def index
     if !params[:boardIds] || params[:boardIds].empty?
-      board_ids = current_user.all_followed_boards_ids
+      if current_user.all_followed_boards_ids.empty?
+        board_ids = Board.all.ids
+      else
+        board_ids = current_user.all_followed_boards_ids
+      end
     else
       board_ids = params[:boardIds]
     end
 
     @sins = []
-    
+
     board_ids.each do |board_id|
       @sins.concat(Board.find(board_id).sins.to_a)
     end

@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .sins {
-
   padding: 10px 50px;
   width: calc(100% - 50px);
   margin: auto;
@@ -11,8 +10,7 @@
 }
 
 .sin {
-  width: calc(100% / 6 - 65px);
-  width: 240px;
+  max-width: 200px;
   float: left;
   margin: 10px;
   background: white;

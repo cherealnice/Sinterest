@@ -26,12 +26,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_out!
-    redirect_to user_url(current_user) if signed_in?
+    redirect_to :root if signed_in?
   end
 
   def require_current_user!
     unless User.find(params[:id]) == @current_user
-      redirect_to user_url(@current_user)
+      redirect_to root
     end
   end
 end

@@ -8,7 +8,7 @@
     componentDidMount: function () {
       var $container = $('#sins-container');
       $container.imagesLoaded( function () {
-        $container.masonry({itemSelector : '.sin', columnWidth: 260 });
+        $container.masonry({itemSelector : '.sin', columnWidth: 220 });
       });
     },
 

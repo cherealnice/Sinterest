@@ -47,6 +47,7 @@
       var detailSinId = this.state.detailSinId;
       var sinShow;
       var indexHiddenClass;
+      var header;
       if (detailSinId) {
         sinShow = (
           <SinShow className='sin-show'
@@ -56,8 +57,24 @@
         );
         indexHiddenClass = ' hidden';
       }
+
+      header = (
+      <div>
+        <header className='content-header'>
+          <section className='content-header-top'>
+            <h1 className='content-header-title'>Sinterest</h1>
+          </section>
+          <section className='content-header-bottom'>
+            <p className='content-header-user'>
+            </p>
+          </section>
+        </header>
+      </div>
+    );
+
       return (
         <div className='sin-index'>
+        {header}
           <div>
             <ul id='sins-container' className={"sins group " + indexHiddenClass}>
               {this.state.sins.map(function (sin) {

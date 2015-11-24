@@ -1,27 +1,31 @@
-<h1>Login</h1>
 
-<form action="<%= session_url %>" method="post">
-  <input type="hidden"
-    name="authenticity_token"
-    id=""
-    value="<%= form_authenticity_token %>">
-  <br>
+<div class='page'>
+  <div class='login-container group'>
+    <%= link_to "Sign up!", new_user_url, {class: 'sign-up-link'} %>
 
-  <label for="user_email">Email</label>
-  <input
-    type="text"
-    name="user[email]"
-    id="user_email">
-  <br>
+    <form class='login-form' action="<%= session_url %>" method="post">
+      <input type="hidden"
+        name="authenticity_token"
+        id=""
+        value="<%= form_authenticity_token %>">
+      <br>
 
-  <label for="user_password">Password</label>
-  <input
-    type="password"
-    name="user[password]"
-    id="user_password">
-  <br>
+      <input
+        type="text"
+        name="user[email]"
+        id="user_email"
+        placeholder="Email">
+      <br>
 
-  <input type="submit">
-</form>
+      <input
+        type="password"
+        name="user[password]"
+        id="user_password"
+        placeholder="Password">
+      <br>
 
-<%= link_to "Sign up!", new_user_url %>
+      <button>Sign In</button>
+    </form>
+
+  </div>
+</div>

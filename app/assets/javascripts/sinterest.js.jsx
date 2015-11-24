@@ -22,6 +22,7 @@ $(function () {
         <Route path="boards/:boardId" component={BoardShow} />
       </Route>
   );
+  
   React.render(<Router>{routes}</Router>, root);
 
 }.bind(this));
