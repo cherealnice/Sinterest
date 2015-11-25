@@ -26,10 +26,13 @@ var UsersApiUtil = {
       url: '/api/users',
       type: 'POST',
       dataType: 'json',
-      data: attrs,
+      data: { user: attrs },
       success: function (user) {
         UserActions.receiveUser(user);
-        callback && callback();
+        CurrentUserActions.receiveCurrentUser(user);
+        if (callback) {
+          callback();
+        }
       }
     })
   }

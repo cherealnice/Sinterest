@@ -1,4 +1,7 @@
 (function(root) {
+
+  var Link = ReactRouter.Link;
+
   root.SessionForm = React.createClass({
     mixins: [ReactRouter.History],
 
@@ -17,6 +20,7 @@
       return (
         <div className='page'>
           <div className='login-container group'>
+            <Link to='/user/new'>Sign Up</Link>
             <form className='login-form' onSubmit={this.submit}>
 
               <input
@@ -31,7 +35,7 @@
                 name="password"
                 placeholder="Password"/>
 
-              <button>Sign In!</button>
+              <button>Log In!</button>
             </form>
 
 

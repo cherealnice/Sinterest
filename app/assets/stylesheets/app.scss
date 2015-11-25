@@ -289,3 +289,13 @@
   width: 260px;
   padding: 5px;
 }
+
+.login-container > a {
+  background-image: linear-gradient(#e3262e, #ab171e);
+  border: 1px solid #820a0f;
+  border-radius: 6px;
+  color: white;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 8px 10px;
+}

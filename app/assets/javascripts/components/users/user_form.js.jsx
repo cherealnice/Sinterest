@@ -1,32 +1,42 @@
 (function(root) {
+
+  var Link = ReactRouter.Link;
+
   root.UserForm = React.createClass({
     mixins: [ReactRouter.History],
 
     submit: function (e) {
       e.preventDefault();
-      
-      debugger;
+      var credentials = $(e.currentTarget).serializeJSON();
+      UsersApiUtil.createUser(credentials, function () {
+        this.history.pushState(null, "/");
+      }.bind(this));
     },
 
     render: function() {
-      
+
       return (
-        <form onSubmit={ this.submit }>
-          
-          <h1>Sign Up!</h1>
-          
-          <label>
-            Email
-            <input type="text" name="email" />
-          </label>
-  
-          <label>
-            Password
-            <input type="password" name="password" />
-          </label>
-  
-          <button>Join!</button>
-        </form>
+        <div className='page'>
+          <div className='login-container group'>
+            <Link to='/login'>Log In</Link>
+            <form className='login-form' onSubmit={this.submit}>
+
+              <input
+                id="user_email"
+                type="text"
+                name="email"
+                placeholder="Email"/>
+
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"/>
+
+              <button>Sign Up!</button>
+            </form>
+          </div>
+        </div>
       );
     },
 

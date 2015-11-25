@@ -1,5 +1,5 @@
 var SessionsApiUtil = {
-  login: function (credentials, success) {
+  login: function (credentials, callback) {
     $.ajax({
       url: '/api/session',
       type: 'POST',
@@ -8,12 +8,14 @@ var SessionsApiUtil = {
       success: function (currentUser) {
         console.log("logged in!");
         CurrentUserActions.receiveCurrentUser(currentUser);
-        success && success();
+        if (callback) {
+          callback();
+        }
       }
     });
   },
 
-  logout: function (success) {
+  logout: function (callback) {
     $.ajax({
       url: '/api/session',
       type: 'DELETE',
@@ -21,7 +23,9 @@ var SessionsApiUtil = {
       success: function () {
         console.log("logged out!");
         CurrentUserActions.receiveCurrentUser({});
-        success & success();
+        if (callback) {
+          callback();
+        }
       }
     });
   },
@@ -36,6 +40,4 @@ var SessionsApiUtil = {
       }
     });
   }
-
-
 };
