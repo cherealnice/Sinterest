@@ -1,7 +1,7 @@
 (function (root) {
 
   root.BoardForm = React.createClass({
-    mixins: [React.addons.LinkedStateMixin],
+    mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
 
     blankAttrs: {
       title: '',
@@ -17,8 +17,12 @@
       var board = {};
       board.title = this.state.title;
       board.description = this.state.description;
-      ApiUtil.createBoard(board);
+      ApiUtil.createBoard(board, this._boardCreated);
       this.setState(this.blankAttrs);
+    },
+
+    _boardCreated: function (boardId) {
+      this.history.pushState(null, '/boards/' + boardId);
     },
 
     render: function () {

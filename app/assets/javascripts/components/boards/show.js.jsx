@@ -1,5 +1,7 @@
 (function (root) {
 
+  var Link = ReactRouter.Link;
+
   root.BoardShow = React.createClass({
 
     getInitialState: function () {
@@ -37,6 +39,8 @@
       var boardIds = [this.props.params.boardId];
       var followButton;
       var comments;
+      var createSin;
+
 
       if (board) {
         var liked = board.liked ? true : false;
@@ -52,6 +56,12 @@
                 followed={followed}/>
         );
 
+        if (board.author_id === CurrentUserStore.currentUser().id) {
+          createSin = (
+            <Link to={'/sin/new'} className='create-sin'>
+                Add a sin!
+            </Link>);
+        }
       }
       return (
         <div className="board-wrapper">
@@ -62,6 +72,7 @@
             user={author} />
           <section className="board-sins-index">
             <SinsIndex id='main-index' store={SinStore} boardIds={boardIds} />
+            {createSin}
           </section>
         </div>
       );

@@ -17,6 +17,10 @@
       return $.extend({}, _currentUser);
     },
 
+    currentUserBoards: function () {
+      return _currentUser.boards;
+    },
+
     isLoggedIn: function () {
       return (typeof _currentUser.id !== "undefined");
     },

@@ -1,7 +1,7 @@
 (function (root) {
 
   root.SinForm = React.createClass({
-    mixins: [React.addons.LinkedStateMixin],
+    mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
 
     blankAttrs: {
       title: '',
@@ -13,11 +13,23 @@
     },
 
     getInitialState: function () {
-      return this.blankAttrs;
+      return ({boards: [], attrs: this.blankAttrs});
+    },
+
+    componentDidMount: function () {
+      CurrentUserStore.addChangeHandler(this._onCurrentUserChange);
+    },
+
+    componentWillUnmount: function () {
+      CurrentUserStore.removeChangeHandler(this._onCurrentUserChange);
+    },
+
+    _onCurrentUserChange: function () {
+      this.setState({ boards: CurrentUserStore.currentUserBoards() });
     },
 
     resetState: function () {
-      this.setState(this.blankAttrs);
+      this.setState({ attrs: this.blankAttrs });
     },
 
     createSin: function (e) {
@@ -37,7 +49,11 @@
       formData.append("sin[link]", link);
       formData.append("board_id", boardId);
 
-      ApiUtil.createSin(formData, this.resetState());
+      ApiUtil.createSin(formData, this._onSuccess);
+    },
+
+    _onSuccess: function (boardId) {
+      this.history.pushState(null, '/boards/' + boardId);
     },
 
     _changeFile: function(e) {
@@ -58,6 +74,7 @@
     },
 
     render: function () {
+      var boards = this.state.boards;
       return (
         <form className="new-form sin-form" onSubmit={this.createSin}>
           <div>
@@ -87,10 +104,11 @@
 
           <div>
             <label htmlFor='sin-boardId'>Board ID:</label>
-            <input type='number' id='sin-boardId'
-              valueLink={this.linkState("boardId")}>
-                {this.state.boardId}
-            </input>
+            <select valueLink={this.linkState("boardId")} name="sin-boardId">
+              {boards.map(function (board) {
+                return (<option value={board.id}>{board.title}</option>);
+              })}
+            </select>
             <br />
           </div>
 

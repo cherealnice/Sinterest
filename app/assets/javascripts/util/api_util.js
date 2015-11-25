@@ -33,7 +33,7 @@ ApiUtil = {
       success: function (data) {
         ApiActions.receiveSingleSin(data);
         if (callback) {
-          callback();
+          callback(data.boards[0].id);
         }
       }
     });
@@ -74,7 +74,7 @@ ApiUtil = {
     });
   },
 
-  createBoard: function (board) {
+  createBoard: function (board, callback) {
     $.ajax({
       url: 'api/boards',
       type: 'POST',
@@ -82,6 +82,9 @@ ApiUtil = {
       data: { board: board },
       success: function (data) {
         ApiActions.receiveSingleBoard(data);
+        if (callback) {
+          callback(data.id);
+        }
       }
     });
   },
