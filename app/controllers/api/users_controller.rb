@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.image = nil
+    @user.images.new
     if @user.save
       sign_in(@user)
       render :show
@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
   end
 
 
-  protected
+  private
 
   def user_params
     self.params.require(:user).permit(:email, :password)

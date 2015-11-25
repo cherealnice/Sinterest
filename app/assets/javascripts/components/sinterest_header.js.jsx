@@ -46,7 +46,7 @@
                 {button}
                 <div className='content-header-user'>
                   <div className='current-user-image'>
-                    <img src={currentUser.image} />
+                    <img src={currentUser.image_url} />
                   </div>
                   <h3>{currentUser.username}</h3>
                 </div>
