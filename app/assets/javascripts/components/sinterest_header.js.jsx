@@ -29,12 +29,12 @@
       var user;
       if (this.props.user) {
         user = (
-          <section>
+          <Link to={'/users/' + this.props.user.id}>
             <h3>{this.props.user.username}</h3>
             <div className='user-thumb user-show-thumb'>
               <img src={this.props.user.image_url} />
             </div>
-          </section>
+          </Link>
         );
       }
 
