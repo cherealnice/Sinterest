@@ -1,0 +1,56 @@
+.sins {
+  padding: 10px 50px;
+  width: calc(100% - 50px);
+  margin: auto;
+  min-height: 950px;
+  position: relative;
+}
+
+.tile {
+  max-width: 200px;
+  float: left;
+  margin: 10px;
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sin > h3:hover .like-button {
+  display: block;
+}
+
+.sin > h3 {
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  display: block;
+  padding: 0;
+}
+
+.tile-title {
+  display: block;
+}
+
+.tile p {
+  border-bottom: 1px solid rgb(231, 231, 231);
+  padding: 10px;
+}
+
+.tile-desc {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tile-bottom {
+  display: block;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.tile-bottom:hover {
+  background: rgb(228, 228, 228);
+}

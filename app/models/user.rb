@@ -90,6 +90,12 @@ class User < ActiveRecord::Base
     boards.uniq
   end
 
+  def follows?(target)
+    follow = follows.includes(followable: target)
+    return true unless follow.empty?
+    false
+  end
+
   private
 
   def ensure_session_token

@@ -1,6 +1,6 @@
 json.extract!(
   board,
-  :id, :title, :description, :author
+  :id, :title, :description, :author, :author_id
 )
 
 json.liked (board.users_liked.include?(current_user))

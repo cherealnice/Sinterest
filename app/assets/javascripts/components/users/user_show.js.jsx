@@ -21,35 +21,33 @@
       UsersStore.removeChangeHandler(this._onChange);
     },
 
+    _onChange: function() {
+      this.setState(this.getStateFromStore());
+    },
+
     render: function() {
+      var content;
       var user = this.state.user;
       if (!user) {
-        return (
-          <div>DONT HAVE A USER TO RENDER</div>
+        content = (
+            <p>There doesn't seem to be a user here.</p>
+        );
+      } else {
+        content = (
+          <BoardsIndex user={this.state.user} />
         );
       }
 
-      var posts = [];
-      if (user) {
-        user.posts && user.posts.forEach(function (post) {
-          posts.push(
-            <li>{ post.title }</li>
-          );
-        });
-      }
-
       return (
-        <div>
-          <h1 className="title">UserShow: { user.email }</h1>
-
-          <h3>Users posts:</h3>
-          <ul className="users-index">{ posts }</ul>
+        <div className="user-wrapper">
+          <SinterestHeader
+            title={user.username}
+            button={followButton} />
+          <section className="user-boards-index">
+            <BoardsIndex boardIds={user.id} />
+          </section>
         </div>
       );
-    },
-
-    _onChange: function() {
-      this.setState(this.getStateFromStore());
     }
-  })
+  });
 })(this);

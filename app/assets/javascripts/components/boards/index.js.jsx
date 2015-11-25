@@ -25,7 +25,9 @@
         <div>
           <ul className="boards group">
             {this.state.boards.map(function (board) {
-              return <BoardIndexItem board={board} key={board.id} />;
+                return (
+                  <BoardIndexItem board={board} key={board.id} />
+                );
             })}
           </ul>
         </div>

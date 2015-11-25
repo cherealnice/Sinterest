@@ -8,27 +8,37 @@
     render: function () {
       var board = this.props.board;
       var sinsData;
-      if (board.sins) {
+      if (board.images) {
         sinsData = (
-          board.sins.map(function (s) {
+          board.images.map(function (i) {
             return (
-              <li key={s.title + s.id}>{s.title}</li>
+              <li>
+                <img src={i} />
+              </li>
             );
           })
         );
       }
 
       return (
-        <li className="board-li">
-          <Link className='board-tile' to={'/boards/' + board.id}>
-          <h3>{board.title}</h3>
-          <p className='board-author'>{board.author.username}</p>
-          <ul className='board-sins'>
-            {sinsData}
-          </ul>
+        <li className="board-li tile">
+          <Link className='board-link' to={'/boards/' + board.id}>
+            <FollowButton
+              followClass='Board'
+              target={board}
+              followed={board.followed} />
+            <p className='tile-title board-title'>{board.title}</p>
+            <ul className='board-sins'>
+              {sinsData}
+            </ul>
+            <Link
+              className='tile-bottom board-author'
+              to={'/users/' + board.author_id}>
+                {'Owner: ' + board.author_username}
+            </Link>
           </Link>
         </li>
       );
     }
   });
-}(this));
+})(this);

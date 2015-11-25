@@ -16,16 +16,16 @@
       var sin = this.props.sin;
       var liked = sin.liked ? true : false;
       return (
-        <li className="sin">
+        <li className="tile sin">
           <h3 key={sin.id}>
             <LikeButton likeClass='Sin' target={sin} liked={liked} />
-            <Link className='sin-title' to={'/sins/' + sin.id}>
+            <Link className='tile-title sin-title' to={'/sins/' + sin.id}>
               <img className='sin-show-image' src={sin.image_url} />
               <p>{sin.title}</p>
             </Link>
           </h3>
-          <p className='sin-desc'>{sin.description}</p>
-          <Link className='sin-board' to={'/boards/' + sin.boards[0].id}>
+          <p className='tile-desc sin-desc'>{sin.description}</p>
+          <Link className='tile-bottom sin-board' to={'/boards/' + sin.boards[0].id}>
             {'Found on: ' + sin.boards[0].title}
           </Link>
         </li>
