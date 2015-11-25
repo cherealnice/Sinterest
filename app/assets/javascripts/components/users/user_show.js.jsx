@@ -7,18 +7,16 @@
     },
 
     getStateFromStore: function () {
-      return {
-        user: UsersStore.findUserById(parseInt(this.props.params.id))
-      };
+        return { user: UserStore.findUserById(parseInt(this.props.params.id)) };
     },
 
     componentDidMount: function() {
-      UsersStore.addChangeHandler(this._onChange);
+      UserStore.on(UserStore.USER_DETAIL_CHANGE, this._onChange);
       UsersApiUtil.fetchUser(this.props.params.id);
     },
 
     componentWillUnmount: function() {
-      UsersStore.removeChangeHandler(this._onChange);
+      UserStore.removeListener(UserStore.USER_DETAIL_CHANGE, this._onChange);
     },
 
     _onChange: function() {
@@ -28,24 +26,30 @@
     render: function() {
       var content;
       var user = this.state.user;
+      var username;
       if (!user) {
         content = (
             <p>There doesn't seem to be a user here.</p>
         );
       } else {
         content = (
-          <BoardsIndex user={this.state.user} />
+          <div>
+            <BoardsIndex user={this.state.user} />
+            <section className="user-boards-index">
+              <BoardsIndex boardIds={user.id} />
+            </section>
+          </div>
         );
+        username = user.username;
       }
 
       return (
         <div className="user-wrapper">
           <SinterestHeader
-            title={user.username}
-            button={followButton} />
-          <section className="user-boards-index">
-            <BoardsIndex boardIds={user.id} />
-          </section>
+            title={username}
+            button={FollowButton}
+            user={user} />
+            { content }
         </div>
       );
     }

@@ -27,6 +27,17 @@
       var button = this.props.button;
       var currentUser = CurrentUserStore.currentUser();
       var user;
+      if (this.props.user) {
+        user = (
+          <section>
+            <h3>{this.props.user.username}</h3>
+            <div className='user-thumb user-show-thumb'>
+              <img src={this.props.user.image} />
+            </div>
+          </section>
+        );
+      }
+
       return(
         <div className='app-header'>
           <header className='content-header'>
@@ -50,6 +61,7 @@
                 </div>
               </section>
               <section className='content-header-bottom'>
+                {user}
                 {button}
               </section>
             </div>

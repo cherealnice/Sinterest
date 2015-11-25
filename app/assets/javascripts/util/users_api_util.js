@@ -34,6 +34,6 @@ var UsersApiUtil = {
           callback();
         }
       }
-    })
+    });
   }
 };
