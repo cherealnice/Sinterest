@@ -28,7 +28,7 @@
       var currentUser = CurrentUserStore.currentUser();
       var user;
       return(
-        <div>
+        <div className='app-header'>
           <header className='content-header'>
             <div>
               <section className='navbar group' >
