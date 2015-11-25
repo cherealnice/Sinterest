@@ -29,10 +29,10 @@
       var user;
       if (this.props.user) {
         user = (
-          <Link to={'/users/' + this.props.user.id}>
-            <h3>{this.props.user.username}</h3>
+          <Link className='user-show-info group' to={'/users/' + this.props.user.id}>
             <div className='user-thumb user-show-thumb'>
-              <img src={this.props.user.image_url} />
+              <img className='user-thumb user-show-thumb' src={this.props.user.image_url} />
+            <h3 className='user-show-username'>{this.props.user.username}</h3>
             </div>
           </Link>
         );
@@ -61,8 +61,8 @@
                 </div>
               </section>
               <section className='content-header-bottom'>
-                {user}
                 {button}
+                {user}
               </section>
             </div>
           </header>
