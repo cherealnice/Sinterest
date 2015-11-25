@@ -13,7 +13,10 @@
     },
 
     getInitialState: function () {
-      return ({boards: [], attrs: this.blankAttrs});
+      return ({
+        boards: CurrentUserStore.currentUserBoards(),
+        attrs: this.blankAttrs
+      });
     },
 
     componentDidMount: function () {
@@ -103,8 +106,8 @@
           </div>
 
           <div>
-            <label htmlFor='sin-boardId'>Board ID:</label>
             <select valueLink={this.linkState("boardId")} name="sin-boardId">
+              <option value={null}>Board:</option>
               {boards.map(function (board) {
                 return (<option value={board.id}>{board.title}</option>);
               })}
