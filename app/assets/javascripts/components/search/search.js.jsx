@@ -16,7 +16,7 @@
     },
 
     _onChange: function () {
-      this.setState({ results: SearchResultsStore.results() });
+      this.setState({ results: SearchResultsStore.all() });
     },
 
     _onInput: function (e) {
@@ -28,15 +28,7 @@
     },
 
     render: function() {
-      var results = SearchResultsStore.results().map(function (result) {
-        if (result._type === "Board") {
-          boards.push(result);
-        } else if (result._type === "Sin") {
-          sins.push(result);
-        } else if (result._type === "User") {
-          users.push(result);
-        }
-      });
+      var results = this.state.results;
 
       return (
         <div>
@@ -44,10 +36,7 @@
             onChange={ this._onInput }
             placeholder="Search..."
           />
-
-          <ul className="search-results">
-            <SearchResultsIndex results={results} />
-          </ul>
+        <SearchResultsIndex key={results.length} results={results} />
         </div>
       );
     },

@@ -12,7 +12,7 @@
       this.removeListener(SEARCH_RESULTS_CHANGE, callback);
     },
 
-    results: function () {
+    all: function () {
       return _search_results.results;
     },
 
