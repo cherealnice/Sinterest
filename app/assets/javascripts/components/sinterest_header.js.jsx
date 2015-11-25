@@ -5,12 +5,28 @@
   root.SinterestHeader = React.createClass({
     mixins: [ReactRouter.History],
 
+    getInitialState: function () {
+      return ({ currentUser: CurrentUserStore.currentUser() });
+    },
+
+    componentDidMount: function () {
+      CurrentUserStore.addChangeHandler(this.handleCurrentUserChange);
+    },
+
+    componentWillUnmount: function () {
+      CurrentUserStore.removeChangeHandler(this.handleCurrentUserChange);
+    },
+
+    handleCurrentUserChange: function () {
+      this.setState({ currentUser: CurrentUserStore.currentUser() });
+    },
+
     render: function () {
       var title = this.props.title;
       var description = this.props.description;
       var button = this.props.button;
+      var currentUser = CurrentUserStore.currentUser();
       var user;
-
       return(
         <div>
           <header className='content-header'>
@@ -28,8 +44,12 @@
               </section>
               <section className='content-header-bottom'>
                 {button}
-                <p className='content-header-user'>
-                </p>
+                <div className='content-header-user'>
+                  <div className='current-user-image'>
+                    <img src={currentUser.image} />
+                  </div>
+                  <h3>{currentUser.username}</h3>
+                </div>
               </section>
             </div>
           </header>
@@ -42,4 +62,4 @@
 
 
 
-}(this));
+})(this);

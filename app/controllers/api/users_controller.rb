@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+    @user.image = nil
     if @user.save
       sign_in(@user)
       render :show
