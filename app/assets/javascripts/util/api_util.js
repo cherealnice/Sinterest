@@ -51,10 +51,11 @@ ApiUtil = {
     });
   },
 
-  fetchBoards: function () {
+  fetchBoards: function (user) {
     $.ajax({
       url: '/api/boards',
       type: 'GET',
+      data: { user: user },
       dataType: 'json',
       success: function (data) {
         ApiActions.receiveAllBoards(data);

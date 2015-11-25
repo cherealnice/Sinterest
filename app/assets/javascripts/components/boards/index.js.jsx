@@ -3,12 +3,12 @@
   root.BoardsIndex = React.createClass({
 
     getInitialState: function () {
-      return ({ boards: BoardStore.all() });
+      return ({ boards: [] });
     },
 
     componentDidMount: function () {
       BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
-      ApiUtil.fetchBoards();
+      ApiUtil.fetchBoards(this.props.user);
     },
 
     componentWillUnmount: function () {
@@ -21,12 +21,19 @@
     },
 
     render: function () {
+      var show_author = true;
+      if (this.props.user) {
+        show_author = false;
+      }
       return (
         <div>
           <ul className="boards group">
             {this.state.boards.map(function (board) {
                 return (
-                  <BoardIndexItem board={board} key={board.id} />
+                  <BoardIndexItem
+                    board={board}
+                    key={board.id}
+                    show_author={show_author} />
                 );
             })}
           </ul>

@@ -8,6 +8,7 @@
     render: function () {
       var board = this.props.board;
       var sinsData;
+      var author;
       if (board.images) {
         sinsData = (
           board.images.map(function (i) {
@@ -17,6 +18,15 @@
               </li>
             );
           })
+        );
+      }
+      if (this.props.show_author) {
+        author = (
+          <Link
+            className='tile-bottom board-author'
+            to={'/users/' + board.author_id}>
+              {'Owner: ' + board.author_username}
+          </Link>
         );
       }
 
@@ -31,11 +41,7 @@
             <ul className='board-sins'>
               {sinsData}
             </ul>
-            <Link
-              className='tile-bottom board-author'
-              to={'/users/' + board.author_id}>
-                {'Owner: ' + board.author_username}
-            </Link>
+            {author}
           </Link>
         </li>
       );

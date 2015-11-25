@@ -34,9 +34,8 @@
       } else {
         content = (
           <div>
-            <BoardsIndex user={this.state.user} />
             <section className="user-boards-index">
-              <BoardsIndex boardIds={user.id} />
+              <BoardsIndex user={this.state.user} />
             </section>
           </div>
         );
