@@ -32,7 +32,6 @@
           _currentUser = payload.currentUser;
           CurrentUserStore.emit(CURRENT_USER_CHANGE);
           break;
-
       }
     }),
   });
