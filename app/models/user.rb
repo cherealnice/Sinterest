@@ -91,8 +91,8 @@ class User < ActiveRecord::Base
   end
 
   def follows?(target)
-    follow = follows.includes(followable: target)
-    return true unless follow.empty?
+    follow = follows.find_by(followable: target)
+    return true if !!follow
     false
   end
 
