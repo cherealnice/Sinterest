@@ -32,7 +32,7 @@
           <section>
             <h3>{this.props.user.username}</h3>
             <div className='user-thumb user-show-thumb'>
-              <img src={this.props.user.image} />
+              <img src={this.props.user.image_url} />
             </div>
           </section>
         );

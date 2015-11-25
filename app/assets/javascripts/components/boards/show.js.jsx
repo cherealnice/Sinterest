@@ -33,12 +33,15 @@
       var board = this.state.board;
       var title;
       var description;
+      var author;
       var boardIds = [this.props.params.boardId];
       var followButton;
       var comments;
+
       if (board) {
         var liked = board.liked ? true : false;
         var followed = board.followed ? true : false;
+        author = board.author;
         title = board.title;
         description = board.description;
 
@@ -55,7 +58,8 @@
           <SinterestHeader
             title={title}
             description={description}
-            button={followButton} />
+            button={followButton}
+            user={author} />
           <section className="board-sins-index">
             <SinsIndex id='main-index' store={SinStore} boardIds={boardIds} />
           </section>
