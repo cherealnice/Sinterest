@@ -12,6 +12,12 @@
       this.setState({ results: this.props.results });
     },
 
+    _handleClick: function (e) {
+      if (e.currentTarget.className === 'search-results group') {
+        this.setState({ results: [] });
+      }
+    },
+
     render: function () {
       var results = this.state.results;
       var boards = [];
@@ -31,56 +37,66 @@
 
       if (results.length > 0) {
         return (
-          <ul className="search-results">
-            <li>
-              <li><h5>Boards</h5></li>
+          <div className="search-results group" onClick={this._handleClick}>
+            <div className='boards-results class-result group'>
+              <div className='class-title'><h5>Boards</h5></div>
               {boards.map(function (b) {
                 return(
-                  <li id='board-search-results'>
+                  <div id='search-results' className='group'>
                     <Link to={'/boards/' + b.id}>
-                      <h5>{b.title}</h5>
-                      <p>{b.description}</p>
+                      <div className='result-info'>
+                        <h5>{b.title}</h5>
+                        <p>{b.description}</p>
+                      </div>
                     </Link>
-                  </li>
+                  </div>
                 );
               })}
-            </li>
+            </div>
 
-            <li>
-              <li><h5>Sins</h5></li>
+            <div className='sins-results class-result'>
+              <div className='class-title'><h5>Sins</h5></div>
               {sins.map(function (s) {
                 return(
-                  <li id='sin-search-results'>
+                  <div id='search-results' className='group'>
                     <Link to={'/sins/' + s.id}>
-                      <h5>{s.title}</h5>
-                      <p>{s.description}</p>
+                      <div className='result-info'>
+                        <h5>{s.title}</h5>
+                        <p>{s.description}</p>
+                      </div>
                       <img src={s.image_url} />
                     </Link>
-                  </li>
+                  </div>
                 );
               })}
-            </li>
+            </div>
 
-            <li>
-              <li><h5>Users</h5></li>
+            <div className='users-results class-result'>
+              <div className='class-title'><h5>Users</h5></div>
               {users.map(function (u) {
+                var name;
+                if (u.fname || u.lname) {
+                  name = u.fname + " " + u.lname;
+                }
                 return(
-                  <li id='user-search-results'>
+                  <div id='search-results' className='group'>
                     <Link to={'/users/' + u.id}>
-                      <h5>{u.title}</h5>
-                      <p>{u.description}</p>
+                      <div className='result-info'>
+                        <h5>{u.username}</h5>
+                        <p>{name}</p>
+                      </div>
                       <img src={u.image_url} />
                     </Link>
-                  </li>
+                  </div>
                 );
               })}
-            </li>
-          </ul>
+            </div>
+          </div>
         );
       }
 
       return (
-        <li className='search-results' />
+        <div/>
       );
     }
   });

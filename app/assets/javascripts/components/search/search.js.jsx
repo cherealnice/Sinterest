@@ -21,9 +21,7 @@
 
     _onInput: function (e) {
       e.preventDefault();
-      if (e.currentTarget.value !== '') {
-        SearchApiUtil.search(e.currentTarget.value);
-      }
+      SearchApiUtil.search(e.currentTarget.value);
       this.setState({string: e.currentTarget.value});
     },
 
