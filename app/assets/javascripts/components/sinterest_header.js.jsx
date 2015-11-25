@@ -32,24 +32,25 @@
           <header className='content-header'>
             <div>
               <section className='navbar group' >
-                <LogoutButton />
                 <input type='text' placeholder='Search...' />
               </section>
               <section className='content-header-top'>
-                <div className='header-title group'>
-                  <Link className='root-link' to={'/'} />
-                  <h1 className='content-header-title'>{title}</h1>
+                <div className='content-header-current-user group'>
+                  <h3 className='current-user-username'>{currentUser.username}</h3>
+                  <div className='user-thumb current-user-image'>
+                    <img src={currentUser.image_url} />
+                  </div>
                 </div>
-                <p className='content-header-desc'>{description}</p>
+                <div className='content-header-main' >
+                  <div className='header-title group'>
+                    <Link className='root-link' to={'/'} />
+                    <h1 className='content-header-title'>{title}</h1>
+                  </div>
+                  <p className='content-header-desc'>{description}</p>
+                </div>
               </section>
               <section className='content-header-bottom'>
                 {button}
-                <div className='content-header-user'>
-                  <div className='current-user-image'>
-                    <img src={currentUser.image_url} />
-                  </div>
-                  <h3>{currentUser.username}</h3>
-                </div>
               </section>
             </div>
           </header>
