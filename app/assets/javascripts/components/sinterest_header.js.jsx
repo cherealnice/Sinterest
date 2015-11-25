@@ -43,7 +43,7 @@
           <header className='content-header'>
             <div>
               <section className='navbar group' >
-                <input type='text' placeholder='Search...' />
+                <Search />
               </section>
               <section className='content-header-top'>
                 <div className='content-header-current-user group'>

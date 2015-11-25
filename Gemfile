@@ -16,6 +16,7 @@ gem 'figaro'
 gem 'aws-sdk', '~> 1.6'
 gem 'rename'
 gem 'faker', '~> 1.5'
+gem 'pg_search'
 
 group :development, :test do
   gem 'byebug'
