@@ -51,6 +51,12 @@
                   <div className='user-thumb current-user-image'>
                     <img src={currentUser.image_url} />
                   </div>
+
+                  <div className='current-user-dropdown'>
+                    <ul>
+                      <li><LogoutButton /></li>
+                    </ul>
+                  </div>
                 </div>
                 <div className='content-header-main' >
                   <div className='header-title group'>
