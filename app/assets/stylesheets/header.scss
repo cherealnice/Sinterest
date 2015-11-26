@@ -48,11 +48,13 @@
 
 .logout-button {
   background: #d4d4d4;
-  border: 1px solid grey;
+  border: 1px solid #e4e4e4;
   display: block;
   width: 100%;
-  border-radius: 0;
+  border-radius: 6px;
   color: #666;
+  padding: 5px;
+
 }
 
 .logout-button:active {
@@ -160,7 +162,7 @@
 }
 
 .current-user-dropdown > li {
-  border: 1px solid black;
+  // border: 1px solid black;
   background: #f0f0f0;
 }
 

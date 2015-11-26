@@ -13,7 +13,7 @@
         sinsData = (
           board.images.map(function (i) {
             return (
-              <li>
+              <li className='sin-image'>
                 <img src={i} />
               </li>
             );

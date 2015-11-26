@@ -72,8 +72,22 @@
               </section>
             </div>
           </header>
-          <Link className='fixed-link new-board-link' to={'/board/new'} />
-          <Link className='fixed-link view-boards-link' to={'/boards'} />
+          <Link className='fixed-link new-board-link' to={'/board/new'}>
+            <div className='new-board-dropdown-container'>
+              <div className='new-board-dropdown link-dropdown'>
+                Create a board
+              </div>
+              <div className='tooltip tooltip-new-board' />
+            </div>
+          </Link>
+          <Link className='fixed-link view-boards-link' to={'/boards'}>
+          <div className='all-boards-dropdown-container'>
+            <div className='all-boards-dropdown link-dropdown'>
+              View all boards
+            </div>
+            <div className='tooltip tooltip-all-boards' />
+          </div>
+          </Link>
         </div>
       );
     }

@@ -7,7 +7,6 @@
 }
 
 .tile {
-  max-width: 200px;
   float: left;
   margin: 10px;
   background: white;
@@ -15,6 +14,10 @@
   border-radius: 6px;
   overflow: hidden;
   position: relative;
+}
+
+.sin {
+  width: 200px;
 }
 
 .sin > h3:hover .like-button {
@@ -53,4 +56,33 @@
 
 .tile-bottom:hover {
   background: rgb(228, 228, 228);
+}
+
+.board-li {
+  width: 300px;
+}
+
+.board-li:hover .follow-button {
+  display: block;
+}
+
+.board-li button {
+  position: absolute;
+  right: 5px;
+  top: -14px;
+  display: none;
+}
+
+.sin-image {
+  width: 98px;
+  height: auto;
+  border: 1px solid black;
+  float: left;
+  border-radius: 6px;
+}
+
+.sin-image:first-child {
+  display: block;
+  width: 298px;
+  height: auto;
 }

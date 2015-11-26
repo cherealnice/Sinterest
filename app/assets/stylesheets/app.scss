@@ -1,13 +1,15 @@
 .new-board-link:after {
   content: '+';
-  color: white;
   font-size: 20px;
+  color: black;
+  font-weight: bold;
 }
 
 .view-boards-link:after {
   content: '$';
-  color: white;
+  color: black;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .view-boards-link {
@@ -22,13 +24,50 @@
   padding: 0 7px 3px 7px;
 }
 
+.new-board-link:hover .new-board-dropdown-container {
+  display: block;
+}
+
+.view-boards-link:hover .all-boards-dropdown-container {
+  display: block;
+}
+
+.new-board-dropdown-container, .all-boards-dropdown-container {
+  display: none
+}
+
 .fixed-link {
-  background: rgba(143,2,34,1);
+  background: #e3262e;
   border-radius: 50%;
   border: 2px solid black;
   position: fixed;
   z-index: 50;
   box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.link-dropdown {
+  position: absolute;
+  right: 45px;
+  width: 120px;
+  display: block;
+  background: rgba(100,100,100,.3);
+  color: black;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.tooltip {
+  content: '';
+  border-left: 10px solid rgba(100,100,100,.3);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  right: 35px;
+  top: 6px;
+}
+
+.tooltip-new-board {
+  top: 4px;
 }
 
 .like-button {

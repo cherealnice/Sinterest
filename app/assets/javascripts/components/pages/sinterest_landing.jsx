@@ -10,7 +10,7 @@
         <div>
           <SinterestHeader
             title='Sinterest'
-            description='Go ahead, indulge.'/>
+            description='Do your best.'/>
           <SinsIndex id='main-index' store={SinStore} detailSinId={detailSinId} />
         </div>
       );
