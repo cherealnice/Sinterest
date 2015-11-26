@@ -58,8 +58,16 @@
   background: rgb(228, 228, 228);
 }
 
+.boards {
+  padding: 10px 50px;
+  width: calc(100% - 50px);
+  margin: auto;
+  min-height: 950px;
+  position: relative;
+}
+
 .board-li {
-  width: 300px;
+  width: 200px;
 }
 
 .board-li:hover .follow-button {
@@ -73,8 +81,12 @@
   display: none;
 }
 
+.tile-bottom {
+  display: block;
+}
+
 .sin-image {
-  width: 98px;
+  width: 64px;
   height: auto;
   border: 1px solid black;
   float: left;
@@ -83,6 +95,6 @@
 
 .sin-image:first-child {
   display: block;
-  width: 298px;
+  width: 198px;
   height: auto;
 }
