@@ -6,9 +6,9 @@
     mixins: [ReactRouter.History],
 
     onLoad: function () {
-      var $container = $('#sins-container');
+      var $container = $('.sins:last');
       $container.imagesLoaded( function () {
-        $container.masonry({itemSelector : '.sin', columnWidth: 220 });
+        $container.masonry({ itemSelector : '.sin', columnWidth: 220 });
       });
     },
 

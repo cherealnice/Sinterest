@@ -38,7 +38,7 @@
     },
 
     componentDidUpdate: function () {
-      var $container = $('#sins-container');
+      var $container = $('.sins:last');
       $container.imagesLoaded( function () {
         $container.masonry({itemSelector : '.sin', columnWidth: 220 });
       });
@@ -51,7 +51,7 @@
     },
 
     _onChange: function () {
-      var $container = $('#sins-container');
+      var $container = $('.sins:last');
       $container.imagesLoaded( function () {
         $container.masonry({itemSelector : '.sin', columnWidth: 220 });
       });
