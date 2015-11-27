@@ -18,6 +18,7 @@
       board.title = this.state.title;
       board.description = this.state.description;
       ApiUtil.createBoard(board, this._boardCreated);
+      SessionsApiUtil.fetchCurrentUser();
       this.setState(this.blankAttrs);
     },
 

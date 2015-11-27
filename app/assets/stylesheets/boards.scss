@@ -2,13 +2,14 @@
 .new-form-container {
   background: image-url('sinterest-background.png');
   height: 100vw;
+  position: relative;
 }
 
 .new-form {
   width: 400px;
   position: absolute;
-  bottom: -100px;
   left: 50%;
+  top: 50px;
   transform: translateX(-50%);
   margin: auto;
   display: block;

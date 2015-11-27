@@ -78,12 +78,18 @@
 
     render: function () {
       var boards = this.state.boards;
+      var boardSelect;
+      if (boards) {
+        boardSelect = boards.map(function (board) {
+          return (<option value={board.id}>{board.title}</option>);
+        });
+      }
       return (
         <form className="new-form sin-form" onSubmit={this.createSin}>
           <div>
-            <label htmlFor='sin-title'>Title:</label>
             <input type="text" id='sin-title'
-              valueLink={this.linkState("title")} />
+              valueLink={this.linkState("title")}
+              placeholder='Title' />
             <br />
           </div>
 
@@ -93,24 +99,26 @@
           </div>
 
           <div>
-            <label htmlFor='sin-description'>Description:</label>
-            <textarea id='sin-description' value={this.state.descripton}
-              valueLink={this.linkState("description")} />
+            <textarea
+              id='sin-description'
+              value={this.state.descripton}
+              valueLink={this.linkState("description")}
+              placeholder='Description' />
             <br />
           </div>
 
           <div>
-            <label htmlFor='sin-link'>Website:</label>
-            <input type='text' id='sin-link' valueLink={this.linkState("link")} />
+            <input type='text'
+            id='sin-link'
+            valueLink={this.linkState("link")}
+            placeholder='URL' />
             <br />
           </div>
 
           <div>
             <select valueLink={this.linkState("boardId")} name="sin-boardId">
               <option value={null}>Board:</option>
-              {boards.map(function (board) {
-                return (<option value={board.id}>{board.title}</option>);
-              })}
+              {boardSelect}
             </select>
             <br />
           </div>
