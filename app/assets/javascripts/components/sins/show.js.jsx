@@ -23,14 +23,12 @@
     componentDidMount: function () {
       SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
       ApiUtil.fetchSingleSin(this.props.sinId);
+      root.addEventListener('keydown', this.props._onKeyDown);
     },
 
     componentWillUnmount: function () {
       SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
-    },
-
-    onKeyDown: function () {
-      this.props.onKeyDown();
+      root.removeEventListener('keydown', this.props._onKeyDown);
     },
 
     render: function () {

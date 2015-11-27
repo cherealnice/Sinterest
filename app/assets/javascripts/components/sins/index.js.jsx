@@ -1,6 +1,7 @@
 (function (root) {
 
   root.SinsIndex = React.createClass({
+    mixins: [ReactRouter.History],
 
     getInitialState: function () {
       var detailSinId = this.props.detailSinId || null;
@@ -57,6 +58,12 @@
       });
     },
 
+    _handleKeyDown: function (e) {
+      if (e.keyCode === 27) {
+        this.setState({ detailSinId: null });
+      }
+    },
+
     render: function () {
       var detailSinId = this.state.detailSinId;
       var sinShow;
@@ -67,7 +74,11 @@
         createSin = this.props.createSin;
       }
       if (detailSinId) {
-        sinShow = <SinShow className='sin-show' key={detailSinId} sinId={detailSinId} />;
+        sinShow = <SinShow
+          className='sin-show'
+          key={detailSinId}
+          sinId={detailSinId}
+          _onKeyDown={this._handleKeyDown} />;
         indexHiddenClass = ' hidden';
       }
       return (
