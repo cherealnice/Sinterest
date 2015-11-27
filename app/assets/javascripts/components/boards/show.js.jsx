@@ -58,11 +58,11 @@
 
         if (board.author_id === CurrentUserStore.currentUser().id) {
           createSin = (
-            <Link key='link' to={'/sin/new'}>
-              <li className='tile sin create-sin'>
-                <p>Add a sin!</p>
-              </li>
-            </Link>
+            <button className='follow-button create-sin'>
+              <Link key='link' to={'/sin/new'}>
+                Add a sin!
+              </Link>
+            </button>
           );
         }
       }
@@ -77,7 +77,8 @@
           <section className="board-sins-index">
             <SinsIndex id='main-index'
               store={SinStore}
-              boardIds={boardIds} />
+              boardIds={boardIds}
+              createSin={createSin} />
           </section>
         </div>
       );

@@ -72,6 +72,7 @@
       }
       return (
         <div className='sin-index'>
+        {createSin}
           <div>
             <ul id='sins-container' className={"sins group " + indexHiddenClass}>
               {this.state.sins.map(function (sin) {

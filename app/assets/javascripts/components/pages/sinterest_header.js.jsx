@@ -75,7 +75,6 @@
               <section className='content-header-bottom'>
                 {button}
                 {user}
-                {createSin}
               </section>
             </div>
           </header>

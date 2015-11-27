@@ -63,17 +63,13 @@
   width: 763px;
   margin: auto;
 }
-// 
-// .create-sin {
-//   float: left;
-//   height: 200px;
-//   font-size: 24px;
-//   font-weight: bold;
-//   border: 1px dotted black;
-//   text-align: center;
-// }
 
-.create-sin h6 {
-  border: 0;
-  margin: 50px auto;
+.create-sin {
+  background-image: linear-gradient(#e2e2e2, #d1d1d1);
+  color: #5f5f5f;
+  text-shadow: 0 1px #fff;
+}
+
+.create-sin:active {
+  background-image: linear-gradient(#d1d1d1, #e2e2e2);
 }
