@@ -25,8 +25,14 @@
       var title = this.props.title;
       var description = this.props.description;
       var button = this.props.button;
+      var createSin;
       var currentUser = CurrentUserStore.currentUser();
       var user;
+
+      if (this.props.createSin) {
+        createSin = this.props.createSin;
+      }
+
       if (this.props.user) {
         user = (
           <Link className='user-show-info group' to={'/users/' + this.props.user.id}>
@@ -69,6 +75,7 @@
               <section className='content-header-bottom'>
                 {button}
                 {user}
+                {createSin}
               </section>
             </div>
           </header>

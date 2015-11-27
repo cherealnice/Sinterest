@@ -9,6 +9,7 @@
   height: 100%;
   width: 100%;
   background-color: rgba(227,224,226,0.95);
+  z-index: 1000;
 }
 
 .sin-show-section {
@@ -62,15 +63,15 @@
   width: 763px;
   margin: auto;
 }
-
-.create-sin {
-  float: left;
-  height: 200px;
-  font-size: 24px;
-  font-weight: bold;
-  border: 1px dotted black;
-  text-align: center;
-}
+// 
+// .create-sin {
+//   float: left;
+//   height: 200px;
+//   font-size: 24px;
+//   font-weight: bold;
+//   border: 1px dotted black;
+//   text-align: center;
+// }
 
 .create-sin h6 {
   border: 0;

@@ -72,12 +72,12 @@
             title={title}
             description={description}
             button={followButton}
-            user={author} />
+            user={author}
+            createSin={createSin} />
           <section className="board-sins-index">
             <SinsIndex id='main-index'
               store={SinStore}
-              boardIds={boardIds}
-              createSin={createSin} />
+              boardIds={boardIds} />
           </section>
         </div>
       );

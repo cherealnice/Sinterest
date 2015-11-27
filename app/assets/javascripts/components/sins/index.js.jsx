@@ -79,7 +79,6 @@
                   sin={sin}
                   key={sin.id}/>;
               }.bind(this))}
-              {createSin}
             </ul>
           </div>
           {sinShow}

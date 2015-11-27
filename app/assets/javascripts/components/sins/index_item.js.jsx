@@ -21,7 +21,7 @@
             <LikeButton likeClass='Sin' target={sin} liked={liked} />
             <Link className='tile-title sin-title' to={'/sins/' + sin.id}>
               <img className='sin-show-image' src={sin.image_url} />
-              <h6>{sin.title}</h6>
+              <p>{sin.title}</p>
             </Link>
           </h3>
           <p className='tile-desc sin-desc'>{sin.description}</p>
