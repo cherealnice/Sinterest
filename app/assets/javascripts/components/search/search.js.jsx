@@ -34,7 +34,9 @@
             onChange={ this._onInput }
             placeholder="Search..."
           />
-        <SearchResultsIndex key={results.length} results={results} />
+        <SearchResultsIndex
+          key={results.length}
+          results={results} />
         </div>
       );
     },

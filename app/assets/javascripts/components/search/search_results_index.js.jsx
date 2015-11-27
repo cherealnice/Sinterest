@@ -13,7 +13,7 @@
     },
 
     _handleClick: function (e) {
-      if (e.currentTarget.className === 'search-results group') {
+      if (e.currentTarget.className === "search-results group") {
         this.setState({ results: [] });
       }
     },
@@ -37,8 +37,8 @@
 
       if (results.length > 0) {
         return (
-          <div className="search-results group" onClick={this._handleClick}>
-            <div className='boards-results class-result group'>
+          <div className="search-results group">
+            <div className='boards-results class-result group'  onClick={this._handleClick}>
               <div className='class-title'><h5>Boards</h5></div>
               {boards.map(function (b) {
                 return(
