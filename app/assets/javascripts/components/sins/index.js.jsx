@@ -61,6 +61,11 @@
       var detailSinId = this.state.detailSinId;
       var sinShow;
       var indexHiddenClass;
+      var createSin;
+
+      if (this.props.createSin) {
+        createSin = this.props.createSin;
+      }
       if (detailSinId) {
         sinShow = <SinShow className='sin-show' key={detailSinId} sinId={detailSinId} />;
         indexHiddenClass = ' hidden';

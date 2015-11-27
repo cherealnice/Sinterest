@@ -50,7 +50,7 @@
   right: 45px;
   width: 120px;
   display: block;
-  background: rgba(100,100,100,.3);
+  background: rgba(100,100,100,.8);
   color: black;
   padding: 5px;
   border-radius: 6px;
@@ -58,9 +58,9 @@
 
 .tooltip {
   content: '';
-  border-left: 10px solid rgba(100,100,100,.3);
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-left: 11px solid rgba(100,100,100,.8);
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
   position: absolute;
   right: 35px;
   top: 6px;

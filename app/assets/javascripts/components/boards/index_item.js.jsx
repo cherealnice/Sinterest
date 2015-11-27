@@ -5,6 +5,13 @@
   root.BoardIndexItem = React.createClass({
     mixins: [ReactRouter.History],
 
+    // onLoad: function () {
+    //   var $container = $('.boards');
+    //   $container.imagesLoaded( function () {
+    //     $container.masonry({itemSelector : '.board', columnWidth: 200 });
+    //   });
+    // },
+
     render: function () {
       var board = this.props.board;
       var sinsData;
@@ -31,8 +38,8 @@
       }
 
       return (
-        <li className="board-li tile">
-          <Link className='board-link' to={'/boards/' + board.id}>
+        <Link className='board-link' to={'/boards/' + board.id}>
+          <li className="board-li tile group">
             <FollowButton
               followClass='Board'
               target={board}
@@ -41,9 +48,8 @@
             <ul className='board-sins'>
               {sinsData}
             </ul>
-            {author}
-          </Link>
-        </li>
+          </li>
+        </Link>
       );
     }
   });

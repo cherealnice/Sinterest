@@ -81,20 +81,14 @@
   display: none;
 }
 
-.tile-bottom {
-  display: block;
+.board-li {
+  height: 239px;
 }
 
 .sin-image {
-  width: 64px;
+  width: 98px;
   height: auto;
   border: 1px solid black;
   float: left;
   border-radius: 6px;
-}
-
-.sin-image:first-child {
-  display: block;
-  width: 198px;
-  height: auto;
 }
