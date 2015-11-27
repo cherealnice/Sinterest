@@ -5,15 +5,15 @@
 }
 
 .view-boards-link:after {
-  content: '$';
+  content: '∑';
   color: white;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .view-boards-link {
   bottom: 30px;
   right: 30px;
-  padding: 2px 7px 1px 7px;
+  padding: 4px 8px;
 }
 
 .new-board-link {
@@ -35,7 +35,7 @@
 }
 
 .fixed-link {
-  background: #e3262e;
+  background: rgb(194, 0, 17);
   border-radius: 50%;
   position: fixed;
   z-index: 50;
@@ -43,7 +43,7 @@
 
 .link-dropdown {
   position: absolute;
-  top: 0;
+  top: 2px;
   right: 45px;
   width: 120px;
   display: block;
@@ -63,7 +63,7 @@
 }
 
 .tooltip-new-board {
-  top: 2px;
+  top: 4px;
 }
 
 .like-button {

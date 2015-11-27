@@ -24,7 +24,7 @@ class Api::SinsController < ApplicationController
 
   def show
     @sin = Sin
-      .includes(:images, :comments, :users_liked)
+      .includes(:images, :comments, :users_liked, :boards)
       .find(params[:id])
 
     if @sin
