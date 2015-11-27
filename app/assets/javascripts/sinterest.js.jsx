@@ -18,6 +18,6 @@ $(function () {
       </Route>
   );
 
-  React.render(<Router>{routes}</Router>, root);
+  React.render(<Router onUpdate={window.scrollTo(0, 0)}>{routes}</Router>, root);
 
 }.bind(this));
