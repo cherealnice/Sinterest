@@ -13,13 +13,13 @@ class Api::SinsController < ApplicationController
 
     @sins = []
 
-    boards = Board.includes(:sins).where({id: board_ids})
-
-    boards.each { |board| @sins.concat(board.sins) }
-
+    boards = Board.includes(:sins, :author).where({id: board_ids})
+    sin_boards = SinBoard.includes(:sin, :board).where(board_id: board_ids)
+    @sins = Sin
+      .includes(:sin_boards, :boards, :images, :user, :comments, :users_liked)
+      .select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}
 
     @sins = @sins.sort_by { |sin| sin.created_at }.reverse
-    debugger
   end
 
   def show

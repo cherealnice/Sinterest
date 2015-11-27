@@ -4,7 +4,7 @@ class Api::BoardsController < ApplicationController
     if params[:user]
       @boards = User.find(params[:user][:id]).boards
     else
-      @boards = Board.all
+      @boards = Board..include(:author, :sins).all
     end
   end
 
