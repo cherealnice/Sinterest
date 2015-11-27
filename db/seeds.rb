@@ -7,7 +7,7 @@ Comment.destroy_all
 User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
 
 50.times do
-  number = rand(1...35)
+  number = rand(1...58)
   User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password')
 end
 
@@ -20,7 +20,7 @@ end
 end
 
 300.times do
-    number = rand(1...35)
+    number = rand(1...58)
   Board.all[rand(0..Board.all.length-1)].sins.create!({
     image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")),
     title: Faker::Book.title,
