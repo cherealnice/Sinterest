@@ -6,31 +6,31 @@ Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
 
-10.times do
+50.times do
   number = rand(1...35)
   User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password')
 end
 
-20.times do
+100.times do
   Board.create!({
-    author:   User.all[rand(0..User.all.length-1)],
-    title:       Faker::Lorem.word,
+    author:      User.all[rand(0..User.all.length-1)],
+    title:       Faker::Company.buzzword,
     description: Faker::Hacker.say_something_smart
   })
 end
 
-50.times do
+300.times do
     number = rand(1...35)
   Board.all[rand(0..Board.all.length-1)].sins.create!({
     image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")),
     title: Faker::Book.title,
-    description: Faker::Lorem.sentence,
+    description: Faker::Company.catch_phrase,
     link:  Faker::Internet.url,
     user:  User.all[rand(0..User.all.length-1)]
     })
 end
 
-100.times do
+300.times do
   Comment.create!({
     author: User.all[rand(0..User.all.length-1)],
     body:   Faker::Hacker.say_something_smart,

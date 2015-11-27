@@ -13,9 +13,13 @@ class Api::SinsController < ApplicationController
 
     @sins = []
 
-    board_ids.each do |board_id|
-      @sins.concat(Board.find(board_id).sins.to_a)
-    end
+    boards = Board.includes(:sins).where({id: board_ids})
+
+    boards.each { |board| @sins.concat(board.sins) }
+
+
+    @sins = @sins.sort_by { |sin| sin.created_at }.reverse
+    debugger
   end
 
   def show
