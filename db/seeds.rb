@@ -6,12 +6,12 @@ Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
 
-50.times do
+20.times do
   number = rand(1...58)
   User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password')
 end
 
-100.times do
+50.times do
   Board.create!({
     author:      User.all[rand(0..User.all.length-1)],
     title:       Faker::Company.buzzword,
