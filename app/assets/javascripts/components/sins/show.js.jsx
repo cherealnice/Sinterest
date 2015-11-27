@@ -39,11 +39,20 @@
       var comments;
       var sinBoards = [];
       var sinBoardIndex;
+      var likeButton;
       if (sin) {
+        var liked = sin.liked ? true : false;
+
+        likeButton = <LikeButton
+          likeClass='Sin'
+          target={sin}
+          liked={liked} />;
+
         details = (
         <div>
           <section className='sin-show-section'>
             <div className='sin-show-image-container'>
+              {likeButton}
               <img className='sin-show-image' src={sin.image_url} />
             </div>
             <a href={sin.link}>Go to link</a>
@@ -61,6 +70,8 @@
         if (sin.comments) {
           comments = (<CommentsIndex comments={sin.comments} />);
         }
+
+
       }
       return (
         <div className="sin-detail-wrapper">
