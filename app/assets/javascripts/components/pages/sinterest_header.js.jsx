@@ -28,6 +28,7 @@
       var createSin;
       var currentUser = CurrentUserStore.currentUser();
       var user;
+      var headerBottom;
 
       if (this.props.createSin) {
         createSin = this.props.createSin;
@@ -41,6 +42,13 @@
             <h3 className='user-show-username'>{this.props.user.username}</h3>
             </div>
           </Link>
+        );
+
+        headerBottom = (
+        <section className='content-header-bottom'>
+          {button}
+          {user}
+          </section>
         );
       }
 
@@ -72,10 +80,7 @@
                   <p className='content-header-desc'>{description}</p>
                 </div>
               </section>
-              <section className='content-header-bottom'>
-                {button}
-                {user}
-              </section>
+              {headerBottom}
             </div>
           </header>
           <Link className='fixed-link new-board-link' to={'/board/new'}>
