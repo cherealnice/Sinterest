@@ -5,13 +5,6 @@
   root.BoardIndexItem = React.createClass({
     mixins: [ReactRouter.History],
 
-    // onLoad: function () {
-    //   var $container = $('.boards');
-    //   $container.imagesLoaded( function () {
-    //     $container.masonry({itemSelector : '.board', columnWidth: 200 });
-    //   });
-    // },
-
     render: function () {
       var board = this.props.board;
       var sinsData;

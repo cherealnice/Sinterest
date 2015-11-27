@@ -76,13 +76,14 @@
 }
 
 .board-li {
-  height: 239px;
+  height: 235px;
+  width: 196px;
 }
 
 .sin-image {
   width: 98px;
   height: auto;
-  border: 1px solid black;
   float: left;
   border-radius: 6px;
+  overflow: hidden;
 }
