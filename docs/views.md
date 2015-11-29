@@ -1,19 +1,22 @@
 # View Wireframes
 
-## New User
-![new-user]
-
-## New Session
+## NewSession / NewUser
 ![new-session]
 
 ## SinsIndex / SinIndexItem / SinForm
 ![sins]
 
-## NotebooksIndex / NotebookIndexItem
-![notebooks]
+## SinShow
+![sin]
 
-## NoteBookForm
-![notebook-form]
+## SinForm
+![sin-form]
+
+## UserShow / BoardsIndex / BoardIndexItem
+![user-show]
+
+## BoardForm
+![board-form]
 
 ## Component Heirarchy
 ![component-heirarchy]
@@ -23,4 +26,5 @@
 [sins]: ./wireframes/sins_index.png
 [sin]: ./wireframes/sin_show.png
 [sin-form]: ./wireframes/sin_form.png
+[user-show]: ./wireframes/user_show.png
 [component-heirarchy]: ./wireframes/component_heirarchy.png

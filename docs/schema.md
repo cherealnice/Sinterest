@@ -36,17 +36,17 @@ description | string    | limit 500
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-owner_id    | integer   | not null, foreign key (references users), indexed
-target_id   | integer   | not null, foreign key (references users or sins), indexed
-owner_type  | string    | not null, user or sin
+imageable_id| integer   | not null, foreign key (references users), indexed
+imageable_type| string  | not null, user or sin, indexed
+string      | title     |
 
 ## likes
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users), indexed
-target_id   | integer   | not null, foreign key (references users, boards, or sins), indexed
-target_type | string    | nut null, (board, sin, or user)
+likeable_id | integer   | not null, foreign key (references users, boards, or sins), indexed
+likeable_type| string    | nut null, (board, sin, or user)
 
 ## follows
 column name    | data type | details
@@ -55,6 +55,17 @@ id             | integer   | not null, primary key
 user_id        | integer   | not null, foreign key (references users), indexed
 followable_id  | integer   | not null, foreign key (references users, tags or boards), indexed
 followable_type| string    | nut null, in (user, tag, or board)
+
+## users
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+email           | string    | not null, indexed, unique
+username        | string    | not null, indexed, unique
+fname           | string    |
+lname           | string    |
+password_digest | string    | not null
+session_token   | string    | not null, indexed, unique
 
 ## categories
 column name | data type | details
@@ -69,14 +80,3 @@ id          | integer   | not null, primary key
 name        | string    | not null
 owner_id    | integer   | not null, foreign_key (references users, sins, or boards)
 type        | string    | not null, users, sins, or boards
-
-## users
-column name     | data type | details
-----------------|-----------|-----------------------
-id              | integer   | not null, primary key
-email           | string    | not null, indexed, unique
-username        | string    | not null, indexed, unique
-fname           | string    |
-lname           | string    |
-password_digest | string    | not null
-session_token   | string    | not null, indexed, unique

@@ -1,1 +1,1 @@
-  json.partial!('sin', sin: @sin, show_comments: true)
+json.partial!('sin', sin: @sin, show_comments: true)

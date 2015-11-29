@@ -6,6 +6,7 @@
 
 ### Controllers
 * Api::FollowController (create, destroy, index)
+* Api::SearchController
 
 ### Views
 
@@ -15,19 +16,25 @@
   - FollowsIndexItem
 * FollowShow
 * FollowForm
+* Search
+* SearchResultsIndex
 
 ### Stores
 * Follow
+* Search
 
 ### Actions
 * ApiActions.receiveAllFollows
 * ApiActions.receiveSingleFollow
 * ApiActions.deleteFollow
+* ApiUtil.recieveSearchResults
 
 ### ApiUtil
 * ApiUtil.fetchAllFollows
 * ApiUtil.fetchSingleFollow
 * ApiUtil.createFollow
 * ApiUtil.destroyFollow
+* ApiActions.search
 
 ## Gems/Libraries
+* PGSearch
