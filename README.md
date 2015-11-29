@@ -11,14 +11,12 @@ and React.js. Sinterest allows users to:
 
 - [X] Create an account
 - [X] Log in / Log out
-- [X] Create, read, edit, and delete Sins
+- [X] Create, read, and edit Sins
 - [X] Comment on Sins
-- [X] Create, read, edit, and delete Boards
+- [X] Create, read, and edit Boards
 - [X] Organize Sins within Boards
-- [ ] Organize Boards by categories
 - [X] Like Sins and Boards
-- [ ] Follow other Users and Boards
-- [ ] Add multiple tags on Sins and Boards
+- [X] Follow other Users and Boards
 
 ## Design Docs
 * [View Wireframes][view]
@@ -82,6 +80,8 @@ Phase 6 I will add styling flourishes and make modals out of some elements (like
 the Main page and the User Show).
 
 ### Bonus Features (TBD)
+- [ ] Organize Boards by categories
+- [ ] Add multiple tags on Sins and Boards
 - [ ] Prettify transitions
 - [ ] Use javascript library for cleaner tag selection
 - [ ] Change logs for Boards
