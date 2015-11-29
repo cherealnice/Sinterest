@@ -29,6 +29,4 @@ class Api::SessionsController < ApplicationController
     sign_out
     render json: {}
   end
-
-
 end

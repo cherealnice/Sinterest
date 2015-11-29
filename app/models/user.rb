@@ -23,20 +23,20 @@ class User < ActiveRecord::Base
     through: :likes,
     source: :likeable,
     source_type: 'Board'
-    )
+  )
   has_many(
     :liked_sins,
     through: :likes,
     source: :likeable,
     source_type: 'Sin'
-    )
+  )
   has_many :follows
   has_many(
     :followed_boards,
     through: :follows,
     source: :followable,
     source_type: 'Board'
-    )
+  )
   has_many(
     :followed_users,
     through: :follows,
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
 
   def all_followed_boards_ids
     boards = followed_boards.ids
-    followed_users.each do |user|
+    followed_users.includes(:boards).each do |user|
       boards.concat(user.boards.ids)
     end
 
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     false
   end
 
-  private
+  # private
 
   def ensure_session_token
     self.session_token ||= User.generate_session_token
@@ -112,5 +112,8 @@ class User < ActiveRecord::Base
   end
 
   def email_format
+    unless email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+      self.errors[:email] << 'Must be a valid email'
+    end
   end
 end
