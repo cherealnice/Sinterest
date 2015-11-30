@@ -13,6 +13,14 @@
       }.bind(this));
     },
 
+    loginGuest: function (e) {
+      e.preventDefault();
+      var credentials = {email: 'guest@guest.io', password: 'password'};
+      SessionsApiUtil.login(credentials, function () {
+        this.history.pushState(null, "/");
+      }.bind(this));
+    },
+
 
 
     render: function() {
@@ -38,6 +46,10 @@
               <button>Log In!</button>
             </form>
 
+            <button
+              className='guest-login' onClick={this.loginGuest}>
+                Log In As Guest
+              </button>
 
           </div>
 

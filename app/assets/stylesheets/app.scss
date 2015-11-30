@@ -170,12 +170,16 @@
   border-radius: 6px;
 }
 
-.login-form > button {
+.login-form > button, .guest-login {
   height: 35px;
   display: block;
   margin: auto;
   width: 260px;
   padding: 5px;
+}
+
+.guest-login {
+  margin-top: 20px;
 }
 
 .login-container > a {
