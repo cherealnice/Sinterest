@@ -5,15 +5,49 @@
 
     getInitialState: function () {
       var detailSinId = this.props.detailSinId || null;
-      return ({ sins: SinStore.all(), detailSinId: detailSinId });
+      return ({
+        loadingFlag: false,
+        sins: SinStore.all(),
+        detailSinId: detailSinId
+      });
     },
 
     componentDidMount: function () {
+      root.addEventListener("scroll", this.handleScroll);
       var store = SinStore;
       store.on(store.SINS_CHANGE_EVENT, this._onSinsIndexChange);
-      var boardIds = this.props.boardIds;
-      ApiUtil.fetchSins(boardIds);
+      this.fetchSins();
       this._checkParams();
+    },
+
+    componentWillUnmount: function () {
+      var store = SinStore;
+      store.removeListener(store.SINS_CHANGE_EVENT,
+                              this._onSinsIndexChange);
+      root.removeEventListener("scroll", this.handleScroll);
+
+    },
+
+    fetchSins: function () {
+      var boardIds = this.props.boardIds;
+      var offset = this.state.sins.count;
+
+      ApiUtil.fetchSins(boardIds, offset);
+    },
+
+    handleScroll: function(e){
+      var scrollHeight = root.document.body.scrollHeight;
+      var inHeight = root.innerHeight;
+      var scrollT = $(root).scrollTop();
+      var totalScrolled = scrollT+inHeight;
+
+      if(totalScrolled + 50 > scrollHeight){
+        if(!this.state.loadingFlag){
+        debugger;
+          this.fetchSins();
+          this.setState({ loadingFlag:true });
+        }
+      }
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -23,12 +57,6 @@
       }
 
       this.setState({ detailSinId: detailSinId });
-    },
-
-    componentWillUnmount: function () {
-      var store = SinStore;
-      store.removeListener(store.SINS_CHANGE_EVENT,
-                              this._onSinsIndexChange);
     },
 
     _checkParams: function () {
@@ -89,7 +117,7 @@
               {this.state.sins.map(function (sin) {
                 return <SinIndexItem
                   sin={sin}
-                  key={sin.id}/>;
+                  key={sin.id} />;
               }.bind(this))}
             </ul>
           </div>

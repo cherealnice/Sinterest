@@ -3,7 +3,7 @@
   var _sins = [];
 
   var resetSins = function (sins) {
-    _sins = sins;
+    _sins = _sins.concat(sins);
   };
 
   var updateSin = function (sin) {

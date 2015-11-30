@@ -12,11 +12,14 @@ class Api::SinsController < ApplicationController
     end
 
     @sins = []
+    offset = params[:offset].to_i
 
     boards = Board.includes(:sins, :author).where({id: board_ids})
     sin_boards = SinBoard.includes(:sin, :board).where(board_id: board_ids)
     @sins = Sin
       .includes(:sin_boards, :boards, :images, :user, :comments, :users_liked)
+      .limit(25)
+      .offset(offset)
       .select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}
 
     @sins = @sins.sort_by { |sin| sin.created_at }.reverse

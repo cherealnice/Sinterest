@@ -1,6 +1,7 @@
 (function (root) {
 
   root.SinterestLanding = React.createClass({
+
     render: function () {
         var detailSinId;
         if (this.props.params) {
@@ -12,7 +13,7 @@
             title='Sinterest'
             description='Do your best.'/>
           <SinsIndex
-            id='main-index' 
+            id='main-index'
             store={SinStore}
             detailSinId={detailSinId} />
         </div>
