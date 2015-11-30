@@ -10,9 +10,9 @@
         <div>
           <SinterestHeader
             title='Sinterest'
-            description='Do your best.'/>
+            description='A Pinterest clone made with ReactJS.'/>
           <SinsIndex
-            id='main-index' 
+            id='main-index'
             store={SinStore}
             detailSinId={detailSinId} />
         </div>

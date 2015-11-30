@@ -6,7 +6,9 @@ Comment.destroy_all
 
 User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
 
-User.create!(email: 'guest@guest.io', image: Image.new, password: 'password')
+guest = User.new(email: 'guest@guest.io', password: 'password')
+guest.images.new
+guest.save!
 
 20.times do
   number = rand(1...60)
