@@ -35,6 +35,9 @@ ApiUtil = {
         if (callback) {
           callback(data.boards[0].id);
         }
+      },
+      error: function (data) {
+        ApiActions.receiveErrors(data.responseJSON);
       }
     });
   },
@@ -47,6 +50,9 @@ ApiUtil = {
       data: { comment: comment },
       success: function (data) {
         ApiActions.receiveSingleComment(data);
+      },
+      error: function (data) {
+        ApiActions.receiveErrors(data.responseJSON);
       }
     });
   },
@@ -85,6 +91,9 @@ ApiUtil = {
         if (callback) {
           callback(data.id);
         }
+      },
+      error: function (data) {
+        ApiActions.receiveErrors(data.responseJSON);
       }
     });
   },

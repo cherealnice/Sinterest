@@ -40,7 +40,8 @@ class Api::SinsController < ApplicationController
     if @sin.save
       render :show
     else
-      render @sin.errors.full_messages, status: 422
+      @errors = @sin.errors.full_messages
+      render 'api/flash', status: 400
     end
   end
 

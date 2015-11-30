@@ -18,7 +18,8 @@ class Api::SessionsController < ApplicationController
     )
 
     if @user.nil?
-      render json: {errors: ["Wrong!"]}, status: 401
+      @errors = ['Incorrect Login']
+      render 'api/flash', status: 400
     else
       sign_in(@user)
       render "api/users/show"

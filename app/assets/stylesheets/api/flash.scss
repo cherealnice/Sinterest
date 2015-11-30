@@ -1,0 +1,26 @@
+.flash {
+  z-index: 2000;
+  border: 1px solid black;
+  text-align: center;
+  background: rgba(100, 0, 0, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.flash > li {
+  color: lightgrey;
+  padding: 10px;
+}
+
+.flash.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.flash.display {
+  display: block;
+  opacity: 1;
+  transition: opacity 1s;
+}

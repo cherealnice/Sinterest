@@ -6,7 +6,8 @@ class Api::CommentsController < ApplicationController
     if @comment.save
       render :show
     else
-      render @comment.errors.full_messages, status: 422
+      @errors = @comment.errors.full_messages
+      render 'api/flash', status: 400
     end
   end
 

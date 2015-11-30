@@ -17,7 +17,8 @@ class Api::UsersController < ApplicationController
       sign_in(@user)
       render :show
     else
-      render @user.errors.full_messages
+      @errors = @user.errors.full_messages
+      render 'api/flash', status: 400
     end
   end
 

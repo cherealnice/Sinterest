@@ -11,6 +11,9 @@ var SessionsApiUtil = {
         if (callback) {
           callback();
         }
+      },
+      error: function (data) {
+        ApiActions.receiveErrors(data.responseJSON);
       }
     });
   },

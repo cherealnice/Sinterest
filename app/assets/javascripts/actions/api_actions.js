@@ -47,4 +47,11 @@ ApiActions = {
       follow: follow
     });
   },
+
+  receiveErrors: function (flash) {
+    AppDispatcher.dispatch({
+      actionType: FlashConstants.ERRORS_RECEIVED,
+      flash: flash
+    });
+  }
 };

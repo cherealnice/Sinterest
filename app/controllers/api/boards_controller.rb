@@ -24,7 +24,8 @@ class Api::BoardsController < ApplicationController
     if @board.save
       render :show
     else
-      render @board.errors.full_messages, status: 422
+      @errors = @board.errors.full_messages
+      render 'api/flash', status: 400
     end
   end
 

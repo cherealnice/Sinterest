@@ -26,6 +26,7 @@
 
       return (
         <div className='top-header'>
+          <FlashIndex />
           { this.props.children }
         </div>
       );
