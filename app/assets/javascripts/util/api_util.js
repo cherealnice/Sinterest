@@ -1,5 +1,5 @@
 ApiUtil = {
-  fetchSins: function (boardIds, offset) {
+  fetchSins: function (boardIds, offset, callback) {
     $.ajax({
       url: '/api/sins',
       type: 'GET',
@@ -7,6 +7,9 @@ ApiUtil = {
       dataType: 'json',
       success: function (data) {
         ApiActions.receiveAllSins(data, boardIds);
+        if (!!callback) {
+          callback();
+        }
       }
     });
   },

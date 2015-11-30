@@ -6,7 +6,7 @@
     getInitialState: function () {
       var detailSinId = this.props.detailSinId || null;
       return ({
-        loadingFlag: false,
+        loadingFlag: true,
         sins: SinStore.all(),
         detailSinId: detailSinId
       });
@@ -30,9 +30,8 @@
 
     fetchSins: function () {
       var boardIds = this.props.boardIds;
-      var offset = this.state.sins.count;
-
-      ApiUtil.fetchSins(boardIds, offset);
+      var offset = this.state.sins.length;
+      ApiUtil.fetchSins(boardIds, offset, this.toggleLoadingFlag);
     },
 
     handleScroll: function(e){
@@ -43,11 +42,14 @@
 
       if(totalScrolled + 50 > scrollHeight){
         if(!this.state.loadingFlag){
-        debugger;
           this.fetchSins();
-          this.setState({ loadingFlag:true });
+          this.toggleLoadingFlag();
         }
       }
+    },
+
+    toggleLoadingFlag: function () {
+      this.setState({ loadingFlag: !this.state.loadingFlag });
     },
 
     componentWillReceiveProps: function (newProps) {
