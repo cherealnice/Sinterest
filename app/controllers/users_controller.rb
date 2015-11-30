@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       redirect_to :root
     else
       flash.now[:errors] = @user.errors.full_messages
-      render {data: @user.errors.full_messages, status: 400}
+      render :new
     end
   end
 
