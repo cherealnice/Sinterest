@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var SinsIndex = require('./index');
 var CommentsIndex = require('./../comments/index');
 var LikeButton = require('./../buttons/like_button');

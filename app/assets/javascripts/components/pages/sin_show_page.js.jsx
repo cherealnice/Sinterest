@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var SinShow = require('./../sins/show');
 
 var SinShowModal = React.createClass({

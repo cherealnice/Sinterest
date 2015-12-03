@@ -1,12 +1,14 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var SinIndexItem = require('./index_item');
 var SinShow = require('./show');
 
-var React = require('react');
 var Masonry = require('react-masonry-component')(React);
-
-var masonryOptions = {
-  transitionDuration: 0
-};
+//
+// var masonryOptions = {
+//   transitionDuration: 0
+// };
 
 var SinsIndex = React.createClass({
   mixins: [ReactRouter.History],

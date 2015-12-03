@@ -1,3 +1,7 @@
+var React = require('react/addons');
+var ReactRouter = require('react-router');
+var LogoutButton = require('./../buttons/logout_button');
+
 var Search = require('./../search/search');
 var Link = ReactRouter.Link;
 

@@ -1,3 +1,7 @@
+var React = require('react/addons');
+var ReactRouter = require('react-router');
+var FollowButton = require('./../buttons/follow_button');
+
 var SinterestHeader = ('./../pages/sinterest_header');
 var BoardsIndex = require('./../boards/index');
 

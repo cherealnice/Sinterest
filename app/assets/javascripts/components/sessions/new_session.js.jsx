@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var Link = ReactRouter.Link;
 
 var SessionForm = React.createClass({

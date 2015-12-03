@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var LikeButton = require('./../buttons/like_button');
 var Link = ReactRouter.Link;
 

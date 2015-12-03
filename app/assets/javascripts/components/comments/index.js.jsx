@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var CommentIndexItem = require('./index_item');
 
 var CommentsIndex = React.createClass({

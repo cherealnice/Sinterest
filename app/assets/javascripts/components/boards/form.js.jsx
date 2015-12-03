@@ -1,3 +1,6 @@
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+
 var BoardForm = React.createClass({
   mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
 
