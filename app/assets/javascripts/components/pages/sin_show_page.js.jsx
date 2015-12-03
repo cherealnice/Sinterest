@@ -1,12 +1,12 @@
-(function (root) {
+var SinShow = require('./../sins/show');
 
-  root.SinShowModal = React.createClass({
+var SinShowModal = React.createClass({
 
-    render: function () {
-      return (
-        <SinShow className='sin-show' sinId={this.props.params.sinId} />
-      );
-    }
-  });
+  render: function () {
+    return (
+      <SinShow className='sin-show' sinId={this.props.params.sinId} />
+    );
+  }
+});
 
-}(this));
+module.exports = SinShowModal;

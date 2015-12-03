@@ -1,44 +1,45 @@
-(function (root) {
+var BoardIndexItem = require('./index_item');
 
-  root.BoardsIndex = React.createClass({
+var BoardsIndex = React.createClass({
 
-    getInitialState: function () {
-      return ({ boards: [] });
-    },
+  getInitialState: function () {
+    return ({ boards: [] });
+  },
 
-    componentDidMount: function () {
-      BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
-      ApiUtil.fetchBoards(this.props.user);
-    },
+  componentDidMount: function () {
+    BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
+    ApiUtil.fetchBoards(this.props.user);
+  },
 
-    componentWillUnmount: function () {
-      BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT,
-                              this._onBoardsIndexChange);
-    },
+  componentWillUnmount: function () {
+    BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT,
+                            this._onBoardsIndexChange);
+  },
 
-    _onBoardsIndexChange: function () {
-      this.setState({ boards: BoardStore.all() });
-    },
+  _onBoardsIndexChange: function () {
+    this.setState({ boards: BoardStore.all() });
+  },
 
-    render: function () {
-      var show_author = true;
-      if (this.props.user) {
-        show_author = false;
-      }
-      return (
-        <div>
-          <ul className="boards group">
-            {this.state.boards.map(function (board) {
-                return (
-                  <BoardIndexItem
-                    board={board}
-                    key={board.id}
-                    show_author={show_author} />
-                );
-            })}
-          </ul>
-        </div>
-      );
+  render: function () {
+    var show_author = true;
+    if (this.props.user) {
+      show_author = false;
     }
-  });
-}(this));
+    return (
+      <div>
+        <ul className="boards group">
+          {this.state.boards.map(function (board) {
+              return (
+                <BoardIndexItem
+                  board={board}
+                  key={board.id}
+                  show_author={show_author} />
+              );
+          })}
+        </ul>
+      </div>
+    );
+  }
+});
+
+module.exports = BoardsIndex;

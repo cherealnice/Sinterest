@@ -1,56 +1,59 @@
-(function(root) {
-  root.UserShow = React.createClass({
-    mixins: [ReactRouter.History],
+var SinterestHeader = ('./../pages/sinterest_header');
+var BoardsIndex = require('./../boards/index');
 
-    getInitialState: function() {
-      return this.getStateFromStore();
-    },
+var UserShow = React.createClass({
+  mixins: [ReactRouter.History],
 
-    getStateFromStore: function () {
-        return { user: UserStore.findUserById(parseInt(this.props.params.id)) };
-    },
+  getInitialState: function() {
+    return this.getStateFromStore();
+  },
 
-    componentDidMount: function() {
-      UserStore.on(UserStore.USER_DETAIL_CHANGE, this._onChange);
-      UsersApiUtil.fetchUser(this.props.params.id);
-    },
+  getStateFromStore: function () {
+      return { user: UserStore.findUserById(parseInt(this.props.params.id)) };
+  },
 
-    componentWillUnmount: function() {
-      UserStore.removeListener(UserStore.USER_DETAIL_CHANGE, this._onChange);
-    },
+  componentDidMount: function() {
+    UserStore.on(UserStore.USER_DETAIL_CHANGE, this._onChange);
+    UsersApiUtil.fetchUser(this.props.params.id);
+  },
 
-    _onChange: function() {
-      this.setState(this.getStateFromStore());
-    },
+  componentWillUnmount: function() {
+    UserStore.removeListener(UserStore.USER_DETAIL_CHANGE, this._onChange);
+  },
 
-    render: function() {
-      var content;
-      var user = this.state.user;
-      var username;
-      if (!user) {
-        content = (
-            <p>There doesn't seem to be a user here.</p>
-        );
-      } else {
-        content = (
-          <div>
-            <section className="user-boards-index">
-              <BoardsIndex user={this.state.user} />
-            </section>
-          </div>
-        );
-        username = user.username;
-      }
+  _onChange: function() {
+    this.setState(this.getStateFromStore());
+  },
 
-      return (
-        <div className="user-wrapper">
-          <SinterestHeader
-            title={username}
-            button={FollowButton}
-            user={user} />
-            { content }
+  render: function() {
+    var content;
+    var user = this.state.user;
+    var username;
+    if (!user) {
+      content = (
+          <p>There doesn't seem to be a user here.</p>
+      );
+    } else {
+      content = (
+        <div>
+          <section className="user-boards-index">
+            <BoardsIndex user={this.state.user} />
+          </section>
         </div>
       );
+      username = user.username;
     }
-  });
-})(this);
+
+    return (
+      <div className="user-wrapper">
+        <SinterestHeader
+          title={username}
+          button={FollowButton}
+          user={user} />
+          { content }
+      </div>
+    );
+  }
+});
+
+module.exports = UserShow;

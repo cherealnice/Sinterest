@@ -1,18 +1,20 @@
-(function (root) {
+var SinterestHeader = require('./sinterest_header');
+var BoardForm = require('./../boards/form');
 
-  root.NewBoard = React.createClass({
+var NewBoard = React.createClass({
 
-    render: function () {
-      return (
-        <div>
-          <SinterestHeader
-            title='New Board'
-            description='Start something amazing.' />
-          <div className='new-form-container new-board-container' >
-            <BoardForm />
-          </div>
+  render: function () {
+    return (
+      <div>
+        <SinterestHeader
+          title='New Board'
+          description='Start something amazing.' />
+        <div className='new-form-container new-board-container' >
+          <BoardForm />
         </div>
-      );
-    }
-  });
-}(this));
+      </div>
+    );
+  }
+});
+
+module.exports = NewBoard;
