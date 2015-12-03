@@ -33,4 +33,5 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'browserify-rails', '~> 0.9.1'
 end

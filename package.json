@@ -1,6 +1,6 @@
 {
   "name": "Sinterest",
-  "devDependencies": {
+  "dependencies": {
     "browserify-incremental": "^3.0.0",
     "reactify": "^1.1.0"
   },
