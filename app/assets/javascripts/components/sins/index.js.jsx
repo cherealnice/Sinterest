@@ -7,7 +7,9 @@ var SinShow = require('./show');
 var Masonry = require('react-masonry-component')(React);
 
 var masonryOptions = {
-  transitionDuration: 0
+  transitionDuration: '0.2s',
+  itemSelector: '.sin',
+  columnWidth: '.sin'
 };
 
 var SinsIndex = React.createClass({
