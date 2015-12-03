@@ -1,14 +1,14 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
 var SinIndexItem = require('./index_item');
 var SinShow = require('./show');
 
 var Masonry = require('react-masonry-component')(React);
-//
-// var masonryOptions = {
-//   transitionDuration: 0
-// };
+
+var masonryOptions = {
+  transitionDuration: 0
+};
 
 var SinsIndex = React.createClass({
   mixins: [ReactRouter.History],
@@ -78,25 +78,25 @@ var SinsIndex = React.createClass({
     }
   },
 
-  componentDidUpdate: function () {
-    var $container = $('.sins:last');
-    $container.imagesLoaded( function () {
-      $container.masonry({itemSelector : '.sin', columnWidth: 220 });
-    });
-  },
+  // componentDidUpdate: function () {
+  //   var $container = $('.sins:last');
+  //   $container.imagesLoaded( function () {
+  //     $container.masonry({itemSelector : '.sin', columnWidth: 220 });
+  //   });
+  // },
 
   _onSinsIndexChange: function (changeType) {
     if (changeType === this.props.id) {
       this.setState({ sins: SinStore.all() });
     }
   },
-
-  _onChange: function () {
-    var $container = $('.sins:last');
-    $container.imagesLoaded( function () {
-      $container.masonry({itemSelector : '.sin', columnWidth: 220 });
-    });
-  },
+  //
+  // _onChange: function () {
+  //   var $container = $('.sins:last');
+  //   $container.imagesLoaded( function () {
+  //     $container.masonry({itemSelector : '.sin', columnWidth: 220 });
+  //   });
+  // },
 
   _handleKeyDown: function (e) {
     if (e.keyCode === 27) {
@@ -125,13 +125,20 @@ var SinsIndex = React.createClass({
       <div className='sin-index'>
       {createSin}
         <div>
-          <ul id='sins-container' className={"sins group " + indexHiddenClass}>
-            {this.state.sins.map(function (sin) {
-              return <SinIndexItem
-                sin={sin}
-                key={sin.id} />;
-            }.bind(this))}
-          </ul>
+
+        <Masonry
+          className={'my-gallery-class sins group ' + indexHiddenClass}
+          id='sins-container'
+          elementType={'ul'}
+          options={masonryOptions}
+          disableImagesLoaded={false}
+        >
+          {this.state.sins.map(function (sin) {
+            return <SinIndexItem
+              sin={sin}
+              key={sin.id} />;
+          }.bind(this))}
+        </Masonry>
         </div>
         {sinShow}
       </div>

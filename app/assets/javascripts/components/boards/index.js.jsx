@@ -1,4 +1,4 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
 var BoardIndexItem = require('./index_item');
