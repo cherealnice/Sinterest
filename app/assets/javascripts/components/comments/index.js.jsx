@@ -1,31 +1,35 @@
-(function (root) {
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-  root.CommentsIndex = React.createClass({
+var CommentIndexItem = require('./index_item');
 
-    getInitialState: function () {
-      return ({ comments: CommentStore.all() });
-    },
+var CommentsIndex = React.createClass({
 
-    componentDidMount: function () {
-      CommentStore.addChangeHandler(this._onChange);
-    },
+  getInitialState: function () {
+    return ({ comments: CommentStore.all() });
+  },
 
-    componentWillUnmount: function () {
-      CommentStore.removeChangeHandler(this._onChange);
-    },
+  componentDidMount: function () {
+    CommentStore.addChangeHandler(this._onChange);
+  },
 
-    _onChange: function () {
-      this.setState( {comments: CommentStore.all()} );
-    },
+  componentWillUnmount: function () {
+    CommentStore.removeChangeHandler(this._onChange);
+  },
 
-    render: function () {
-      return (
-        <ul className='comment-list'>
-          {this.props.comments.map(function (comment) {
-            return (<CommentIndexItem key={comment.id} comment={comment} />);
-          })}
-        </ul>
-      );
-    }
-  });
-}(this));
+  _onChange: function () {
+    this.setState( {comments: CommentStore.all()} );
+  },
+
+  render: function () {
+    return (
+      <ul className='comment-list'>
+        {this.props.comments.map(function (comment) {
+          return (<CommentIndexItem key={comment.id} comment={comment} />);
+        })}
+      </ul>
+    );
+  }
+});
+
+module.exports = CommentsIndex;

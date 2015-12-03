@@ -1,90 +1,96 @@
-(function (root) {
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-  root.SinShow = React.createClass({
+var SinsIndex = require('./index');
+var CommentsIndex = require('./../comments/index');
+var LikeButton = require('./../buttons/like_button');
 
-    getInitialState: function () {
-      return this.getStateFromStore();
-    },
+var SinShow = React.createClass({
 
-    getStateFromStore: function () {
-      var sin = SinStore.find(this.props.sinId);
-      return { sin: sin };
-    },
+  getInitialState: function () {
+    return this.getStateFromStore();
+  },
 
-    _onChange: function () {
-      this.setState(this.getStateFromStore());
-    },
+  getStateFromStore: function () {
+    var sin = SinStore.find(this.props.sinId);
+    return { sin: sin };
+  },
 
-    componentWillReceiveProps: function (newProps) {
-      var sinId = newProps.sinId;
-      ApiUtil.fetchSingleSin(sinId);
-    },
+  _onChange: function () {
+    this.setState(this.getStateFromStore());
+  },
 
-    componentDidMount: function () {
-      SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
-      ApiUtil.fetchSingleSin(this.props.sinId);
-      root.addEventListener('keydown', this.props._onKeyDown);
-    },
+  componentWillReceiveProps: function (newProps) {
+    var sinId = newProps.sinId;
+    ApiUtil.fetchSingleSin(sinId);
+  },
 
-    componentWillUnmount: function () {
-      SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
-      root.removeEventListener('keydown', this.props._onKeyDown);
-    },
+  componentDidMount: function () {
+    SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+    ApiUtil.fetchSingleSin(this.props.sinId);
+    window.addEventListener('keydown', this.props._onKeyDown);
+  },
 
-    render: function () {
-      var sin = this.state.sin;
-      var details;
-      var comments;
-      var sinBoards = [];
-      var sinBoardIndex;
-      var likeButton;
-      if (sin) {
-        var liked = sin.liked ? true : false;
+  componentWillUnmount: function () {
+    SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+    window.removeEventListener('keydown', this.props._onKeyDown);
+  },
 
-        likeButton = <LikeButton
-          likeClass='Sin'
-          target={sin}
-          liked={liked} />;
+  render: function () {
+    var sin = this.state.sin;
+    var details;
+    var comments;
+    var sinBoards = [];
+    var sinBoardIndex;
+    var likeButton;
+    if (sin) {
+      var liked = sin.liked ? true : false;
 
-        details = (
-        <div>
-          <section className='sin-show-section'>
-            <div className='sin-show-image-container'>
-              {likeButton}
-              <img className='sin-show-image' src={sin.image_url} />
-            </div>
-            <a href={sin.link}>Go to link</a>
-            <h1>{sin.title}</h1>
-            <p className='sin-show-desc'>{sin.description}</p>
-          </section>
-        </div>
-        );
+      likeButton = <LikeButton
+        likeClass='Sin'
+        target={sin}
+        liked={liked} />;
 
-        sin.boards.forEach(function (board) {
-          sinBoards.push(board.id);
-        });
-
-        sinBoardIndex = <SinsIndex id='sin-show-index' boardIds={sinBoards}/>;
-        if (sin.comments) {
-          comments = (<CommentsIndex comments={sin.comments} />);
-        }
-
-
-      }
-      return (
-        <div className="sin-detail-wrapper">
-          <section className='sin-wrapper'>
-            {details}
-            <section className="sin-comments">
-              {comments}
-              <CommentForm sin={sin} />
-            </section>
-          </section>
-          <section className='sin-show-sins-index'>
-            {sinBoardIndex}
-          </section>
-        </div>
+      details = (
+      <div>
+        <section className='sin-show-section'>
+          <div className='sin-show-image-container'>
+            {likeButton}
+            <img className='sin-show-image' src={sin.image_url} />
+          </div>
+          <a href={sin.link}>Go to link</a>
+          <h1>{sin.title}</h1>
+          <p className='sin-show-desc'>{sin.description}</p>
+        </section>
+      </div>
       );
+
+      sin.boards.forEach(function (board) {
+        sinBoards.push(board.id);
+      });
+
+      sinBoardIndex = <SinsIndex id='sin-show-index' boardIds={sinBoards}/>;
+      if (sin.comments) {
+        comments = (<CommentsIndex comments={sin.comments} />);
+      }
+
+
     }
-  });
-}(this));
+    return (
+      <div className="sin-detail-wrapper">
+        <section className='sin-wrapper'>
+          {details}
+          <section className="sin-comments">
+            {comments}
+            <CommentForm sin={sin} />
+          </section>
+        </section>
+        <section className='sin-show-sins-index'>
+          {sinBoardIndex}
+        </section>
+      </div>
+    );
+  }
+});
+
+module.exports = SinShow;

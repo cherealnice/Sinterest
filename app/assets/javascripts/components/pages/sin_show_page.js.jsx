@@ -1,12 +1,15 @@
-(function (root) {
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-  root.SinShowModal = React.createClass({
+var SinShow = require('./../sins/show');
 
-    render: function () {
-      return (
-        <SinShow className='sin-show' sinId={this.props.params.sinId} />
-      );
-    }
-  });
+var SinShowModal = React.createClass({
 
-}(this));
+  render: function () {
+    return (
+      <SinShow className='sin-show' sinId={this.props.params.sinId} />
+    );
+  }
+});
+
+module.exports = SinShowModal;

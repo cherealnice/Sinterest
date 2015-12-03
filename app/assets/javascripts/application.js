@@ -12,11 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require react
+//= require_self
 //= require react_ujs
 //= require flux
 //= require eventemitter
-//= require ReactRouter
 //= require masonry/jquery.masonry
 //= require masonry/jquery.event-drag
 //= require masonry/jquery.imagesloaded.min

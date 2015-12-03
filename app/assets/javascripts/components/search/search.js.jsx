@@ -1,45 +1,49 @@
-(function(root) {
-  root.Search = React.createClass({
+var React = require('react/addons')
+var ReactRouter = require('react-router');
+var SearchResultsIndex = require('./search_results_index');
 
-    mixins: [ReactRouter.History],
+var Search = React.createClass({
 
-    getInitialState: function () {
-      return ({ string: '', results: [] });
-    },
+  mixins: [ReactRouter.History],
 
-    componentDidMount: function () {
-      SearchResultsStore.addChangeHandler(this._onChange);
-    },
+  getInitialState: function () {
+    return ({ string: '', results: [] });
+  },
 
-    componentWillUnmount: function () {
-      SearchResultsStore.removeChangeHandler(this._onChange);
-    },
+  componentDidMount: function () {
+    SearchResultsStore.addChangeHandler(this._onChange);
+  },
 
-    _onChange: function () {
-      this.setState({ results: SearchResultsStore.all() });
-    },
+  componentWillUnmount: function () {
+    SearchResultsStore.removeChangeHandler(this._onChange);
+  },
 
-    _onInput: function (e) {
-      e.preventDefault();
-      SearchApiUtil.search(e.currentTarget.value);
-      this.setState({string: e.currentTarget.value});
-    },
+  _onChange: function () {
+    this.setState({ results: SearchResultsStore.all() });
+  },
 
-    render: function() {
-      var results = this.state.results;
+  _onInput: function (e) {
+    e.preventDefault();
+    SearchApiUtil.search(e.currentTarget.value);
+    this.setState({string: e.currentTarget.value});
+  },
 
-      return (
-        <div>
-          <input type="text"
-            onChange={ this._onInput }
-            placeholder="Search..."
-          />
-        <SearchResultsIndex
-          key={results.length}
-          results={results} />
-        </div>
-      );
-    },
+  render: function() {
+    var results = this.state.results;
 
-  });
-})(this);
+    return (
+      <div>
+        <input type="text"
+          onChange={ this._onInput }
+          placeholder="Search..."
+        />
+      <SearchResultsIndex
+        key={results.length}
+        results={results} />
+      </div>
+    );
+  },
+
+});
+
+module.exports = Search;

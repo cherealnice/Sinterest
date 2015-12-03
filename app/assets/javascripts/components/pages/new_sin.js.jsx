@@ -1,18 +1,23 @@
-(function (root) {
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-  root.NewSin = React.createClass({
+var SinterestHeader = require('./sinterest_header');
+var SinForm = require('./../sins/form');
 
-    render: function () {
-      return (
-        <div>
-          <SinterestHeader
-            title='New Sin'
-            description='Make it count.' />
-          <div className='new-form-container sin-form-container'>
-            <SinForm />
-          </div>
+var NewSin = React.createClass({
+
+  render: function () {
+    return (
+      <div>
+        <SinterestHeader
+          title='New Sin'
+          description='Make it count.' />
+        <div className='new-form-container sin-form-container'>
+          <SinForm />
         </div>
-      );
-    }
-  });
-}(this));
+      </div>
+    );
+  }
+});
+
+module.exports = NewSin;

@@ -1,44 +1,48 @@
-(function (root) {
+var React = require('react/addons');
+var ReactRouter = require('react-router');
 
-  root.BoardsIndex = React.createClass({
+var BoardIndexItem = require('./index_item');
 
-    getInitialState: function () {
-      return ({ boards: [] });
-    },
+var BoardsIndex = React.createClass({
 
-    componentDidMount: function () {
-      BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
-      ApiUtil.fetchBoards(this.props.user);
-    },
+  getInitialState: function () {
+    return ({ boards: [] });
+  },
 
-    componentWillUnmount: function () {
-      BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT,
-                              this._onBoardsIndexChange);
-    },
+  componentDidMount: function () {
+    BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
+    ApiUtil.fetchBoards(this.props.user);
+  },
 
-    _onBoardsIndexChange: function () {
-      this.setState({ boards: BoardStore.all() });
-    },
+  componentWillUnmount: function () {
+    BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT,
+                            this._onBoardsIndexChange);
+  },
 
-    render: function () {
-      var show_author = true;
-      if (this.props.user) {
-        show_author = false;
-      }
-      return (
-        <div>
-          <ul className="boards group">
-            {this.state.boards.map(function (board) {
-                return (
-                  <BoardIndexItem
-                    board={board}
-                    key={board.id}
-                    show_author={show_author} />
-                );
-            })}
-          </ul>
-        </div>
-      );
+  _onBoardsIndexChange: function () {
+    this.setState({ boards: BoardStore.all() });
+  },
+
+  render: function () {
+    var show_author = true;
+    if (this.props.user) {
+      show_author = false;
     }
-  });
-}(this));
+    return (
+      <div>
+        <ul className="boards group">
+          {this.state.boards.map(function (board) {
+              return (
+                <BoardIndexItem
+                  board={board}
+                  key={board.id}
+                  show_author={show_author} />
+              );
+          })}
+        </ul>
+      </div>
+    );
+  }
+});
+
+module.exports = BoardsIndex;

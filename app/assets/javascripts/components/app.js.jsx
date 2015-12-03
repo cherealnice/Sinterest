@@ -1,29 +1,28 @@
-(function(root) {
-  root.App = React.createClass({
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-    getInitialState: function () {
-      return { currentUser: null };
-    },
+var App = React.createClass({
 
-    mixins: [ReactRouter.History],
+  getInitialState: function () {
+    return { currentUser: null };
+  },
 
-    componentWillMount: function () {
-      CurrentUserStore.addChangeHandler(this._ensureLoggedIn);
-      SessionsApiUtil.fetchCurrentUser();
-    },
+  mixins: [ReactRouter.History],
 
-    _ensureLoggedIn: function () {
-      if (!CurrentUserStore.isLoggedIn()) {
-        this.history.pushState(null, "/login");
-      }
+  componentWillMount: function () {
+    CurrentUserStore.addChangeHandler(this._ensureLoggedIn);
+    SessionsApiUtil.fetchCurrentUser();
+  },
 
-      this.setState({currentUser: CurrentUserStore.currentUser()});
-    },
+  _ensureLoggedIn: function () {
+    if (!CurrentUserStore.isLoggedIn()) {
+      this.history.pushState(null, "/login");
+    }
 
-    render: function() {
-      if (!this.state.currentUser) {
-      }
+    this.setState({currentUser: CurrentUserStore.currentUser()});
+  },
 
+<<<<<<< HEAD
       return (
         <div className='top-header'>
           <FlashIndex />
@@ -31,6 +30,19 @@
         </div>
       );
     },
+=======
+  render: function() {
+    if (!this.state.currentUser) {
+    }
+>>>>>>> AddInfiniteScroll
 
-  });
-})(this);
+    return (
+      <div className='top-header'>
+        { this.props.children }
+      </div>
+    );
+  },
+
+});
+
+module.exports = App;

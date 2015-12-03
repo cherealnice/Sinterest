@@ -1,16 +1,21 @@
-(function (root) {
+var React = require('react/addons')
+var ReactRouter = require('react-router');
 
-  root.BoardsIndexPage = React.createClass({
+var SinterestHeader = require('./sinterest_header');
+var BoardsIndex = require('./../boards/index');
 
-    render: function () {
-      return (
-        <div>
-          <SinterestHeader
-            title='Boards'
-            description='Find something new.' />
-          <BoardsIndex id='boards-index' />
-        </div>
-      );
-    }
-  });
-})(this);
+var BoardsIndexPage = React.createClass({
+
+  render: function () {
+    return (
+      <div>
+        <SinterestHeader
+          title='Boards'
+          description='Find something new.' />
+        <BoardsIndex id='boards-index' />
+      </div>
+    );
+  }
+});
+
+module.exports = BoardsIndexPage;
