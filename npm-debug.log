@@ -4,8 +4,8 @@
 3 info using node@v4.2.2
 4 verbose stack Error: Problems were encountered
 4 verbose stack Please correct and try again.
-4 verbose stack extraneous: react-masonry-component@2.0.0 /Users/Dan/Desktop/JS/Sinterest/node_modules/react-masonry-component
 4 verbose stack extraneous: react@0.14.3 /Users/Dan/Desktop/JS/Sinterest/node_modules/react
+4 verbose stack extraneous: react-masonry-component@2.0.0 /Users/Dan/Desktop/JS/Sinterest/node_modules/react-masonry-component
 4 verbose stack extraneous: browserify-incremental@3.0.1 /Users/Dan/Desktop/JS/Sinterest/node_modules/browserify-incremental
 4 verbose stack extraneous: reactify@1.1.1 /Users/Dan/Desktop/JS/Sinterest/node_modules/reactify
 4 verbose stack     at shrinkwrap_ (/usr/local/lib/node_modules/npm/lib/shrinkwrap.js:37:15)
@@ -25,8 +25,8 @@
 9 error npm  v2.14.7
 10 error Problems were encountered
 10 error Please correct and try again.
-10 error extraneous: react-masonry-component@2.0.0 /Users/Dan/Desktop/JS/Sinterest/node_modules/react-masonry-component
 10 error extraneous: react@0.14.3 /Users/Dan/Desktop/JS/Sinterest/node_modules/react
+10 error extraneous: react-masonry-component@2.0.0 /Users/Dan/Desktop/JS/Sinterest/node_modules/react-masonry-component
 10 error extraneous: browserify-incremental@3.0.1 /Users/Dan/Desktop/JS/Sinterest/node_modules/browserify-incremental
 10 error extraneous: reactify@1.1.1 /Users/Dan/Desktop/JS/Sinterest/node_modules/reactify
 11 error If you need help, you may report this error at:
