@@ -19,7 +19,7 @@ var SinsIndex = React.createClass({
   getInitialState: function () {
     var detailSinId = this.props.detailSinId || null;
     return ({
-      loadingFlag: true,
+      loadingFlag: false,
       sins: SinStore.all(),
       detailSinId: detailSinId
     });
@@ -29,7 +29,7 @@ var SinsIndex = React.createClass({
     window.addEventListener("scroll", this.handleScroll);
     var store = SinStore;
     store.on(store.SINS_CHANGE_EVENT, this._onSinsIndexChange);
-    this.fetchSins();
+    ApiUtil.fetchSins(this.props.boardIds);
     this._checkParams();
   },
 
@@ -41,10 +41,10 @@ var SinsIndex = React.createClass({
 
   },
 
-  fetchSins: function () {
+  fetchExtraSins: function () {
     var boardIds = this.props.boardIds;
     var offset = this.state.sins.length;
-    ApiUtil.fetchSins(boardIds, offset, this.toggleLoadingFlag);
+    ApiUtil.fetchExtraSins(boardIds, offset, this.toggleLoadingFlag);
   },
 
   handleScroll: function(e){
@@ -55,7 +55,7 @@ var SinsIndex = React.createClass({
 
     if(totalScrolled + 50 > scrollHeight){
       if(!this.state.loadingFlag){
-        this.fetchSins();
+        this.fetchExtraSins();
         this.toggleLoadingFlag();
       }
     }
@@ -81,25 +81,11 @@ var SinsIndex = React.createClass({
     }
   },
 
-  // componentDidUpdate: function () {
-  //   var $container = $('.sins:last');
-  //   $container.imagesLoaded( function () {
-  //     $container.masonry({itemSelector : '.sin', columnWidth: 220 });
-  //   });
-  // },
-
   _onSinsIndexChange: function (changeType) {
     if (changeType === this.props.id) {
       this.setState({ sins: SinStore.all() });
     }
   },
-  //
-  // _onChange: function () {
-  //   var $container = $('.sins:last');
-  //   $container.imagesLoaded( function () {
-  //     $container.masonry({itemSelector : '.sin', columnWidth: 220 });
-  //   });
-  // },
 
   _handleKeyDown: function (e) {
     if (e.keyCode === 27) {
@@ -148,6 +134,5 @@ var SinsIndex = React.createClass({
     );
   }
 });
-
 
 module.exports = SinsIndex;

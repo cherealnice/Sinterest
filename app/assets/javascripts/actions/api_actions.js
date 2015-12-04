@@ -6,6 +6,14 @@ ApiActions = {
     });
   },
 
+  receiveExtraSins: function (sins, boardIds) {
+    AppDispatcher.dispatch({
+      actionType: SinConstants.EXTRA_SINS_RECEIVED,
+      sins: { sins: sins, boardIds: boardIds }
+    });
+  },
+
+
   receiveSingleSin: function (sin) {
     AppDispatcher.dispatch({
       actionType: SinConstants.SIN_RECEIVED,

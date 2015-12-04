@@ -1,9 +1,10 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
 var FollowButton = require('./../buttons/follow_button');
 var SinterestHeader = require('./../pages/sinterest_header');
 var SinsIndex = require('./../sins/index');
+var Link = ReactRouter.Link;
 
 var BoardShow = React.createClass({
 

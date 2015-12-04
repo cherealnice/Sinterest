@@ -3,6 +3,10 @@
   var _sins = [];
 
   var resetSins = function (sins) {
+    _sins = sins;
+  };
+
+  var addSins = function (sins) {
     _sins = _sins.concat(sins);
   };
 
@@ -39,6 +43,14 @@
         case SinConstants.SIN_RECEIVED:
           updateSin(payload.sin);
           SinStore.emit(SinStore.SIN_DETAIL_CHANGE_EVENT);
+          break;
+        case SinConstants.EXTRA_SINS_RECEIVED:
+          addSins(payload.sins.sins);
+          if (window.location.hash.slice(2, 6) === 'sins') {
+            SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
+          } else {
+            SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
+          }
           break;
       }
     }),

@@ -7,13 +7,6 @@ var Link = ReactRouter.Link;
 var SinIndexItem = React.createClass({
   mixins: [ReactRouter.History],
 
-  // onLoad: function () {
-  //   var $container = $('.sins:last');
-  //   $container.imagesLoaded( function () {
-  //     $container.masonry({ itemSelector : '.sin', columnWidth: 220 });
-  //   });
-  // },
-
   render: function () {
     var sin = this.props.sin;
     var liked = sin.liked ? true : false;

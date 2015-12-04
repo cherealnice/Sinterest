@@ -9,3 +9,4 @@ window.UserShow = require('components/users/user_show');
 window.App = require('components/app');
 window.React = require('react/addons');
 window.ReactRouter = require('react-router');
+window.SinsIndex = require('components/sins/index');

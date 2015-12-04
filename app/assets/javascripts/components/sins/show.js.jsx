@@ -1,7 +1,8 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
-var SinsIndex = require('./index');
+var CommentForm = require('./../comments/form');
+// var SinsIndex = require('./index');
 var CommentsIndex = require('./../comments/index');
 var LikeButton = require('./../buttons/like_button');
 
@@ -73,7 +74,6 @@ var SinShow = React.createClass({
       if (sin.comments) {
         comments = (<CommentsIndex comments={sin.comments} />);
       }
-
 
     }
     return (
