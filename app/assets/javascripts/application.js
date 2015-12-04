@@ -22,6 +22,5 @@
 //= require masonry/jquery.infinitescroll.min
 //= require masonry/modernizr-transitions
 //= require jquery.serializejson.js
+//= require components
 //= require_tree .
-
-require('./components');
