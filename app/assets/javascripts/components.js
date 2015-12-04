@@ -1,4 +1,3 @@
-//= require_tree ./components
 window.SinterestLanding = require('components/pages/sinterest_landing');
 window.BoardsIndexPage = require('components/pages/boards_index_page');
 window.BoardShow = require('components/boards/show');
