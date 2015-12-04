@@ -17,12 +17,10 @@ class Api::SinsController < ApplicationController
 
     boards = Board.includes(:sins, :author).where({id: board_ids})
     sin_boards = SinBoard.includes(:sin, :board).where(board_id: board_ids)
-    @sins = Sin.includes(:sin_boards, :boards, :images, :user, :comments, :users_liked).select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}[0..24]
-
-      # .includes(:sin_boards, :boards, :images, :user, :comments, :users_liked)
-      # .limit(25)
-      # .offset(offset)
-      # .select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}
+    @sins = Sin
+      .includes(:sin_boards, :boards, :images, :user, :comments, :users_liked)
+      .offset(offset)
+      .select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}[0..24]
 
     @sins = @sins.sort_by { |sin| sin.created_at }.reverse
   end
