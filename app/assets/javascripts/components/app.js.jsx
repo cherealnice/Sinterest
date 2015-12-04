@@ -1,4 +1,4 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
 var App = React.createClass({
@@ -22,22 +22,13 @@ var App = React.createClass({
     this.setState({currentUser: CurrentUserStore.currentUser()});
   },
 
-<<<<<<< HEAD
-      return (
-        <div className='top-header'>
-          <FlashIndex />
-          { this.props.children }
-        </div>
-      );
-    },
-=======
   render: function() {
     if (!this.state.currentUser) {
     }
->>>>>>> AddInfiniteScroll
 
     return (
       <div className='top-header'>
+        <FlashIndex />
         { this.props.children }
       </div>
     );
