@@ -20,7 +20,8 @@
 }
 
 .search-results img {
-  width: 33%;
+  max-width: 33%;
+  height: 65px;
   border: 1px solid grey;
   border-radius: 6px;
   float: left;

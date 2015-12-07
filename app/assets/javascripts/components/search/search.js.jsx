@@ -1,4 +1,4 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 var SearchResultsIndex = require('./search_results_index');
 
