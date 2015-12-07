@@ -5,7 +5,6 @@ var LikeButton = require('./../buttons/like_button');
 var Link = ReactRouter.Link;
 
 var SinIndexItem = React.createClass({
-  mixins: [ReactRouter.History],
 
   render: function () {
     var sin = this.props.sin;

@@ -62,8 +62,10 @@ var SinsIndex = React.createClass({
     this.setState({ detailSinId: parseInt(e.currentTarget.id) });
   },
 
-  _closeSinShow: function () {
-    this.setState({ detailSinId: null });
+  _closeSinShow: function (e) {
+    if (e.target.className === "sin-detail-wrapper") {
+      this.setState({ detailSinId: null });
+    }
   },
 
   _onSinsIndexChange: function (changeType) {
