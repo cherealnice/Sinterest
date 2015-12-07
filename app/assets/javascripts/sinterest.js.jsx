@@ -15,7 +15,6 @@ $(function () {
         <Route path="sin/new" component={ NewSin } />
         <Route path="login" component={ SessionForm } />
         <Route path="user/new" component={ UserForm } />
-        <Route path="users/:id" component={ UserShow } />
       </Route>
   );
 

@@ -81,6 +81,10 @@ var SinsIndex = React.createClass({
     }
   },
 
+  _showSin: function (e) {
+    debugger;
+  },
+
   _onSinsIndexChange: function (changeType) {
     if (changeType === this.props.id) {
       this.setState({ sins: SinStore.all() });
@@ -125,7 +129,8 @@ var SinsIndex = React.createClass({
           {this.state.sins.map(function (sin) {
             return <SinIndexItem
               sin={sin}
-              key={sin.id} />;
+              key={sin.id}
+              onClick={this._showSin} />;
           }.bind(this))}
         </Masonry>
         </div>
