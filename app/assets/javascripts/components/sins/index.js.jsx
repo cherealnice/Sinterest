@@ -12,7 +12,6 @@ var masonryOptions = {
 };
 
 var SinsIndex = React.createClass({
-  mixins: [ReactRouter.History],
 
   getInitialState: function () {
     return ({
@@ -26,7 +25,6 @@ var SinsIndex = React.createClass({
     window.addEventListener("scroll", this.handleScroll);
     SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
     ApiUtil.fetchSins(this.props.boardIds);
-    this._checkParams();
   },
 
   componentWillUnmount: function () {
@@ -61,7 +59,6 @@ var SinsIndex = React.createClass({
   },
 
   _showSin: function (e) {
-    this._closeSinShow();
     this.setState({ detailSinId: parseInt(e.currentTarget.id) });
   },
 
@@ -96,7 +93,8 @@ var SinsIndex = React.createClass({
         key={detailSinId}
         sinId={detailSinId}
         _onKeyDown={this._handleKeyDown}
-        onClick={this._closeSinShow} />;
+        _closeSinShow={this._closeSinShow}
+      />;
       indexHiddenClass = ' hidden';
     }
     return (

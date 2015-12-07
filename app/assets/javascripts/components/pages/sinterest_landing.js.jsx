@@ -6,10 +6,6 @@ var SinterestHeader = require('./sinterest_header');
 var SinterestLanding = React.createClass({
 
   render: function () {
-      var detailSinId;
-      // if (this.props.params) {
-      //   detailSinId = parseInt(this.props.params.sinId);
-      // }
     return (
       <div>
         <SinterestHeader

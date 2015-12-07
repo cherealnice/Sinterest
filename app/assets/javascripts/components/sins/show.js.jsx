@@ -1,10 +1,9 @@
 var React = require('react/addons');
 var ReactRouter = require('react-router');
-
 var CommentForm = require('./../comments/form');
-// var SinsIndex = require('./index');
 var CommentsIndex = require('./../comments/index');
 var LikeButton = require('./../buttons/like_button');
+var Link = ReactRouter.Link;
 
 var SinShow = React.createClass({
 
@@ -41,8 +40,8 @@ var SinShow = React.createClass({
     var sin = this.state.sin;
     var details;
     var comments;
-    var sinBoards = [];
     var sinBoardIndex;
+    var boardLink;
     var likeButton;
     if (sin) {
       var liked = sin.liked ? true : false;
@@ -52,6 +51,13 @@ var SinShow = React.createClass({
         target={sin}
         liked={liked} />;
 
+      var board = sin.boards[0];
+      boardLink = (
+        <Link className='sin-board' to={'/boards/' + board.id}>
+          <p>{'Found on: ' + board.title}</p>
+        </Link>
+      );
+
       details = (
       <div>
         <section className='sin-show-section'>
@@ -59,6 +65,7 @@ var SinShow = React.createClass({
             {likeButton}
             <img className='sin-show-image' src={sin.image_url} />
           </div>
+          {boardLink}
           <a href={sin.link}>Go to link</a>
           <h1>{sin.title}</h1>
           <p className='sin-show-desc'>{sin.description}</p>
@@ -66,27 +73,19 @@ var SinShow = React.createClass({
       </div>
       );
 
-      sin.boards.forEach(function (board) {
-        sinBoards.push(board.id);
-      });
-
-      sinBoardIndex = <SinsIndex id='sin-show-index' boardIds={sinBoards}/>;
       if (sin.comments) {
         comments = (<CommentsIndex comments={sin.comments} />);
       }
 
     }
     return (
-      <div className="sin-detail-wrapper">
+      <div className="sin-detail-wrapper" onClick={this.props._closeSinShow}>
         <section className='sin-wrapper'>
           {details}
           <section className="sin-comments">
             {comments}
             <CommentForm sin={sin} />
           </section>
-        </section>
-        <section className='sin-show-sins-index'>
-          {sinBoardIndex}
         </section>
       </div>
     );
