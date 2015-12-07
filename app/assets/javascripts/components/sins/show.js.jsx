@@ -54,7 +54,7 @@ var SinShow = React.createClass({
       var board = sin.boards[0];
       boardLink = (
         <Link className='sin-board' to={'/boards/' + board.id}>
-          <p>{'Found on: ' + board.title}</p>
+          <p className='sin-show-board-link'>{'Found on: ' + board.title}</p>
         </Link>
       );
 

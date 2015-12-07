@@ -16,7 +16,7 @@ var SinsIndex = React.createClass({
   getInitialState: function () {
     return ({
       loadingFlag: false,
-      sins: SinStore.all(),
+      sins: [],
       detailSinId: null
     });
   },
@@ -63,7 +63,10 @@ var SinsIndex = React.createClass({
   },
 
   _closeSinShow: function (e) {
-    if (e.target.className === "sin-detail-wrapper") {
+    if (
+      e.target.className === "sin-detail-wrapper" ||
+      e.target.className === "sin-show-board-link"
+    ) {
       this.setState({ detailSinId: null });
     }
   },
