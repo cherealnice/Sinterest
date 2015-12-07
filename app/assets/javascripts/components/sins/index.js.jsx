@@ -1,9 +1,7 @@
 var React = require('react/addons');
 var ReactRouter = require('react-router');
-
 var SinIndexItem = require('./index_item');
 var SinShow = require('./show');
-
 var Masonry = require('react-masonry-component')(React);
 
 var masonryOptions = {
@@ -17,25 +15,22 @@ var SinsIndex = React.createClass({
   mixins: [ReactRouter.History],
 
   getInitialState: function () {
-    var detailSinId = this.props.detailSinId || null;
     return ({
       loadingFlag: false,
       sins: SinStore.all(),
-      detailSinId: detailSinId
+      detailSinId: null
     });
   },
 
   componentDidMount: function () {
     window.addEventListener("scroll", this.handleScroll);
-    var store = SinStore;
-    store.on(store.SINS_CHANGE_EVENT, this._onSinsIndexChange);
+    SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
     ApiUtil.fetchSins(this.props.boardIds);
     this._checkParams();
   },
 
   componentWillUnmount: function () {
-    var store = SinStore;
-    store.removeListener(store.SINS_CHANGE_EVENT,
+    SinStore.removeListener(SinStore.SINS_CHANGE_EVENT,
                             this._onSinsIndexChange);
     window.removeEventListener("scroll", this.handleScroll);
 
@@ -65,24 +60,13 @@ var SinsIndex = React.createClass({
     this.setState({ loadingFlag: !this.state.loadingFlag });
   },
 
-  componentWillReceiveProps: function (newProps) {
-    var detailSinId = null;
-    if (newProps.detailSinId) {
-      detailSinId = parseInt(newProps.detailSinId);
-    }
-
-    this.setState({ detailSinId: detailSinId });
-  },
-
-  _checkParams: function () {
-    if (this.props.sinId) {
-      var detailSinId = parseInt(this.props.sinId);
-      this.setState({ detailSinId: detailSinId });
-    }
-  },
-
   _showSin: function (e) {
-    debugger;
+    this._closeSinShow();
+    this.setState({ detailSinId: parseInt(e.currentTarget.id) });
+  },
+
+  _closeSinShow: function () {
+    this.setState({ detailSinId: null });
   },
 
   _onSinsIndexChange: function (changeType) {
@@ -111,7 +95,8 @@ var SinsIndex = React.createClass({
         className='sin-show'
         key={detailSinId}
         sinId={detailSinId}
-        _onKeyDown={this._handleKeyDown} />;
+        _onKeyDown={this._handleKeyDown}
+        onClick={this._closeSinShow} />;
       indexHiddenClass = ' hidden';
     }
     return (
@@ -130,7 +115,7 @@ var SinsIndex = React.createClass({
             return <SinIndexItem
               sin={sin}
               key={sin.id}
-              onClick={this._showSin} />;
+              showSin={this._showSin} />;
           }.bind(this))}
         </Masonry>
         </div>

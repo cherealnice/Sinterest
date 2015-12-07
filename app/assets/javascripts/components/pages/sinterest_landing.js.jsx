@@ -7,9 +7,9 @@ var SinterestLanding = React.createClass({
 
   render: function () {
       var detailSinId;
-      if (this.props.params) {
-        detailSinId = parseInt(this.props.params.sinId);
-      }
+      // if (this.props.params) {
+      //   detailSinId = parseInt(this.props.params.sinId);
+      // }
     return (
       <div>
         <SinterestHeader
@@ -17,8 +17,7 @@ var SinterestLanding = React.createClass({
           description='Do your best.'/>
         <SinsIndex
           id='main-index'
-          store={SinStore}
-          detailSinId={detailSinId} />
+          store={SinStore} />
       </div>
     );
   }
