@@ -1,3 +1,7 @@
+.sin-index.show {
+  overflow: hidden;
+}
+
 .sin-detail-wrapper {
   position: fixed;
   height: 100vh;
@@ -34,11 +38,13 @@
   font-weight: 500;
   padding: 10px 20px;
   position: relative;
+  border-bottom: 1px solid rgb(231, 231, 231);
 }
 
 .sin-show-section > h1 {
   padding: 20px;
   border-bottom: 1px solid rgb(231, 231, 231);
+  border-top: 1px solid rgb(231, 231, 231);
   font-size: 24px;
   font-weight: 700;
 }
@@ -49,6 +55,10 @@
   font-size: 12px;
   font-weight: 500;
   border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.sin-board:hover, .sin-show-section > a:hover {
+  background: rgb(228, 228, 228);
 }
 
 .sin-wrapper {

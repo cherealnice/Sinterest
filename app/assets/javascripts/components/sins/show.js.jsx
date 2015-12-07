@@ -65,10 +65,10 @@ var SinShow = React.createClass({
             {likeButton}
             <img className='sin-show-image' src={sin.image_url} />
           </div>
-          {boardLink}
-          <a href={sin.link}>Go to link</a>
           <h1>{sin.title}</h1>
           <p className='sin-show-desc'>{sin.description}</p>
+          {boardLink}
+          <a href={sin.link}>Go to link</a>
         </section>
       </div>
       );

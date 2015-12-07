@@ -83,11 +83,14 @@ var SinsIndex = React.createClass({
     var sinShow;
     var indexHiddenClass;
     var createSin;
+    var className = 'sin-index';
 
     if (this.props.createSin) {
       createSin = this.props.createSin;
     }
     if (detailSinId) {
+      className += ' show';
+
       sinShow = <SinShow
         className='sin-show'
         key={detailSinId}
@@ -98,7 +101,7 @@ var SinsIndex = React.createClass({
       indexHiddenClass = ' hidden';
     }
     return (
-      <div className='sin-index'>
+      <div className={className}>
       {createSin}
         <div>
 
