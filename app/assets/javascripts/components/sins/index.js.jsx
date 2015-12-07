@@ -103,7 +103,7 @@ var SinsIndex = React.createClass({
       indexHiddenClass = ' hidden';
     }
     return (
-      <div className={className}>
+      <div className='sin-index'>
       {createSin}
         <div>
 
