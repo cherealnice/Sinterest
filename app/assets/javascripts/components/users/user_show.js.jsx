@@ -2,7 +2,7 @@ var React = require('react/addons');
 var ReactRouter = require('react-router');
 var FollowButton = require('./../buttons/follow_button');
 
-var SinterestHeader = ('./../pages/sinterest_header');
+var SinterestHeader = require('./../pages/sinterest_header');
 var BoardsIndex = require('./../boards/index');
 
 var UserShow = React.createClass({
@@ -35,7 +35,7 @@ var UserShow = React.createClass({
     var username;
     if (!user) {
       content = (
-          <p>There doesn't seem to be a user here.</p>
+          <p>There does not seem to be a user here.</p>
       );
     } else {
       content = (
