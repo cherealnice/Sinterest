@@ -12,7 +12,8 @@ var UserEdit = React.createClass({
     imageUrl: '',
     password: '',
     fname: '',
-    lname: ''
+    lname: '',
+    username: '',
   },
 
   getInitialState: function () {

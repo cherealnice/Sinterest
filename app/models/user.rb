@@ -76,11 +76,10 @@ class User < ActiveRecord::Base
   end
 
   def image
-    images.first.image unless images.empty?
+    images.last.image unless images.empty?
   end
 
   def image=(data)
-    images.destroy_all
     images.new(image: data)
   end
 
