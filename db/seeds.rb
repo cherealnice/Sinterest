@@ -4,15 +4,15 @@ Sin.destroy_all
 Board.destroy_all
 Comment.destroy_all
 
-User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password')
+User.create!(email: 'dcherouny@gmail.com', image: File.open(File.join(Rails.root, "/app/assets/images/missing.png")), password: 'password', fname: 'Dan', lname: 'Cherouny')
 
-guest = User.new(email: 'guest@guest.io', password: 'password')
+guest = User.new(email: 'guest@guest.io', password: 'password', fname: 'Steve', lname: 'Jobs')
 guest.images.new
 guest.save!
 
 20.times do
   number = rand(1...60)
-  User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password')
+  User.create!(email: Faker::Internet.email, image: File.open(File.join(Rails.root, "/app/assets/images/seed_images/#{number}.jpg")), password: 'password', fname: Faker::Name.first_name, lname: Faker::Name.last_name)
 end
 
 50.times do
