@@ -71,7 +71,6 @@ var SinterestHeader = React.createClass({
 
                 <div className='current-user-dropdown'>
                   <ul>
-                    <li><LogoutButton /></li>
                     <li>
                       < Link
                         to={'/user/edit'}
@@ -80,6 +79,7 @@ var SinterestHeader = React.createClass({
                         Edit Profile
                       </Link>
                     </li>
+                    <li><LogoutButton /></li>
                   </ul>
                 </div>
               </div>

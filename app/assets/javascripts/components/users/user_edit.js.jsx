@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
+var SinterestHeader = require('./../pages/sinterest_header');
 
 var UserEdit = React.createClass({
   mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
@@ -83,56 +84,59 @@ var UserEdit = React.createClass({
   render: function() {
 
     return (
-      <div className='page'>
-        <div className='login-container group'>
-          <form className='edit-form' onSubmit={this.submit}>
+      <div className='new-form-container'>
+      <SinterestHeader title='Update Profile' />
+        <form className='new-form edit-form' onSubmit={this.submit}>
 
-            <input
-              id="user_email"
-              type="text"
-              name="email"
-              placeholder="New Email"
-              valueLink={this.linkState("email")} />
+          <label htmlFor='user_email'>Email:</label>
+          <input
+            id="user_email"
+            type="text"
+            name="email"
+            placeholder="New Email"
+            valueLink={this.linkState("email")} />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="New Password"
-              valueLink={this.linkState("password")} />
+          <label htmlFor='password'>Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="New Password"
+            valueLink={this.linkState("password")} />
+
+          <label htmlFor='user_username'>Username:</label>
+          <input
+            id="user_username"
+            type="text"
+            name="username"
+            placeholder="New Username"
+            valueLink={this.linkState("username")} />
+
+          <label htmlFor='user_fname'>First Name:</label>
+          <input
+            id="user_fname"
+            type="text"
+            name="fname"
+            placeholder="First Name"
+            valueLink={this.linkState("fname")} />
+
+          <label htmlFor='user_lname'>Last Name:</label>
+          <input
+            id="user_lname"
+            type="text"
+            name="lname"
+            placeholder="Last Name"
+            valueLink={this.linkState("lname")} />
+
+          <label htmlFor='user_image'>Profile Photo:</label>
+          <input
+            id="user_image"
+            type="file"
+            name="image"
+            onChange={this._changeFile} />
 
 
-            <input
-              id="user_username"
-              type="text"
-              name="username"
-              placeholder="New Username"
-              valueLink={this.linkState("username")} />
-
-
-            <input
-              id="user_fname"
-              type="text"
-              name="fname"
-              placeholder="First Name"
-              valueLink={this.linkState("fname")} />
-
-            <input
-              id="user_lname"
-              type="text"
-              name="lname"
-              placeholder="Last Name"
-              valueLink={this.linkState("lname")} />
-
-            <input
-              id="user_image"
-              type="file"
-              name="image"
-              onChange={this._changeFile} />
-
-
-            <button>Submit</button>
-          </form>
-        </div>
+          <button>Submit</button>
+        </form>
       </div>
     );
   },
