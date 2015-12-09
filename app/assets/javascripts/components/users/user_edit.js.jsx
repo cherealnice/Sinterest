@@ -85,7 +85,7 @@ var UserEdit = React.createClass({
 
     return (
       <div className='new-form-container'>
-      <SinterestHeader title='Update Profile' />
+      <SinterestHeader title='Edit Profile' />
         <form className='new-form edit-form' onSubmit={this.submit}>
 
           <label htmlFor='user_email'>Email:</label>
