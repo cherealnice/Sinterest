@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var ReactRouter = require('react-router');
 var LogoutButton = require('./../buttons/logout_button');
+var UserEditButton = require('./../buttons/user_edit_button');
 
 var Search = require('./../search/search');
 var Link = ReactRouter.Link;
@@ -71,14 +72,7 @@ var SinterestHeader = React.createClass({
 
                 <div className='current-user-dropdown'>
                   <ul>
-                    <li>
-                      < Link
-                        to={'/user/edit'}
-                        className={'edit-user-button user-dropdown-button'}
-                      >
-                        Edit Profile
-                      </Link>
-                    </li>
+                    <li><UserEditButton /></li>
                     <li><LogoutButton /></li>
                   </ul>
                 </div>

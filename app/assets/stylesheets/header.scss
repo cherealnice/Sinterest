@@ -49,15 +49,14 @@
   border-radius: 6px;
   color: #666;
   padding: 5px;
-
 }
 
-.current-user-dropdown:active {
+.user-dropdown-button:active {
   background: rgba(227,224,226,0.95);
   color: grey;
 }
 
-.current-user-dropdown:hover {
+.user-dropdown-button:hover {
   background: rgba(227,224,226,0.75);
 }
 
