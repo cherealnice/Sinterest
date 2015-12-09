@@ -59,6 +59,9 @@ var SinsIndex = React.createClass({
   },
 
   _showSin: function (e) {
+    $(document.body).css({
+      'overflow': 'hidden'
+    });
     this.setState({ detailSinId: parseInt(e.currentTarget.id) });
   },
 
@@ -67,6 +70,9 @@ var SinsIndex = React.createClass({
       e.target.className === "sin-detail-wrapper" ||
       e.target.className === "sin-show-board-link"
     ) {
+      $(document.body).css({
+        'overflow': 'scroll'
+      });
       this.setState({ detailSinId: null });
     }
   },
