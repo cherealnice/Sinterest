@@ -85,6 +85,9 @@ var SinsIndex = React.createClass({
 
   _handleKeyDown: function (e) {
     if (e.keyCode === 27) {
+      $(document.body).css({
+        'overflow': 'scroll'
+      });
       this.setState({ detailSinId: null });
     }
   },
