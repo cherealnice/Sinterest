@@ -1,4 +1,4 @@
-var React = require('react/addons')
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 
 var LogoutButton = React.createClass({
@@ -19,7 +19,7 @@ var LogoutButton = React.createClass({
     return (
       <button
         onClick={this._handleClick}
-        className={'logout-button'}>
+        className={'logout-button user-dropdown-button'}>
           {text}
       </button>
     );

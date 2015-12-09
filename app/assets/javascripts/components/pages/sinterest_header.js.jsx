@@ -72,6 +72,14 @@ var SinterestHeader = React.createClass({
                 <div className='current-user-dropdown'>
                   <ul>
                     <li><LogoutButton /></li>
+                    <li>
+                      < Link
+
+                        className={'edit-user-button user-dropdown-button'}
+                      >
+                        Edit Profile
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>

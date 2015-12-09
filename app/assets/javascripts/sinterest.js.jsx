@@ -23,6 +23,7 @@ $(function () {
         <Route path="login" component={ SessionForm } />
         <Route path="user/new" component={ UserForm } />
         <Route path="users/:id" component={ UserShow } />
+        <Route path="user/edit" component={ UserEdit } />
       </Route>
   );
 
