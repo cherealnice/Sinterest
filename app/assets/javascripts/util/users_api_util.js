@@ -38,5 +38,24 @@ var UsersApiUtil = {
         ApiActions.receiveErrors(data.responseJSON);
       }
     });
+  },
+
+  updateUser: function (attrs, callback) {
+    $.ajax({
+      url: '/api/users',
+      type: 'PATCH',
+      dataType: 'json',
+      data: { user: attrs },
+      success: function (user) {
+        UserActions.receiveUser(user);
+        CurrentUserActions.receiveCurrentUser(user);
+        if (callback) {
+          callback();
+        }
+      },
+      error: function (data) {
+        ApiActions.receiveErrors(data.responseJSON);
+      }
+    });
   }
 };

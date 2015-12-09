@@ -5,6 +5,7 @@ window.NewBoard = require('components/pages/new_board');
 window.NewSin = require('components/pages/new_sin');
 window.SessionForm = require('components/sessions/new_session');
 window.UserForm = require('components/users/user_form');
+window.UserEdit = require('components/users/user_edit');
 window.UserShow = require('components/users/user_show');
 window.App = require('components/app');
 window.React = require('react/addons');

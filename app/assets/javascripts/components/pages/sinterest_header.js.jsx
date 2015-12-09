@@ -74,7 +74,7 @@ var SinterestHeader = React.createClass({
                     <li><LogoutButton /></li>
                     <li>
                       < Link
-
+                        to={'/user/edit'}
                         className={'edit-user-button user-dropdown-button'}
                       >
                         Edit Profile

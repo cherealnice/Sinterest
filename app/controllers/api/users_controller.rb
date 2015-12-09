@@ -22,6 +22,19 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def update
+    debugger;
+    @user = current_user
+    @user.images.new
+    if @user.save
+      sign_in(@user)
+      render :show
+    else
+      @errors = @user.errors.full_messages
+      render 'api/flash', status: 400
+    end
+  end
+
 
   private
 
