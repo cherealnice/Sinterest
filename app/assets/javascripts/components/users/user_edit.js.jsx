@@ -36,7 +36,7 @@ var UserEdit = React.createClass({
   },
 
   componentWillUnmount: function () {
-    currentUserStore.removeChangeHandler(this.updateAttrs);
+    CurrentUserStore.removeChangeHandler(this.updateAttrs);
   },
 
   submit: function (e) {

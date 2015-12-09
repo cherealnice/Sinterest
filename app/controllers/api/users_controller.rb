@@ -27,7 +27,8 @@ class Api::UsersController < ApplicationController
     @user.image = params[:image] unless params[:image] == 'null'
 
     user_edit_params.keys.each do |param|
-      if user_edit_params[param].empty?
+      if user_edit_params[param].empty? ||
+         user_edit_params[param] == @user[param]
         next
       elsif param == 'password'
         @user.password = user_edit_params[param]
