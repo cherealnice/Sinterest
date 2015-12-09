@@ -40,12 +40,14 @@ var UsersApiUtil = {
     });
   },
 
-  updateUser: function (attrs, callback) {
+  updateUser: function (formData, callback) {
     $.ajax({
       url: '/api/users',
       type: 'PATCH',
       dataType: 'json',
-      data: { user: attrs },
+      processData: false,
+      contentType: false,
+      data: formData,
       success: function (user) {
         UserActions.receiveUser(user);
         CurrentUserActions.receiveCurrentUser(user);

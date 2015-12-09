@@ -4,7 +4,7 @@ var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 
 var UserEdit = React.createClass({
-  mixins: [ReactRouter.History],
+  mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
 
   blankAttrs: {
     email: '',
@@ -16,16 +16,29 @@ var UserEdit = React.createClass({
   },
 
   getInitialState: function () {
-    return ({
-      attrs: this.blankAttrs
-    });
+    return ( this.blankAttrs );
   },
 
   submit: function (e) {
     e.preventDefault();
-    debugger;
-    var credentials = this.state.attrs;
-    UsersApiUtil.updateUser(credentials, function () {
+    var user = {};
+
+    var email = this.state.email;
+    var password = this.state.password;
+    var fname = this.state.fname;
+    var lname = this.state.lname;
+    var username = this.state.username;
+    var image = this.state.image;
+
+    var formData = new FormData();
+    formData.append("user[email]", email);
+    formData.append("user[password]", password);
+    formData.append("user[username]", username);
+    formData.append("user[fname]", fname);
+    formData.append("user[lname]", lname);
+    formData.append("image", image);
+
+    UsersApiUtil.updateUser(formData, function () {
       this.history.pushState(null, "/");
     }.bind(this));
   },
@@ -58,30 +71,37 @@ var UserEdit = React.createClass({
               id="user_email"
               type="text"
               name="email"
-              placeholder="New Email" />
+              placeholder="New Email"
+              valueLink={this.linkState("email")} />
 
             <input
               type="password"
               name="password"
-              placeholder="New Password" />
+              placeholder="New Password"
+              valueLink={this.linkState("password")} />
+
 
             <input
               id="user_username"
               type="text"
               name="username"
-              placeholder="New Username" />
+              placeholder="New Username"
+              valueLink={this.linkState("username")} />
+
 
             <input
               id="user_fname"
               type="text"
               name="fname"
-              placeholder="First Name" />
+              placeholder="First Name"
+              valueLink={this.linkState("fname")} />
 
             <input
               id="user_lname"
               type="text"
               name="lname"
-              placeholder="Last Name" />
+              placeholder="Last Name"
+              valueLink={this.linkState("lname")} />
 
             <input
               id="user_image"

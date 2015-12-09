@@ -23,11 +23,21 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    debugger;
+    debugger
     @user = current_user
-    @user.images.new
+    @user.image = params[:image] unless params[:image] == 'null'
+
+    user_edit_params.keys.each do |param|
+      if user_edit_params[param].empty?
+        next
+      elsif param == 'password'
+        @user.password = user_edit_params[param]
+      else
+        @user[param] = user_edit_params[param]
+      end
+    end
+
     if @user.save
-      sign_in(@user)
       render :show
     else
       @errors = @user.errors.full_messages
@@ -40,5 +50,15 @@ class Api::UsersController < ApplicationController
 
   def user_params
     self.params.require(:user).permit(:email, :password)
+  end
+
+  def user_edit_params
+    self.params.require(:user).permit(
+      :email,
+      :password,
+      :username,
+      :fname,
+      :lname
+    )
   end
 end
