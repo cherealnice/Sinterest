@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var ReactRouter = require('react-router');
-
 var Link = ReactRouter.Link;
 
 var UserEdit = React.createClass({
@@ -18,6 +17,26 @@ var UserEdit = React.createClass({
 
   getInitialState: function () {
     return ( this.blankAttrs );
+  },
+
+  updateAttrs: function () {
+    var state = {};
+    var currentUser = CurrentUserStore.currentUser();
+    state.email = currentUser.email;
+    state.fname = currentUser.fname;
+    state.lname = currentUser.lname;
+    state.username = currentUser.username;
+
+    this.setState(state);
+  },
+
+  componentDidMount: function () {
+    CurrentUserStore.addChangeHandler(this.updateAttrs);
+    SessionsApiUtil.fetchCurrentUser();
+  },
+
+  componentWillUnmount: function () {
+    currentUserStore.removeChangeHandler(this.updateAttrs);
   },
 
   submit: function (e) {

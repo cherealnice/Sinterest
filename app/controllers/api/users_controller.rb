@@ -23,7 +23,6 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    debugger
     @user = current_user
     @user.image = params[:image] unless params[:image] == 'null'
 
