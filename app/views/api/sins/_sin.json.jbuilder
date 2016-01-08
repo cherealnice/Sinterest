@@ -8,7 +8,7 @@ json.liked (sin.users_liked.include?(current_user))
 
 if show_comments
   json.comments do
-    json.array!(sin.comments) do |comment|
+    json.array!(sin.comments.sort_by { |c| c.created_at }) do |comment|
       json.partial! 'api/comments/comment', comment: comment
     end
   end
