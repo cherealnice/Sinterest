@@ -22,6 +22,7 @@ var SinForm = React.createClass({
 
   componentDidMount: function () {
     CurrentUserStore.addChangeHandler(this._onCurrentUserChange);
+    SessionsApiUtil.fetchCurrentUser();
   },
 
   componentWillUnmount: function () {
