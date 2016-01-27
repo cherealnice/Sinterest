@@ -34,6 +34,10 @@ var SinsIndex = React.createClass({
 
   },
 
+  componentWillReceiveProps: function () {
+    this.forceUpdate();
+  },
+
   fetchExtraSins: function () {
     var boardIds = this.props.boardIds;
     var offset = this.state.sins.length;
