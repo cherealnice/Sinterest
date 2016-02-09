@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bundle
 //= require_self
-//= require react_ujs
-//= require flux
 //= require eventemitter
 //= require jquery.serializejson.js
-//= require components
 //= require_tree .
