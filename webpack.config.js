@@ -30,8 +30,5 @@ module.exports = {
         loader: "node-loader"
       }
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
+  }
 };
