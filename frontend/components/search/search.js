@@ -2,7 +2,7 @@ var React = require('react/addons');
 var ReactRouter = require('react-router');
 var SearchResultsIndex = require('./search_results_index');
 var SearchResultsStore = require('../../stores/search_results_store');
-var SearchApiUtil = require('../../search_api_util');
+var SearchApiUtil = require('../../util/search_api_util');
 
 var Search = React.createClass({
 

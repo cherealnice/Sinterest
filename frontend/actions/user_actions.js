@@ -1,4 +1,4 @@
-var UserConstants = require('../constants/user_consants');
+var UserConstants = require('../constants/user_constants');
 
 var UserActions = {
   receiveUsers: function (users) {

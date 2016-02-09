@@ -2,7 +2,7 @@ var React = require('react/addons');
 var ReactRouter = require('react-router');
 var SinIndexItem = require('./index_item');
 var SinShow = require('./show');
-var Masonry = require('react-masonry-component')(React);
+var Masonry = require('react-masonry-component');
 var SinStore = require('../../stores/sin_store');
 var ApiUtil = require('../../util/api_util');
 
