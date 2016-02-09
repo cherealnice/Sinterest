@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var CommentIndexItem = require('./index_item');
 var CommentStore = require('../../stores/comment_store');

@@ -1,4 +1,6 @@
 var SinConstants = require('../constants/sin_constants');
+var Store = require('flux/utils').Store;
+var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _sins = [];
 
@@ -17,36 +19,35 @@ var updateSin = function (sin) {
   if(!switched) { _sins.push(sin); }
 };
 
-BoardShowIndexStore = $.extend({}, EventEmitter.prototype, {
+var BoardShowIndexStore = new Store(AppDispatcher);
 
-  SINS_CHANGE_EVENT: 'board_show_index_sins_change',
-  SIN_DETAIL_CHANGE_EVENT: 'board_show_index_sin_detail_change',
+BoardShowIndexStore.SINS_CHANGE_EVENT = 'board_show_index_sins_change';
+BoardShowIndexStore.SIN_DETAIL_CHANGE_EVENT = 'board_show_index_sin_detail_change';
 
-  all: function () {
-    return _sins.slice();
-  },
+BoardShowIndexStore.all = function () {
+  return _sins.slice();
+};
 
-  dispatcherID: AppDispatcher.register(function (payload) {
-    switch (payload.actionType) {
-      case SinConstants.SINS_RECEIVED:
-        if (payload.sins.boardIds && payload.sins.boardIds.length > 0) {
-          resetSins(payload.sins.sins);
-          BoardShowIndexStore.emit(BoardShowIndexStore.SINS_CHANGE_EVENT);
-        }
-        break;
-    }
-  }),
-
-  find: function (sinId) {
-    var sin;
-    _sins.forEach(function (_sin) {
-      if (_sin.id === sinId) {
-        sin = _sin;
+BoardShowIndexStore.dispatcherID = AppDispatcher.register(function (payload) {
+  switch (payload.actionType) {
+    case SinConstants.SINS_RECEIVED:
+      if (payload.sins.boardIds && payload.sins.boardIds.length > 0) {
+        resetSins(payload.sins.sins);
+        BoardShowIndexStore.emit(BoardShowIndexStore.SINS_CHANGE_EVENT);
       }
-    });
-
-    return sin;
+      break;
   }
 });
+
+BoardShowIndexStore.find = function (sinId) {
+  var sin;
+  _sins.forEach(function (_sin) {
+    if (_sin.id === sinId) {
+      sin = _sin;
+    }
+  });
+
+  return sin;
+};
 
 module.exports = BoardShowIndexStore;

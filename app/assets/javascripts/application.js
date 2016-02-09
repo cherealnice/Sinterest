@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require bundle
 //= require_self
-//= require eventemitter
 //= require jquery.serializejson.js
 //= require_tree .

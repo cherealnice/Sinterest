@@ -1,4 +1,6 @@
 var SinConstants = require('../constants/sin_constants');
+var Store = require('flux/utils').Store;
+var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _boards = [];
 
@@ -18,38 +20,37 @@ var updateBoard = function (board) {
 };
 
 
-BoardStore = $.extend({}, EventEmitter.prototype, {
-  BOARDS_CHANGE_EVENT: 'boards_change',
-  BOARD_DETAIL_CHANGE_EVENT: 'board_detail_change',
+var BoardStore  = new Store(AppDispatcher);
 
-  all: function () {
-    return _boards.slice();
-  },
+BoardStore.BOARDS_CHANGE_EVENT = 'boards_change';
+BoardStore.BOARD_DETAIL_CHANGE_EVENT = 'board_detail_change';
 
-  dispatcherID: AppDispatcher.register(function (payload) {
-    switch (payload.actionType) {
-      case BoardConstants.BOARDS_RECEIVED:
-        resetBoards(payload.boards);
-        BoardStore.emit(BoardStore.BOARDS_CHANGE_EVENT);
-        break;
-      case BoardConstants.BOARD_RECEIVED:
-        updateBoard(payload.board);
-        BoardStore.emit(BoardStore.BOARD_DETAIL_CHANGE_EVENT);
-        break;
-    }
-  }),
+BoardStore.all = function () {
+  return _boards.slice();
+};
 
-  find: function (boardId) {
-    var board;
-    _boards.forEach(function (_board) {
-      if (_board.id === boardId) {
-        board = _board;
-      }
-    });
-
-    return board;
+BoardStore.dispatcherID = AppDispatcher.register(function (payload) {
+  switch (payload.actionType) {
+    case BoardConstants.BOARDS_RECEIVED:
+      resetBoards(payload.boards);
+      BoardStore.emit(BoardStore.BOARDS_CHANGE_EVENT);
+      break;
+    case BoardConstants.BOARD_RECEIVED:
+      updateBoard(payload.board);
+      BoardStore.emit(BoardStore.BOARD_DETAIL_CHANGE_EVENT);
+      break;
   }
 });
 
+BoardStore.find = function (boardId) {
+  var board;
+  _boards.forEach(function (_board) {
+    if (_board.id === boardId) {
+      board = _board;
+    }
+  });
+
+  return board;
+};
 
 module.exports = BoardStore;

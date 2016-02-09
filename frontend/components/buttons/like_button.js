@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var LikeStore = require('../../stores/like_store');
 var ApiUtil = require('../../util/api_util');

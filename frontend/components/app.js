@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var CurrentUserStore = require('../stores/current_user_store');
 var SessionsApiUtil = require('../util/sessions_api_util');

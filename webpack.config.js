@@ -14,7 +14,7 @@ module.exports = {
     loaders: [
       { test: /\.jpe?g$|\.gif$|\.png$/i, loader: "file-loader" },
       {
-        test: /\.js?$/,
+        test: /\.js$|\.jsx$/,
         exclude: /(node_modules)/,
         loader: 'babel',
         query: {
@@ -30,5 +30,8 @@ module.exports = {
         loader: "node-loader"
       }
     ]
-  }
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
 };

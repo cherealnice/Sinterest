@@ -1,5 +1,7 @@
 var SinConstants = require('../constants/sin_constants');
 var CommentConstants = require('../constants/comment_constants');
+var Store = require('flux/utils').Store;
+var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _comments = [];
 
@@ -11,34 +13,34 @@ var addComment = function (comment) {
   _comments.push(comment);
 };
 
-var COMMENTS_CHANGE_EVENT = 'comments_change';
 
-CommentStore = $.extend({}, EventEmitter.prototype, {
+var CommentStore = new Store(AppDispatcher);
 
-  all: function () {
-    return _comments.slice();
-  },
+CommentStore.COMMENTS_CHANGE_EVENT = 'comments_change';
 
-  addChangeHandler: function (callback) {
-    this.on(COMMENTS_CHANGE_EVENT, callback);
-  },
+CommentStore.all =function () {
+  return _comments.slice();
+};
 
-  removeChangeHandler: function (callback) {
-    this.removeListener(COMMENTS_CHANGE_EVENT, callback);
-  },
+CommentStore.addChangeHandler = function (callback) {
+  this.on(CommentStore.COMMENTS_CHANGE_EVENT, callback);
+};
 
-  dispatcherID: AppDispatcher.register(function (payload) {
-    switch (payload.actionType) {
-      case SinConstants.SIN_RECEIVED:
-        resetComments(payload.sin.comments);
-        CommentStore.emit(COMMENTS_CHANGE_EVENT);
-        break;
-      case CommentConstants.COMMENT_RECEIVED:
-        addComment(payload.comment);
-        CommentStore.emit(COMMENTS_CHANGE_EVENT);
-        break;
-    }
-  })
+CommentStore.removeChangeHandler = function (callback) {
+  this.removeListener(CommentStore.COMMENTS_CHANGE_EVENT, callback);
+};
+
+CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
+  switch (payload.actionType) {
+    case SinConstants.SIN_RECEIVED:
+      resetComments(payload.sin.comments);
+      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+      break;
+    case CommentConstants.COMMENT_RECEIVED:
+      addComment(payload.comment);
+      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+      break;
+  }
 });
 
 

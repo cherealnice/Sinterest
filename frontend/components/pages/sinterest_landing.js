@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var SinsIndex = require('../sins/index');
 var SinterestHeader = require('./sinterest_header');

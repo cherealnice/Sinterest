@@ -17,7 +17,6 @@ gem 'aws-sdk', '~> 1.6'
 gem 'rename'
 gem 'faker', '~> 1.5'
 gem 'pg_search'
-gem 'browserify-rails', '~> 0.9.1'
 
 group :development, :test do
   gem 'byebug'

@@ -1,10 +1,10 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var ApiUtil = require('../../util/api_util');
 var SessionsApiUtil = require('../../util/sessions_api_util');
 
 var BoardForm = React.createClass({
-  mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
+  mixins: [React.LinkedStateMixin, ReactRouter.History],
 
   blankAttrs: {
     title: '',

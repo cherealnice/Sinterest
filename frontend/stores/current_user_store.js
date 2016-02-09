@@ -1,40 +1,41 @@
 var CurrentUserConstants = require('../constants/current_user_constants');
-
-var CURRENT_USER_CHANGE = "current-user-change";
+var Store = require('flux/utils').Store;
+var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _currentUser = {};
 
-CurrentUserStore = $.extend({}, EventEmitter.prototype, {
+var CurrentUserStore = new Store(AppDispatcher);
 
-  addChangeHandler: function (callback) {
-    this.on(CURRENT_USER_CHANGE, callback);
-  },
+CurrentUserStore.CURRENT_USER_CHANGE = "current-user-change";
 
-  removeChangeHandler: function (callback) {
-    this.removeListener(CURRENT_USER_CHANGE, callback);
-  },
+CurrentUserStore.addChangeHandler = function (callback) {
+  this.on(CurrentUserStore.CURRENT_USER_CHANGE, callback);
+};
 
-  currentUser: function () {
-    return $.extend({}, _currentUser);
-  },
+CurrentUserStore.removeChangeHandler = function (callback) {
+  this.removeListener(CurrentUserStore.CURRENT_USER_CHANGE, callback);
+};
 
-  currentUserBoards: function () {
-    return _currentUser.boards;
-  },
+CurrentUserStore.currentUser = function () {
+  return $.extend({}, _currentUser);
+};
 
-  isLoggedIn: function () {
-    return (typeof _currentUser.id !== "undefined");
-  },
+CurrentUserStore.currentUserBoards = function () {
+  return _currentUser.boards;
+};
 
-  dispatcherId: AppDispatcher.register(function (payload) {
-    switch (payload.actionType) {
+CurrentUserStore.isLoggedIn = function () {
+  return (typeof _currentUser.id !== "undefined");
+};
 
-      case CurrentUserConstants.RECEIVE_CURRENT_USER:
-        _currentUser = payload.currentUser;
-        CurrentUserStore.emit(CURRENT_USER_CHANGE);
-        break;
-    }
-  }),
+CurrentUserStore.dispatcherId = AppDispatcher.register(function (payload) {
+  switch (payload.actionType) {
+
+    case CurrentUserConstants.RECEIVE_CURRENT_USER:
+      _currentUser = payload.currentUser;
+      CurrentUserStore.emit(CurrentUserStore.CURRENT_USER_CHANGE);
+      break;
+  }
 });
 
 module.exports = CurrentUserStore;

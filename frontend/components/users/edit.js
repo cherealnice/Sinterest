@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 var SinterestHeader = require('./../pages/sinterest_header');
@@ -7,7 +7,7 @@ var SessionsApiUtil = require('../../util/sessions_api_util');
 var UsersApiUtil = require('../../util/users_api_util');
 
 var UserEdit = React.createClass({
-  mixins: [React.addons.LinkedStateMixin, ReactRouter.History],
+  mixins: [React.LinkedStateMixin, ReactRouter.History],
 
   blankAttrs: {
     email: '',

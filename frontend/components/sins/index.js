@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var ReactRouter = require('react-router');
 var SinIndexItem = require('./index_item');
 var SinShow = require('./show');

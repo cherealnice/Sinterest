@@ -19,7 +19,6 @@ Sinterest is an image-based social web application inspired by Pintrest built us
 
 ### Libraries / Gems Implemented
 * ReactJS
-* Browserify
 * PGSearch
 * Paperclip
 * AWS

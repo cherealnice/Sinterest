@@ -1,4 +1,6 @@
 var FlashConstants = require('../constants/flash_constants');
+var Store = require('flux/utils').Store;
+var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _flash = [];
 
@@ -6,25 +8,25 @@ var resetFlash = function (flash) {
   _flash = flash;
 };
 
-FlashStore = $.extend({}, EventEmitter.prototype, {
-  FLASH_CHANGE_EVENT: 'flash_change',
+var FlashStore = new Store(AppDispatcher);
 
-  all: function () {
-    return _flash.slice();
-  },
+FlashStore.FLASH_CHANGE_EVENT = 'flash_change';
 
-  dispatcherID: AppDispatcher.register(function (payload) {
-    switch (payload.actionType) {
-      case FlashConstants.ERRORS_RECEIVED:
-        resetFlash(payload.flash);
+FlashStore.all = function () {
+  return _flash.slice();
+};
+
+FlashStore.dispatcherID = AppDispatcher.register(function (payload) {
+  switch (payload.actionType) {
+    case FlashConstants.ERRORS_RECEIVED:
+      resetFlash(payload.flash);
+      FlashStore.emit(FlashStore.FLASH_CHANGE_EVENT);
+      setTimeout(function(){
+        resetFlash([]);
         FlashStore.emit(FlashStore.FLASH_CHANGE_EVENT);
-        setTimeout(function(){
-          resetFlash([]);
-          FlashStore.emit(FlashStore.FLASH_CHANGE_EVENT);
-        }, 3000);
-        break;
-    }
-  })
+      }, 3000);
+      break;
+  }
 });
 
 
