@@ -23,25 +23,25 @@ var SinShowPage = React.createClass({
   }
 });
 
-var routes = (
-  <Route path="/" component={ App } onEnter={scrollToTop}>
-    <IndexRoute component={ SinterestLanding } />
-    <Route path="boards" component={ BoardsIndexPage } />
-    <Route path="boards/:boardId" component={ BoardShow } />
-    <Route path="board/new" component={ NewBoard } />
-    <Route path="sin/new" component={ NewSin } />
-    <Route path="sins/:id" component={ SinShowPage } />
-    <Route path="login" component={ SessionForm } />
-    <Route path="user/new" component={ UserForm } />
-    <Route path="user/edit" component={ UserEdit } />
-    <Route path="users/:id" component={ UserShow } />
-  </Route>
-);
-
-var scrollToTop = function (a, b, callback) {
-  $('body').scrollTop(0);
+var scrollToTop = function (params, state, callback) {
+  window.scrollTo(0, 0);
   callback();
 };
+
+var routes = (
+  <Route path="/" component={ App }>
+    <IndexRoute component={ SinterestLanding } onEnter={scrollToTop}/>
+    <Route path="boards" component={ BoardsIndexPage } onEnter={scrollToTop}/>
+    <Route path="boards/:boardId" component={ BoardShow } onEnter={scrollToTop}/>
+    <Route path="board/new" component={ NewBoard } onEnter={scrollToTop}/>
+    <Route path="sin/new" component={ NewSin } onEnter={scrollToTop}/>
+    <Route path="sins/:id" component={ SinShowPage } onEnter={scrollToTop}/>
+    <Route path="login" component={ SessionForm } onEnter={scrollToTop}/>
+    <Route path="user/new" component={ UserForm } onEnter={scrollToTop}/>
+    <Route path="user/edit" component={ UserEdit } onEnter={scrollToTop}/>
+    <Route path="users/:id" component={ UserShow } onEnter={scrollToTop}/>
+  </Route>
+);
 
 $(function () {
   var root = document.getElementById('content');

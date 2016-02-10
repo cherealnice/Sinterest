@@ -71,25 +71,25 @@
 	  }
 	});
 	
-	var routes = React.createElement(
-	  Route,
-	  { path: '/', component: App, onEnter: scrollToTop },
-	  React.createElement(IndexRoute, { component: SinterestLanding }),
-	  React.createElement(Route, { path: 'boards', component: BoardsIndexPage }),
-	  React.createElement(Route, { path: 'boards/:boardId', component: BoardShow }),
-	  React.createElement(Route, { path: 'board/new', component: NewBoard }),
-	  React.createElement(Route, { path: 'sin/new', component: NewSin }),
-	  React.createElement(Route, { path: 'sins/:id', component: SinShowPage }),
-	  React.createElement(Route, { path: 'login', component: SessionForm }),
-	  React.createElement(Route, { path: 'user/new', component: UserForm }),
-	  React.createElement(Route, { path: 'user/edit', component: UserEdit }),
-	  React.createElement(Route, { path: 'users/:id', component: UserShow })
-	);
-	
-	var scrollToTop = function (a, b, callback) {
-	  $('body').scrollTop(0);
+	var scrollToTop = function (params, state, callback) {
+	  window.scrollTo(0, 0);
 	  callback();
 	};
+	
+	var routes = React.createElement(
+	  Route,
+	  { path: '/', component: App },
+	  React.createElement(IndexRoute, { component: SinterestLanding, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'boards', component: BoardsIndexPage, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'boards/:boardId', component: BoardShow, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'board/new', component: NewBoard, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'sin/new', component: NewSin, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'sins/:id', component: SinShowPage, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'login', component: SessionForm, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'user/new', component: UserForm, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'user/edit', component: UserEdit, onEnter: scrollToTop }),
+	  React.createElement(Route, { path: 'users/:id', component: UserShow, onEnter: scrollToTop })
+	);
 	
 	$(function () {
 	  var root = document.getElementById('content');
