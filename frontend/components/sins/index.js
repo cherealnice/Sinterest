@@ -24,7 +24,6 @@ var SinsIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    debugger;
     window.addEventListener("scroll", this.handleScroll);
     this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
     ApiUtil.fetchSins(this.props.boardIds);
