@@ -21,12 +21,7 @@ var SinShow = React.createClass({
   _onChange: function () {
     this.setState(this.getStateFromStore());
   },
-
-  componentWillReceiveProps: function (newProps) {
-    var sinId = newProps.sinId;
-    ApiUtil.fetchSingleSin(sinId);
-  },
-
+  
   componentDidMount: function () {
     this.sinStoreToken = SinStore.addListener(this._onChange);
     ApiUtil.fetchSingleSin(this.props.sinId);

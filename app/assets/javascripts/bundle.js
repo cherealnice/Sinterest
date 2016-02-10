@@ -32150,11 +32150,6 @@
 	    this.setState(this.getStateFromStore());
 	  },
 
-	  componentWillReceiveProps: function (newProps) {
-	    var sinId = newProps.sinId;
-	    ApiUtil.fetchSingleSin(sinId);
-	  },
-
 	  componentDidMount: function () {
 	    this.sinStoreToken = SinStore.addListener(this._onChange);
 	    ApiUtil.fetchSingleSin(this.props.sinId);
@@ -32652,37 +32647,35 @@
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 
-	var _sins = [];
+	var _sins = {};
 
 	var resetSins = function (sins) {
-	  _sins = sins;
+	  _sins = {};
+	  sins.forEach(function (sin) {
+	    _sins[sin.id] = sin;
+	  });
 	};
 
 	var addSins = function (sins) {
 	  sins.forEach(function (sin) {
-	    if (!_sins.includes(sin)) {
-	      _sins.push(sin);
-	    }
+	    _sins[sin.id] = sin;
 	  });
 	};
 
 	var updateSin = function (sin) {
-	  var switched = false;
-	  _sins.forEach(function (s) {
-	    if (s.id === sin.id) {
-	      _sins[_sins.indexOf(s)] = sin;
-	      switched = true;
-	    }
-	  });
-	  if (!switched) {
-	    _sins.push(sin);
-	  }
+	  _sins[sin.id] = sin;
 	};
 
 	var SinStore = new Store(AppDispatcher);
 
 	SinStore.all = function () {
-	  return _sins.slice();
+	  var sins = [];
+	  var keys = Object.keys(_sins);
+	  keys.forEach(function (key) {
+	    sins.push(_sins[key]);
+	  });
+
+	  return sins;
 	};
 
 	SinStore.__onDispatch = function (payload) {
@@ -32703,14 +32696,7 @@
 	};
 
 	SinStore.find = function (sinId) {
-	  var sin;
-	  _sins.forEach(function (_sin) {
-	    if (_sin.id === sinId) {
-	      sin = _sin;
-	    }
-	  });
-
-	  return sin;
+	  return _sins[sinId];
 	};
 
 	module.exports = SinStore;
