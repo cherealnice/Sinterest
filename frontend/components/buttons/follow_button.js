@@ -6,7 +6,9 @@ var ApiUtil = require('../../util/api_util');
 var FollowButton = React.createClass({
 
   getInitialState: function () {
-    return {followed: this.props.followed};
+    var type = this.props.type;
+    var id = this.props.id;
+    return { followed: FollowStore.all()[type][id] };
   },
 
   componentDidMount: function () {
@@ -17,22 +19,19 @@ var FollowButton = React.createClass({
     this.followStoreToken.remove();
   },
 
-  _onFollowChange: function (id, followClass) {
-    if (
-      this.props.target.id === id &&
-      this.props.followClass === followClass
-    ) {
-      this.setState({followed: !this.state.followed });
-    }
+  _onFollowChange: function () {
+    var type = this.props.type;
+    var id = this.props.id;
+    this.setState({ followed: FollowStore.all()[type][id] });
   },
 
   _handleClick: function (e) {
     e.preventDefault();
 
     ApiUtil.setFollow(
-      this.props.followClass,
-      this.props.target.id,
-      !this.state.followed
+      this.props.type,
+      this.props.id,
+      !this.state.followed || 'false'
     );
   },
 

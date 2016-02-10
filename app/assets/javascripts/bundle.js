@@ -36227,9 +36227,9 @@
 	        'li',
 	        { className: 'board-li tile group' },
 	        React.createElement(FollowButton, {
-	          followClass: 'Board',
-	          target: board,
-	          followed: board.followed }),
+	          type: 'Board',
+	          id: board.id
+	        }),
 	        React.createElement(
 	          'p',
 	          { className: 'tile-title board-title' },
@@ -36261,7 +36261,9 @@
 	
 	
 	  getInitialState: function () {
-	    return { followed: this.props.followed };
+	    var type = this.props.type;
+	    var id = this.props.id;
+	    return { followed: FollowStore.all()[type][id] };
 	  },
 	
 	  componentDidMount: function () {
@@ -36272,16 +36274,16 @@
 	    this.followStoreToken.remove();
 	  },
 	
-	  _onFollowChange: function (id, followClass) {
-	    if (this.props.target.id === id && this.props.followClass === followClass) {
-	      this.setState({ followed: !this.state.followed });
-	    }
+	  _onFollowChange: function () {
+	    var type = this.props.type;
+	    var id = this.props.id;
+	    this.setState({ followed: FollowStore.all()[type][id] });
 	  },
 	
 	  _handleClick: function (e) {
 	    e.preventDefault();
 	
-	    ApiUtil.setFollow(this.props.followClass, this.props.target.id, !this.state.followed);
+	    ApiUtil.setFollow(this.props.type, this.props.id, !this.state.followed || 'false');
 	  },
 	
 	  render: function () {
@@ -36308,7 +36310,7 @@
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
-	var _follows = {};
+	var _follows = { Board: {}, User: {} };
 	
 	var FollowStore = new Store(AppDispatcher);
 	
@@ -36319,10 +36321,21 @@
 	  } else if (follow.followable_type === 'User') {
 	    type = 'User';
 	  }
-	  _follows[type][follow.followable_id] = follow.followable_bool;
+	  _follows[type][follow.followable_id] = follow.bool;
 	};
 	
-	FollowStore.setFollows = function (follows) {};
+	FollowStore.all = function () {
+	  return Object.assign({}, _follows);
+	};
+	
+	FollowStore.setFollows = function (follows) {
+	  follows.followed_boards.forEach(function (board) {
+	    _follows.Board[board.id] = true;
+	  });
+	  follows.followed_users.forEach(function (user) {
+	    _follows.User[user.id] = true;
+	  });
+	};
 	
 	FollowStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
@@ -36331,9 +36344,8 @@
 	      FollowStore.__emitChange();
 	      break;
 	    case CurrentUserConstants.RECEIVE_CURRENT_USER:
-	      debugger;
-	      FollowStore.setFollows(payload.currentUser);
-	      FollowStore.__emitChane();
+	      FollowStore.setFollows(payload.currentUser.follows);
+	      FollowStore.__emitChange();
 	      break;
 	  }
 	};

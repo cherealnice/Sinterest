@@ -36,9 +36,9 @@ var BoardIndexItem = React.createClass({
       <Link className='board-link' to={'/boards/' + board.id}>
         <li className="board-li tile group">
           <FollowButton
-            followClass='Board'
-            target={board}
-            followed={board.followed} />
+            type='Board'
+            id={board.id}
+          />
           <p className='tile-title board-title'>{board.title}</p>
           <ul className='board-sins'>
             {sinsData}

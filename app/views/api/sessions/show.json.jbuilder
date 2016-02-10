@@ -6,14 +6,30 @@ json.boards do
   end
 end
 
-json.followed_boards do
-  json.array! @user.followed_boards.each do |board|
-    json.extract! board, :id
+json.follows do
+  json.followed_boards do
+    json.array! @user.followed_boards.each do |board|
+      json.extract! board, :id
+    end
+  end
+
+  json.followed_users do
+    json.array! @user.followed_users.each do |user|
+      json.extract! user, :id
+    end
   end
 end
 
-json.followed_users do
-  json.array! @user.followed_users.each do |user|
-    json.extract! user, :id
+json.likes do
+  json.liked_sins do
+    json.array! @user.liked_sins.each do |sin|
+      json.extract! sin, :id
+    end
+  end
+
+  json.liked_boards do
+    json.array! @user.liked_boards.each do |board|
+      json.extract! board, :id
+    end
   end
 end
