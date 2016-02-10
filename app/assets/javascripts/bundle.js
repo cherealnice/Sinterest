@@ -31785,7 +31785,7 @@
 	    if (this.state.loadingFlag) {
 	      var spinner = React.createElement('img', {
 	        className: 'spinner',
-	        src: 'http://www.svanemerket.no/Templates/Main/Styles/Images/spinner.gif'
+	        src: 'https://s3-us-west-2.amazonaws.com/sinterest-seeds/spinner.gif'
 	      });
 	      if (this.state.sins.length === 0) {
 	        spinner1 = spinner;
