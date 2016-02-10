@@ -10,7 +10,11 @@ var FollowButton = React.createClass({
   },
 
   componentDidMount: function () {
-    FollowStore.addChangeHandler(this._onFollowChange);
+    this.followStoreToken = FollowStore.addListener(this._onFollowChange);
+  },
+
+  componentWillUnmount: function () {
+    this.followStoreToken.remove();
   },
 
   _onFollowChange: function (id, followClass) {

@@ -14,11 +14,11 @@ var SinterestHeader = React.createClass({
   },
 
   componentDidMount: function () {
-    CurrentUserStore.addChangeHandler(this.handleCurrentUserChange);
+    this.currentUserToken = CurrentUserStore.addListener(this.handleCurrentUserChange);
   },
 
   componentWillUnmount: function () {
-    CurrentUserStore.removeChangeHandler(this.handleCurrentUserChange);
+    this.currentUserToken.remove();
   },
 
   handleCurrentUserChange: function () {

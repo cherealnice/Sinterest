@@ -28,13 +28,13 @@ var SinShow = React.createClass({
   },
 
   componentDidMount: function () {
-    SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+    this.sinStoreToken = SinStore.addListener(this._onChange);
     ApiUtil.fetchSingleSin(this.props.sinId);
     window.addEventListener('keydown', this.props._onKeyDown);
   },
 
   componentWillUnmount: function () {
-    SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+    this.sinStoreToken.remove();
     window.removeEventListener('keydown', this.props._onKeyDown);
   },
 

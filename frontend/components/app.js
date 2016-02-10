@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var CurrentUserStore = require('../stores/current_user_store');
 var SessionsApiUtil = require('../util/sessions_api_util');
+var FlashIndex = require('./flash/index');
 
 var App = React.createClass({
 
@@ -11,9 +12,13 @@ var App = React.createClass({
 
   mixins: [ReactRouter.History],
 
-  componentWillMount: function () {
-    CurrentUserStore.addChangeHandler(this._ensureLoggedIn);
+  componentDidMount: function () {
+    this.currentUserToken = CurrentUserStore.__onDispatch(this._ensureLoggedIn);
     SessionsApiUtil.fetchCurrentUser();
+  },
+
+  componentWillUnmount: function () {
+    this.currentUserToken.remove();
   },
 
   _ensureLoggedIn: function () {

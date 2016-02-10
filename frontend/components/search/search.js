@@ -13,11 +13,11 @@ var Search = React.createClass({
   },
 
   componentDidMount: function () {
-    SearchResultsStore.addChangeHandler(this._onChange);
+    this.searchStoreToken = SearchResultsStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function () {
-    SearchResultsStore.removeChangeHandler(this._onChange);
+    this.searchStoreToken.remove();
   },
 
   _onChange: function () {

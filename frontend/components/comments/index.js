@@ -10,11 +10,11 @@ var CommentsIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    CommentStore.addChangeHandler(this._onChange);
+    this.commentStoreToken = CommentStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function () {
-    CommentStore.removeChangeHandler(this._onChange);
+    this.commentStoreToken.remove();
   },
 
   _onChange: function () {

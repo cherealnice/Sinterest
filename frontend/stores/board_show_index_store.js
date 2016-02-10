@@ -21,23 +21,20 @@ var updateSin = function (sin) {
 
 var BoardShowIndexStore = new Store(AppDispatcher);
 
-BoardShowIndexStore.SINS_CHANGE_EVENT = 'board_show_index_sins_change';
-BoardShowIndexStore.SIN_DETAIL_CHANGE_EVENT = 'board_show_index_sin_detail_change';
-
 BoardShowIndexStore.all = function () {
   return _sins.slice();
 };
 
-BoardShowIndexStore.dispatcherID = AppDispatcher.register(function (payload) {
+BoardShowIndexStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case SinConstants.SINS_RECEIVED:
       if (payload.sins.boardIds && payload.sins.boardIds.length > 0) {
         resetSins(payload.sins.sins);
-        BoardShowIndexStore.emit(BoardShowIndexStore.SINS_CHANGE_EVENT);
+        BoardShowIndexStore.__emitChange();
       }
       break;
   }
-});
+};
 
 BoardShowIndexStore.find = function (sinId) {
   var sin;

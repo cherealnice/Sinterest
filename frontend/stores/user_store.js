@@ -10,9 +10,6 @@ var _addUser = function (newUser) {
 
 var UserStore = new Store(AppDispatcher);
 
-UserStore.USER_DETAIL_CHANGE = "user-detail-change";
-UserStore.USER_INDEX_CHANGE = "user-index-change";
-
 UserStore.addChangeHandler = function (callback) {
   this.on(CHANGE_EVENT, callback);
 };
@@ -25,20 +22,20 @@ UserStore.all = function () {
   return _users.slice();
 };
 
-UserStore.dispatcherId = AppDispatcher.register(function (payload) {
+AppDispatcher.__onDispatch = function (payload) {
   switch (payload.actionType) {
 
     case UserConstants.RECEIVE_USERS:
       _users = payload.users;
-      UserStore.emit(UserStore.USER_INDEX_CHANGE);
+      UserStore.__emitChange();
       break;
 
     case UserConstants.RECEIVE_USER:
       _addUser(payload.user);
-      UserStore.emit(UserStore.USER_DETAIL_CHANGE);
+      UserStore.__emitChange();
       break;
   }
-});
+};
 
 UserStore.findUserById = function (id) {
   for (var i = 0; i < _users.length; i++) {

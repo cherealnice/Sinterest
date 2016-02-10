@@ -13,32 +13,21 @@ var addComment = function (comment) {
   _comments.push(comment);
 };
 
-
 var CommentStore = new Store(AppDispatcher);
-
-CommentStore.COMMENTS_CHANGE_EVENT = 'comments_change';
 
 CommentStore.all =function () {
   return _comments.slice();
-};
-
-CommentStore.addChangeHandler = function (callback) {
-  this.on(CommentStore.COMMENTS_CHANGE_EVENT, callback);
-};
-
-CommentStore.removeChangeHandler = function (callback) {
-  this.removeListener(CommentStore.COMMENTS_CHANGE_EVENT, callback);
 };
 
 CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
   switch (payload.actionType) {
     case SinConstants.SIN_RECEIVED:
       resetComments(payload.sin.comments);
-      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+      CommentStore.__emitChange();
       break;
     case CommentConstants.COMMENT_RECEIVED:
       addComment(payload.comment);
-      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+      CommentStore.__emitChange();
       break;
   }
 });

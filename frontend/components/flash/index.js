@@ -1,3 +1,4 @@
+var React = require('react');
 var FlashStore = require('../../stores/flash_store');
 
 FlashIndex = React.createClass({
@@ -7,17 +8,13 @@ FlashIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    FlashStore.on(
-      FlashStore.FLASH_CHANGE_EVENT,
+    this.flashToken = FlashStore.addListener(
       this.handleChange
     );
   },
 
   componentWillUnmount: function () {
-    FlashStore.removeListener(
-      FlashStore.FLASH_CHANGE_EVENT,
-      this.handleChange
-    );
+    this.flashToken.remove();
   },
 
   handleChange: function () {

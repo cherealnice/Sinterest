@@ -61,7 +61,6 @@
 	
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
-	var root = document.getElementById('content');
 	var Router = ReactRouter.Router;
 	var SinShowPage = React.createClass({
 	  displayName: 'SinShowPage',
@@ -93,6 +92,7 @@
 	};
 	
 	$(function () {
+	  var root = document.getElementById('content');
 	  if (!!root) {
 	    ReactDOM.render(React.createElement(
 	      Router,
@@ -24477,6 +24477,7 @@
 	var ReactRouter = __webpack_require__(159);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
+	var FlashIndex = __webpack_require__(293);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24488,9 +24489,13 @@
 	
 	  mixins: [ReactRouter.History],
 	
-	  componentWillMount: function () {
-	    CurrentUserStore.addChangeHandler(this._ensureLoggedIn);
+	  componentDidMount: function () {
+	    this.currentUserToken = CurrentUserStore.__onDispatch(this._ensureLoggedIn);
 	    SessionsApiUtil.fetchCurrentUser();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.currentUserToken.remove();
 	  },
 	
 	  _ensureLoggedIn: function () {
@@ -24528,16 +24533,6 @@
 	
 	var CurrentUserStore = new Store(AppDispatcher);
 	
-	CurrentUserStore.CURRENT_USER_CHANGE = "current-user-change";
-	
-	CurrentUserStore.addChangeHandler = function (callback) {
-	  this.on(CurrentUserStore.CURRENT_USER_CHANGE, callback);
-	};
-	
-	CurrentUserStore.removeChangeHandler = function (callback) {
-	  this.removeListener(CurrentUserStore.CURRENT_USER_CHANGE, callback);
-	};
-	
 	CurrentUserStore.currentUser = function () {
 	  return $.extend({}, _currentUser);
 	};
@@ -24550,15 +24545,15 @@
 	  return typeof _currentUser.id !== "undefined";
 	};
 	
-	CurrentUserStore.dispatcherId = AppDispatcher.register(function (payload) {
+	CurrentUserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	
 	    case CurrentUserConstants.RECEIVE_CURRENT_USER:
 	      _currentUser = payload.currentUser;
-	      CurrentUserStore.emit(CurrentUserStore.CURRENT_USER_CHANGE);
+	      CurrentUserStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	module.exports = CurrentUserStore;
 
@@ -31555,6 +31550,7 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var SinsIndex = __webpack_require__(244);
+	var SinStore = __webpack_require__(254);
 	var SinterestHeader = __webpack_require__(265);
 	
 	var SinterestLanding = React.createClass({
@@ -31610,12 +31606,12 @@
 	
 	  componentDidMount: function () {
 	    window.addEventListener("scroll", this.handleScroll);
-	    SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
+	    this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
 	    ApiUtil.fetchSins(this.props.boardIds);
 	  },
 	
 	  componentWillUnmount: function () {
-	    SinStore.removeListener(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
+	    this.sinStoreToken.remove();
 	    window.removeEventListener("scroll", this.handleScroll);
 	  },
 	
@@ -31804,11 +31800,11 @@
 	  },
 	
 	  componentDidMount: function () {
-	    LikeStore.addChangeHandler(this._onLikeChange);
+	    this.likeStoreToken = LikeStore.addListener(this._onLikeChange);
 	  },
 	
 	  componentWillUnmount: function () {
-	    LikeStore.removeChangeHandler(this._onLikeChange);
+	    this.likeStoreToken.remove();
 	  },
 	
 	  _onLikeChange: function (id, likeClass) {
@@ -31841,8 +31837,6 @@
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
-	var LIKE_CHANGE = 'LIKE_CHANGE';
-	
 	var LikeStore = new Store(AppDispatcher);
 	
 	LikeStore.addChangeHandler = function (callback) {
@@ -31853,13 +31847,13 @@
 	  this.removeListener(LIKE_CHANGE, callback);
 	};
 	
-	LikeStore.dispatcherID = AppDispatcher.register(function (payload) {
+	LikeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case LikeConstants.LIKE_CHANGED:
-	      LikeStore.emit(LikeStore.LIKE_CHANGE, payload.like.likeable_id, payload.like.likeable_type);
+	      LikeStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	module.exports = LikeStore;
 
@@ -32051,13 +32045,13 @@
 	  },
 	
 	  componentDidMount: function () {
-	    SinStore.on(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+	    this.sinStoreToken = SinStore.addListener(this._onChange);
 	    ApiUtil.fetchSingleSin(this.props.sinId);
 	    window.addEventListener('keydown', this.props._onKeyDown);
 	  },
 	
 	  componentWillUnmount: function () {
-	    SinStore.removeListener(SinStore.SIN_DETAIL_CHANGE_EVENT, this._onChange);
+	    this.sinStoreToken.remove();
 	    window.removeEventListener('keydown', this.props._onKeyDown);
 	  },
 	
@@ -32207,11 +32201,11 @@
 	  },
 	
 	  componentDidMount: function () {
-	    CommentStore.addChangeHandler(this._onChange);
+	    this.commentStoreToken = CommentStore.addListener(this._onChange);
 	  },
 	
 	  componentWillUnmount: function () {
-	    CommentStore.removeChangeHandler(this._onChange);
+	    this.commentStoreToken.remove();
 	  },
 	
 	  _onChange: function () {
@@ -32289,29 +32283,19 @@
 	
 	var CommentStore = new Store(AppDispatcher);
 	
-	CommentStore.COMMENTS_CHANGE_EVENT = 'comments_change';
-	
 	CommentStore.all = function () {
 	  return _comments.slice();
-	};
-	
-	CommentStore.addChangeHandler = function (callback) {
-	  this.on(CommentStore.COMMENTS_CHANGE_EVENT, callback);
-	};
-	
-	CommentStore.removeChangeHandler = function (callback) {
-	  this.removeListener(CommentStore.COMMENTS_CHANGE_EVENT, callback);
 	};
 	
 	CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
 	  switch (payload.actionType) {
 	    case SinConstants.SIN_RECEIVED:
 	      resetComments(payload.sin.comments);
-	      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+	      CommentStore.__emitChange();
 	      break;
 	    case CommentConstants.COMMENT_RECEIVED:
 	      addComment(payload.comment);
-	      CommentStore.emit(CommentStore.COMMENTS_CHANGE_EVENT);
+	      CommentStore.__emitChange();
 	      break;
 	  }
 	});
@@ -32351,37 +32335,26 @@
 	
 	var SinStore = new Store(AppDispatcher);
 	
-	SinStore.SINS_CHANGE_EVENT = 'sins_change';
-	SinStore.SIN_DETAIL_CHANGE_EVENT = 'sin_detail_change';
-	
 	SinStore.all = function () {
 	  return _sins.slice();
 	};
 	
-	SinStore.dispatcherID = AppDispatcher.register(function (payload) {
+	SinStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case SinConstants.SINS_RECEIVED:
 	      resetSins(payload.sins.sins);
-	      if (window.location.hash.slice(2, 6) === 'sins') {
-	        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
-	      } else {
-	        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
-	      }
+	      SinStore.__emitChange();
 	      break;
 	    case SinConstants.SIN_RECEIVED:
 	      updateSin(payload.sin);
-	      SinStore.emit(SinStore.SIN_DETAIL_CHANGE_EVENT);
+	      SinStore.__emitChange();
 	      break;
 	    case SinConstants.EXTRA_SINS_RECEIVED:
 	      addSins(payload.sins.sins);
-	      if (window.location.hash.slice(2, 6) === 'sins') {
-	        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
-	      } else {
-	        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
-	      }
+	      SinStore.emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	SinStore.find = function (sinId) {
 	  var sin;
@@ -35450,11 +35423,11 @@
 	  },
 	
 	  componentDidMount: function () {
-	    CurrentUserStore.addChangeHandler(this.handleCurrentUserChange);
+	    this.currentUserToken = CurrentUserStore.addListener(this.handleCurrentUserChange);
 	  },
 	
 	  componentWillUnmount: function () {
-	    CurrentUserStore.removeChangeHandler(this.handleCurrentUserChange);
+	    this.currentUserToken.remove();
 	  },
 	
 	  handleCurrentUserChange: function () {
@@ -35694,11 +35667,11 @@
 	  },
 	
 	  componentDidMount: function () {
-	    SearchResultsStore.addChangeHandler(this._onChange);
+	    this.searchStoreToken = SearchResultsStore.addListener(this._onChange);
 	  },
 	
 	  componentWillUnmount: function () {
-	    SearchResultsStore.removeChangeHandler(this._onChange);
+	    this.searchStoreToken.remove();
 	  },
 	
 	  _onChange: function () {
@@ -35916,16 +35889,6 @@
 	
 	var SearchResultsStore = new Store(AppDispatcher);
 	
-	SearchResultsStore.SEARCH_RESULTS_CHANGE = "search-results-change";
-	
-	SearchResultsStore.addChangeHandler = function (callback) {
-	  this.on(SEARCH_RESULTS_CHANGE, callback);
-	};
-	
-	SearchResultsStore.removeChangeHandler = function (callback) {
-	  this.removeListener(SEARCH_RESULTS_CHANGE, callback);
-	};
-	
 	SearchResultsStore.all = function () {
 	  return _search_results.results;
 	};
@@ -35934,16 +35897,16 @@
 	  return _search_results.total_count || 0;
 	};
 	
-	SearchResultsStore.dispatcherId = AppDispatcher.register(function (payload) {
+	SearchResultsStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	
 	    case SearchResultConstants.RECEIVE_RESULTS:
 	      _search_results = payload.results;
-	      SearchResultsStore.emit(SEARCH_RESULTS_CHANGE);
+	      SearchResultsStore.__emitChange();
 	      break;
 	
 	  }
-	});
+	};
 	
 	module.exports = SearchResultsStore;
 
@@ -36044,12 +36007,12 @@
 	  },
 	
 	  componentDidMount: function () {
-	    BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
+	    this.boardStoreToken = BoardStore.addListener(this._onBoardsIndexChange);
 	    ApiUtil.fetchBoards(this.props.user);
 	  },
 	
 	  componentWillUnmount: function () {
-	    BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
+	    this.boardStoreToken.remove();
 	  },
 	
 	  _onBoardsIndexChange: function () {
@@ -36109,25 +36072,22 @@
 	
 	var BoardStore = new Store(AppDispatcher);
 	
-	BoardStore.BOARDS_CHANGE_EVENT = 'boards_change';
-	BoardStore.BOARD_DETAIL_CHANGE_EVENT = 'board_detail_change';
-	
 	BoardStore.all = function () {
 	  return _boards.slice();
 	};
 	
-	BoardStore.dispatcherID = AppDispatcher.register(function (payload) {
+	BoardStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case BoardConstants.BOARDS_RECEIVED:
 	      resetBoards(payload.boards);
-	      BoardStore.emit(BoardStore.BOARDS_CHANGE_EVENT);
+	      BoardStore.__emitChange();
 	      break;
 	    case BoardConstants.BOARD_RECEIVED:
 	      updateBoard(payload.board);
-	      BoardStore.emit(BoardStore.BOARD_DETAIL_CHANGE_EVENT);
+	      BoardStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	BoardStore.find = function (boardId) {
 	  var board;
@@ -36224,7 +36184,11 @@
 	  },
 	
 	  componentDidMount: function () {
-	    FollowStore.addChangeHandler(this._onFollowChange);
+	    this.followStoreToken = FollowStore.addListener(this._onFollowChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.followStoreToken.remove();
 	  },
 	
 	  _onFollowChange: function (id, followClass) {
@@ -36264,8 +36228,6 @@
 	
 	var FollowStore = new Store(AppDispatcher);
 	
-	FollowStore.FOLLOW_CHANGE = 'FOLLOW_CHANGE';
-	
 	FollowStore.addChangeHandler = function (callback) {
 	  this.on(FOLLOW_CHANGE, callback);
 	};
@@ -36274,13 +36236,13 @@
 	  this.removeListener(FOLLOW_CHANGE, callback);
 	};
 	
-	FollowStore.dispatcherID = AppDispatcher.register(function (payload) {
+	FollowStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case FollowConstants.FOLLOW_CHANGED:
-	      FollowStore.emit(FollowStore.FOLLOW_CHANGE, payload.follow.followable_id, payload.follow.followable_type);
+	      FollowStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	module.exports = FollowStore;
 
@@ -36320,13 +36282,13 @@
 	  },
 	
 	  componentDidMount: function () {
-	    BoardStore.on(BoardStore.BOARD_DETAIL_CHANGE_EVENT, this._onChange);
+	    this.boardStoreToken = BoardStore.addListener(this._onChange);
 	    var boardId = parseInt(this.props.params.boardId);
 	    ApiUtil.fetchSingleBoard(boardId);
 	  },
 	
 	  componentWillUnmount: function () {
-	    BoardStore.removeListener(BoardStore.BOARD_DETAIL_CHANGE_EVENT, this._onChange);
+	    this.boardStoreToken.remove();
 	  },
 	
 	  render: function () {
@@ -36548,12 +36510,12 @@
 	  },
 	
 	  componentDidMount: function () {
-	    CurrentUserStore.addChangeHandler(this._onCurrentUserChange);
+	    this.currentUserToken = CurrentUserStore.addListener(this._onCurrentUserChange);
 	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
 	  componentWillUnmount: function () {
-	    CurrentUserStore.removeChangeHandler(this._onCurrentUserChange);
+	    this.currentUserToken.remove();
 	  },
 	
 	  _onCurrentUserChange: function () {
@@ -36968,12 +36930,12 @@
 	  },
 	
 	  componentDidMount: function () {
-	    CurrentUserStore.addChangeHandler(this.updateAttrs);
+	    this.currentUserToken = CurrentUserStore.addListener(this.updateAttrs);
 	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
 	  componentWillUnmount: function () {
-	    CurrentUserStore.removeChangeHandler(this.updateAttrs);
+	    this.currentUserToken.remove();
 	  },
 	
 	  submit: function (e) {
@@ -37128,12 +37090,12 @@
 	  },
 	
 	  componentDidMount: function () {
-	    UserStore.on(UserStore.USER_DETAIL_CHANGE, this._onChange);
+	    this.userStoreToken = UserStore.addListener(this._onChange);
 	    UsersApiUtil.fetchUser(this.props.params.id);
 	  },
 	
 	  componentWillUnmount: function () {
-	    UserStore.removeListener(UserStore.USER_DETAIL_CHANGE, this._onChange);
+	    this.userStoreToken.remove();
 	  },
 	
 	  _onChange: function () {
@@ -37193,9 +37155,6 @@
 	
 	var UserStore = new Store(AppDispatcher);
 	
-	UserStore.USER_DETAIL_CHANGE = "user-detail-change";
-	UserStore.USER_INDEX_CHANGE = "user-index-change";
-	
 	UserStore.addChangeHandler = function (callback) {
 	  this.on(CHANGE_EVENT, callback);
 	};
@@ -37208,20 +37167,20 @@
 	  return _users.slice();
 	};
 	
-	UserStore.dispatcherId = AppDispatcher.register(function (payload) {
+	AppDispatcher.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	
 	    case UserConstants.RECEIVE_USERS:
 	      _users = payload.users;
-	      UserStore.emit(UserStore.USER_INDEX_CHANGE);
+	      UserStore.__emitChange();
 	      break;
 	
 	    case UserConstants.RECEIVE_USER:
 	      _addUser(payload.user);
-	      UserStore.emit(UserStore.USER_DETAIL_CHANGE);
+	      UserStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	UserStore.findUserById = function (id) {
 	  for (var i = 0; i < _users.length; i++) {
@@ -37234,6 +37193,93 @@
 	};
 	
 	module.exports = UserStore;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var FlashStore = __webpack_require__(294);
+	
+	FlashIndex = React.createClass({
+	  displayName: 'FlashIndex',
+	
+	
+	  getInitialState: function () {
+	    return { flash: FlashStore.all() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.flashToken = FlashStore.addListener(this.handleChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.flashToken.remove();
+	  },
+	
+	  handleChange: function () {
+	    this.setState({ flash: FlashStore.all() });
+	  },
+	
+	  render: function () {
+	    var content = React.createElement('ul', { className: 'flash hidden' });
+	    if (this.state.flash.length > 0) {
+	      content = React.createElement(
+	        'ul',
+	        { className: 'flash display' },
+	        this.state.flash.map(function (message, i) {
+	          return React.createElement(
+	            'li',
+	            { key: i },
+	            message
+	          );
+	        })
+	      );
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      content
+	    );
+	  }
+	});
+	
+	module.exports = FlashIndex;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FlashConstants = __webpack_require__(242);
+	var Store = __webpack_require__(213).Store;
+	var AppDispatcher = __webpack_require__(231);
+	
+	var _flash = [];
+	
+	var resetFlash = function (flash) {
+	  _flash = flash;
+	};
+	
+	var FlashStore = new Store(AppDispatcher);
+	
+	FlashStore.all = function () {
+	  return _flash.slice();
+	};
+	
+	FlashStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FlashConstants.ERRORS_RECEIVED:
+	      resetFlash(payload.flash);
+	      FlashStore.__emitChange();
+	      setTimeout(function () {
+	        resetFlash([]);
+	        FlashStore.__emitChange();
+	      }, 3000);
+	      break;
+	  }
+	};
+	
+	module.exports = FlashStore;
 
 /***/ }
 /******/ ]);

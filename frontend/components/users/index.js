@@ -12,12 +12,12 @@ var UsersIndex = React.createClass({
   },
 
   componentDidMount: function() {
-    UserStore.addChangeHandler(this._onChange);
+    this.userStoreToken = UserStore.addListener(this._onChange);
     UsersApiUtil.fetchUsers();
   },
 
   componentWillUnmount: function() {
-    UserStore.removeChangeHandler(this._onChange);
+    this.userStoreToken.remove();
   },
 
   render: function() {

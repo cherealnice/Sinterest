@@ -15,7 +15,6 @@ var UserShow = require('./components/users/show');
 
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
-var root = document.getElementById('content');
 var Router = ReactRouter.Router;
 var SinShowPage = React.createClass({
   render: function () {
@@ -45,7 +44,8 @@ var scrollToTop = function (a, b, callback) {
 };
 
 $(function () {
-    if (!!root) {
-      ReactDOM.render(<Router>{routes}</Router>, root);
-    }
+  var root = document.getElementById('content');
+  if (!!root) {
+    ReactDOM.render(<Router>{routes}</Router>, root);
+  }
 });

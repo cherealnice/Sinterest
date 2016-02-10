@@ -25,15 +25,13 @@ var SinsIndex = React.createClass({
 
   componentDidMount: function () {
     window.addEventListener("scroll", this.handleScroll);
-    SinStore.on(SinStore.SINS_CHANGE_EVENT, this._onSinsIndexChange);
+    this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
     ApiUtil.fetchSins(this.props.boardIds);
   },
 
   componentWillUnmount: function () {
-    SinStore.removeListener(SinStore.SINS_CHANGE_EVENT,
-                            this._onSinsIndexChange);
+    this.sinStoreToken.remove();
     window.removeEventListener("scroll", this.handleScroll);
-
   },
 
   componentWillReceiveProps: function () {

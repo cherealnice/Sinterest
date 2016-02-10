@@ -35,12 +35,12 @@ var UserEdit = React.createClass({
   },
 
   componentDidMount: function () {
-    CurrentUserStore.addChangeHandler(this.updateAttrs);
+    this.currentUserToken = CurrentUserStore.addListener(this.updateAttrs);
     SessionsApiUtil.fetchCurrentUser();
   },
 
   componentWillUnmount: function () {
-    CurrentUserStore.removeChangeHandler(this.updateAttrs);
+    this.currentUserToken.remove();
   },
 
   submit: function (e) {

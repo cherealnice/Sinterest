@@ -25,37 +25,26 @@ var updateSin = function (sin) {
 
 var SinStore = new Store(AppDispatcher);
 
-SinStore.SINS_CHANGE_EVENT = 'sins_change';
-SinStore.SIN_DETAIL_CHANGE_EVENT = 'sin_detail_change';
-
 SinStore.all = function () {
   return _sins.slice();
 };
 
-SinStore.dispatcherID = AppDispatcher.register(function (payload) {
+SinStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case SinConstants.SINS_RECEIVED:
       resetSins(payload.sins.sins);
-      if (window.location.hash.slice(2, 6) === 'sins') {
-        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
-      } else {
-        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
-      }
+      SinStore.__emitChange();
       break;
     case SinConstants.SIN_RECEIVED:
       updateSin(payload.sin);
-      SinStore.emit(SinStore.SIN_DETAIL_CHANGE_EVENT);
+      SinStore.__emitChange();
       break;
     case SinConstants.EXTRA_SINS_RECEIVED:
       addSins(payload.sins.sins);
-      if (window.location.hash.slice(2, 6) === 'sins') {
-        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'sin-show-index');
-      } else {
-        SinStore.emit(SinStore.SINS_CHANGE_EVENT, 'main-index');
-      }
+      SinStore.emitChange();
       break;
   }
-});
+};
 
 SinStore.find = function (sinId) {
   var sin;

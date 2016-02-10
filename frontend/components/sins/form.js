@@ -23,12 +23,12 @@ var SinForm = React.createClass({
   },
 
   componentDidMount: function () {
-    CurrentUserStore.addChangeHandler(this._onCurrentUserChange);
+    this.currentUserToken = CurrentUserStore.addListener(this._onCurrentUserChange);
     SessionsApiUtil.fetchCurrentUser();
   },
 
   componentWillUnmount: function () {
-    CurrentUserStore.removeChangeHandler(this._onCurrentUserChange);
+    this.currentUserToken.remove();
   },
 
   _onCurrentUserChange: function () {

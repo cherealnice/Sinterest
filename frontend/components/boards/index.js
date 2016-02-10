@@ -11,13 +11,12 @@ var BoardsIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    BoardStore.on(BoardStore.BOARDS_CHANGE_EVENT, this._onBoardsIndexChange);
+    this.boardStoreToken = BoardStore.addListener(this._onBoardsIndexChange);
     ApiUtil.fetchBoards(this.props.user);
   },
 
   componentWillUnmount: function () {
-    BoardStore.removeListener(BoardStore.BOARDS_CHANGE_EVENT,
-                            this._onBoardsIndexChange);
+    this.boardStoreToken.remove();
   },
 
   _onBoardsIndexChange: function () {

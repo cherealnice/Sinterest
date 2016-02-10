@@ -6,16 +6,6 @@ var _search_results = {results: []};
 
 var SearchResultsStore = new Store(AppDispatcher);
 
-SearchResultsStore.SEARCH_RESULTS_CHANGE = "search-results-change";
-
-SearchResultsStore.addChangeHandler = function (callback) {
-  this.on(SEARCH_RESULTS_CHANGE, callback);
-};
-
-SearchResultsStore.removeChangeHandler = function (callback) {
-  this.removeListener(SEARCH_RESULTS_CHANGE, callback);
-};
-
 SearchResultsStore.all = function () {
   return _search_results.results;
 };
@@ -24,15 +14,15 @@ SearchResultsStore.totalCount = function () {
   return _search_results.total_count || 0;
 };
 
-SearchResultsStore.dispatcherId = AppDispatcher.register(function (payload) {
+SearchResultsStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
 
     case SearchResultConstants.RECEIVE_RESULTS:
       _search_results = payload.results;
-      SearchResultsStore.emit(SEARCH_RESULTS_CHANGE);
+      SearchResultsStore.__emitChange();
       break;
 
   }
-});
+};
 
 module.exports = SearchResultsStore;

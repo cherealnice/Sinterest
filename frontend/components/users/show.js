@@ -18,12 +18,12 @@ var UserShow = React.createClass({
   },
 
   componentDidMount: function() {
-    UserStore.on(UserStore.USER_DETAIL_CHANGE, this._onChange);
+    this.userStoreToken = UserStore.addListener(this._onChange);
     UsersApiUtil.fetchUser(this.props.params.id);
   },
 
   componentWillUnmount: function() {
-    UserStore.removeListener(UserStore.USER_DETAIL_CHANGE, this._onChange);
+    this.userStoreToken.remove();
   },
 
   _onChange: function() {

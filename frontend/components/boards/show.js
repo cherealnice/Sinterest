@@ -28,13 +28,13 @@ var BoardShow = React.createClass({
   },
 
   componentDidMount: function () {
-    BoardStore.on(BoardStore.BOARD_DETAIL_CHANGE_EVENT, this._onChange);
+    this.boardStoreToken = BoardStore.addListener(this._onChange);
     var boardId = parseInt(this.props.params.boardId);
     ApiUtil.fetchSingleBoard(boardId);
   },
 
   componentWillUnmount: function () {
-    BoardStore.removeListener(BoardStore.BOARD_DETAIL_CHANGE_EVENT, this._onChange);
+    this.boardStoreToken.remove();
   },
 
   render: function () {

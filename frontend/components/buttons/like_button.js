@@ -10,11 +10,11 @@ var LikeButton = React.createClass({
   },
 
   componentDidMount: function () {
-    LikeStore.addChangeHandler(this._onLikeChange);
+    this.likeStoreToken = LikeStore.addListener(this._onLikeChange);
   },
 
   componentWillUnmount: function () {
-    LikeStore.removeChangeHandler(this._onLikeChange);
+    this.likeStoreToken.remove();
   },
 
   _onLikeChange: function (id, likeClass) {

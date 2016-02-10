@@ -19,28 +19,24 @@ var updateBoard = function (board) {
   if(!switched) { _boards.push(board); }
 };
 
-
 var BoardStore  = new Store(AppDispatcher);
-
-BoardStore.BOARDS_CHANGE_EVENT = 'boards_change';
-BoardStore.BOARD_DETAIL_CHANGE_EVENT = 'board_detail_change';
 
 BoardStore.all = function () {
   return _boards.slice();
 };
 
-BoardStore.dispatcherID = AppDispatcher.register(function (payload) {
+BoardStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case BoardConstants.BOARDS_RECEIVED:
       resetBoards(payload.boards);
-      BoardStore.emit(BoardStore.BOARDS_CHANGE_EVENT);
+      BoardStore.__emitChange();
       break;
     case BoardConstants.BOARD_RECEIVED:
       updateBoard(payload.board);
-      BoardStore.emit(BoardStore.BOARD_DETAIL_CHANGE_EVENT);
+      BoardStore.__emitChange();
       break;
   }
-});
+};
 
 BoardStore.find = function (boardId) {
   var board;
