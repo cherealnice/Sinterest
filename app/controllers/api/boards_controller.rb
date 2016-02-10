@@ -9,7 +9,7 @@ class Api::BoardsController < ApplicationController
   end
 
   def show
-    @board = Board.find(params[:id])
+    @board = Board.includes(:author, :users_liked, :users_following).find(params[:id])
 
     if @board
       render :show

@@ -7,7 +7,6 @@ class Api::SessionsController < ApplicationController
     end
 
     @user = current_user
-    render "api/users/show_detail"
   end
 
   def create
@@ -21,7 +20,7 @@ class Api::SessionsController < ApplicationController
       render 'api/flash', status: 400
     else
       sign_in(@user)
-      render "api/users/show"
+      render "api/sessions/show"
     end
   end
 

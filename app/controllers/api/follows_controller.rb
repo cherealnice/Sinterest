@@ -3,6 +3,7 @@ class Api::FollowsController < ApplicationController
   def toggle
     id = follow_params[:id]
     type = follow_params[:type]
+    @bool = true
     @follow = Follow.new({followable_id: id, followable_type: type})
 
     followTarget =
@@ -21,6 +22,7 @@ class Api::FollowsController < ApplicationController
 
     else
       followTarget && followTarget.destroy!
+      @bool = false
     end
 
     render :show

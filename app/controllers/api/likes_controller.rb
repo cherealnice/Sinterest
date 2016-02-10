@@ -3,6 +3,7 @@ class Api::LikesController < ApplicationController
   def toggle
     id = like_params[:id]
     type = like_params[:type]
+    @bool = true
     @like = Like.new({likeable_id: id, likeable_type: type})
 
     likeTarget =
@@ -22,6 +23,7 @@ class Api::LikesController < ApplicationController
 
     else
       likeTarget && likeTarget.destroy!
+      @bool = false
     end
 
     render :show
