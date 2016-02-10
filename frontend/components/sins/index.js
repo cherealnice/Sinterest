@@ -81,10 +81,8 @@ var SinsIndex = React.createClass({
     }
   },
 
-  _onSinsIndexChange: function (changeType) {
-    if (changeType === this.props.id) {
-      this.setState({ sins: SinStore.all() });
-    }
+  _onSinsIndexChange: function () {
+    this.setState({ sins: SinStore.all() });
   },
 
   _handleKeyDown: function (e) {

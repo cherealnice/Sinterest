@@ -9,7 +9,11 @@ var resetSins = function (sins) {
 };
 
 var addSins = function (sins) {
-  _sins = _sins.concat(sins);
+  sins.forEach(function (sin) {
+    if (!_sins.includes(sin)) {
+      _sins.push(sin);
+    }
+  });
 };
 
 var updateSin = function (sin) {
@@ -41,7 +45,7 @@ SinStore.__onDispatch = function (payload) {
       break;
     case SinConstants.EXTRA_SINS_RECEIVED:
       addSins(payload.sins.sins);
-      SinStore.emitChange();
+      SinStore.__emitChange();
       break;
   }
 };

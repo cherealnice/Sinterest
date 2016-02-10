@@ -13,7 +13,7 @@ var App = React.createClass({
   mixins: [ReactRouter.History],
 
   componentDidMount: function () {
-    this.currentUserToken = CurrentUserStore.__onDispatch(this._ensureLoggedIn);
+    this.currentUserToken = CurrentUserStore.addListener(this._ensureLoggedIn);
     SessionsApiUtil.fetchCurrentUser();
   },
 

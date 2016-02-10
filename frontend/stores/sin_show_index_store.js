@@ -19,7 +19,6 @@ var updateSin = function (sin) {
   if(!switched) { _sins.push(sin); }
 };
 
-
 var SinShowIndexStore = new Store(AppDispatcher);
 
 SinShowIndexStore.all = function () {

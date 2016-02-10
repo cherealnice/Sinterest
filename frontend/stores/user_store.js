@@ -10,19 +10,11 @@ var _addUser = function (newUser) {
 
 var UserStore = new Store(AppDispatcher);
 
-UserStore.addChangeHandler = function (callback) {
-  this.on(CHANGE_EVENT, callback);
-};
-
-UserStore.removeChangeHandler = function (callback) {
-  this.removeListener(CHANGE_EVENT, callback);
-};
-
 UserStore.all = function () {
   return _users.slice();
 };
 
-AppDispatcher.__onDispatch = function (payload) {
+UserStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
 
     case UserConstants.RECEIVE_USERS:

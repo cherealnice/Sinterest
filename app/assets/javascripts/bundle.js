@@ -48,16 +48,16 @@
 	var ReactDOM = __webpack_require__(158);
 	var ReactRouter = __webpack_require__(159);
 	var App = __webpack_require__(210);
-	var SinterestLanding = __webpack_require__(243);
-	var BoardsIndexPage = __webpack_require__(274);
-	var BoardShow = __webpack_require__(280);
-	var NewBoard = __webpack_require__(281);
-	var NewSin = __webpack_require__(283);
-	var SinShow = __webpack_require__(249);
-	var SessionForm = __webpack_require__(285);
-	var UserForm = __webpack_require__(286);
-	var UserEdit = __webpack_require__(290);
-	var UserShow = __webpack_require__(291);
+	var SinterestLanding = __webpack_require__(245);
+	var BoardsIndexPage = __webpack_require__(276);
+	var BoardShow = __webpack_require__(282);
+	var NewBoard = __webpack_require__(283);
+	var NewSin = __webpack_require__(285);
+	var SinShow = __webpack_require__(251);
+	var SessionForm = __webpack_require__(287);
+	var UserForm = __webpack_require__(288);
+	var UserEdit = __webpack_require__(292);
+	var UserShow = __webpack_require__(293);
 	
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
@@ -24477,7 +24477,7 @@
 	var ReactRouter = __webpack_require__(159);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
-	var FlashIndex = __webpack_require__(293);
+	var FlashIndex = __webpack_require__(243);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24490,7 +24490,7 @@
 	  mixins: [ReactRouter.History],
 	
 	  componentDidMount: function () {
-	    this.currentUserToken = CurrentUserStore.__onDispatch(this._ensureLoggedIn);
+	    this.currentUserToken = CurrentUserStore.addListener(this._ensureLoggedIn);
 	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
@@ -24547,7 +24547,6 @@
 	
 	CurrentUserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	
 	    case CurrentUserConstants.RECEIVE_CURRENT_USER:
 	      _currentUser = payload.currentUser;
 	      CurrentUserStore.__emitChange();
@@ -31548,10 +31547,97 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var FlashStore = __webpack_require__(244);
+	
+	FlashIndex = React.createClass({
+	  displayName: 'FlashIndex',
+	
+	
+	  getInitialState: function () {
+	    return { flash: FlashStore.all() };
+	  },
+	
+	  componentDidMount: function () {
+	    this.flashToken = FlashStore.addListener(this.handleChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.flashToken.remove();
+	  },
+	
+	  handleChange: function () {
+	    this.setState({ flash: FlashStore.all() });
+	  },
+	
+	  render: function () {
+	    var content = React.createElement('ul', { className: 'flash hidden' });
+	    if (this.state.flash.length > 0) {
+	      content = React.createElement(
+	        'ul',
+	        { className: 'flash display' },
+	        this.state.flash.map(function (message, i) {
+	          return React.createElement(
+	            'li',
+	            { key: i },
+	            message
+	          );
+	        })
+	      );
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      content
+	    );
+	  }
+	});
+	
+	module.exports = FlashIndex;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FlashConstants = __webpack_require__(242);
+	var Store = __webpack_require__(213).Store;
+	var AppDispatcher = __webpack_require__(231);
+	
+	var _flash = [];
+	
+	var resetFlash = function (flash) {
+	  _flash = flash;
+	};
+	
+	var FlashStore = new Store(AppDispatcher);
+	
+	FlashStore.all = function () {
+	  return _flash.slice();
+	};
+	
+	FlashStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FlashConstants.ERRORS_RECEIVED:
+	      resetFlash(payload.flash);
+	      FlashStore.__emitChange();
+	      setTimeout(function () {
+	        resetFlash([]);
+	        FlashStore.__emitChange();
+	      }, 3000);
+	      break;
+	  }
+	};
+	
+	module.exports = FlashStore;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinsIndex = __webpack_require__(244);
-	var SinStore = __webpack_require__(254);
-	var SinterestHeader = __webpack_require__(265);
+	var SinsIndex = __webpack_require__(246);
+	var SinStore = __webpack_require__(256);
+	var SinterestHeader = __webpack_require__(267);
 	
 	var SinterestLanding = React.createClass({
 	  displayName: 'SinterestLanding',
@@ -31574,16 +31660,16 @@
 	module.exports = SinterestLanding;
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinIndexItem = __webpack_require__(245);
-	var SinShow = __webpack_require__(249);
-	var Masonry = __webpack_require__(255);
-	var SinStore = __webpack_require__(254);
-	var ApiUtil = __webpack_require__(248);
+	var SinIndexItem = __webpack_require__(247);
+	var SinShow = __webpack_require__(251);
+	var Masonry = __webpack_require__(257);
+	var SinStore = __webpack_require__(256);
+	var ApiUtil = __webpack_require__(250);
 	
 	var masonryOptions = {
 	  transitionDuration: '0.2s',
@@ -31659,10 +31745,8 @@
 	    }
 	  },
 	
-	  _onSinsIndexChange: function (changeType) {
-	    if (changeType === this.props.id) {
-	      this.setState({ sins: SinStore.all() });
-	    }
+	  _onSinsIndexChange: function () {
+	    this.setState({ sins: SinStore.all() });
 	  },
 	
 	  _handleKeyDown: function (e) {
@@ -31728,12 +31812,12 @@
 	module.exports = SinsIndex;
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LikeButton = __webpack_require__(246);
+	var LikeButton = __webpack_require__(248);
 	var Link = ReactRouter.Link;
 	
 	var SinIndexItem = React.createClass({
@@ -31783,13 +31867,13 @@
 	module.exports = SinIndexItem;
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LikeStore = __webpack_require__(247);
-	var ApiUtil = __webpack_require__(248);
+	var LikeStore = __webpack_require__(249);
+	var ApiUtil = __webpack_require__(250);
 	
 	var LikeButton = React.createClass({
 	  displayName: 'LikeButton',
@@ -31830,7 +31914,7 @@
 	module.exports = LikeButton;
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var LikeConstants = __webpack_require__(241);
@@ -31838,14 +31922,6 @@
 	var AppDispatcher = __webpack_require__(231);
 	
 	var LikeStore = new Store(AppDispatcher);
-	
-	LikeStore.addChangeHandler = function (callback) {
-	  this.on(LIKE_CHANGE, callback);
-	};
-	
-	LikeStore.removeChangeHandler = function (callback) {
-	  this.removeListener(LIKE_CHANGE, callback);
-	};
 	
 	LikeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
@@ -31858,7 +31934,7 @@
 	module.exports = LikeStore;
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApiActions = __webpack_require__(236);
@@ -32010,16 +32086,16 @@
 	module.exports = ApiUtil;
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var CommentForm = __webpack_require__(250);
-	var CommentsIndex = __webpack_require__(251);
-	var LikeButton = __webpack_require__(246);
-	var SinStore = __webpack_require__(254);
-	var ApiUtil = __webpack_require__(248);
+	var CommentForm = __webpack_require__(252);
+	var CommentsIndex = __webpack_require__(253);
+	var LikeButton = __webpack_require__(248);
+	var SinStore = __webpack_require__(256);
+	var ApiUtil = __webpack_require__(250);
 	var Link = ReactRouter.Link;
 	
 	var SinShow = React.createClass({
@@ -32137,12 +32213,12 @@
 	module.exports = SinShow;
 
 /***/ },
-/* 250 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ApiUtil = __webpack_require__(248);
+	var ApiUtil = __webpack_require__(250);
 	
 	var CommentForm = React.createClass({
 	  displayName: 'CommentForm',
@@ -32184,13 +32260,13 @@
 	module.exports = CommentForm;
 
 /***/ },
-/* 251 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var CommentIndexItem = __webpack_require__(252);
-	var CommentStore = __webpack_require__(253);
+	var CommentIndexItem = __webpack_require__(254);
+	var CommentStore = __webpack_require__(255);
 	
 	var CommentsIndex = React.createClass({
 	  displayName: 'CommentsIndex',
@@ -32226,7 +32302,7 @@
 	module.exports = CommentsIndex;
 
 /***/ },
-/* 252 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32263,7 +32339,7 @@
 	module.exports = CommentIndexItem;
 
 /***/ },
-/* 253 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -32287,7 +32363,7 @@
 	  return _comments.slice();
 	};
 	
-	CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
+	CommentStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case SinConstants.SIN_RECEIVED:
 	      resetComments(payload.sin.comments);
@@ -32298,12 +32374,12 @@
 	      CommentStore.__emitChange();
 	      break;
 	  }
-	});
+	};
 	
 	module.exports = CommentStore;
 
 /***/ },
-/* 254 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -32317,7 +32393,11 @@
 	};
 	
 	var addSins = function (sins) {
-	  _sins = _sins.concat(sins);
+	  sins.forEach(function (sin) {
+	    if (!_sins.includes(sin)) {
+	      _sins.push(sin);
+	    }
+	  });
 	};
 	
 	var updateSin = function (sin) {
@@ -32351,7 +32431,7 @@
 	      break;
 	    case SinConstants.EXTRA_SINS_RECEIVED:
 	      addSins(payload.sins.sins);
-	      SinStore.emitChange();
+	      SinStore.__emitChange();
 	      break;
 	  }
 	};
@@ -32370,7 +32450,7 @@
 	module.exports = SinStore;
 
 /***/ },
-/* 255 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32378,8 +32458,8 @@
 	(function() {
 	
 	var isBrowser = (typeof window !== 'undefined');
-	var Masonry = isBrowser ? window.Masonry || __webpack_require__(256) : null;
-	var imagesloaded = isBrowser ? __webpack_require__(263) : null;
+	var Masonry = isBrowser ? window.Masonry || __webpack_require__(258) : null;
+	var imagesloaded = isBrowser ? __webpack_require__(265) : null;
 	var React = __webpack_require__(1);
 	var refName = 'masonryContainer';
 	
@@ -32576,7 +32656,7 @@
 	}.call(window));
 
 /***/ },
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32604,8 +32684,8 @@
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
 	    module.exports = factory(
-	      __webpack_require__(257),
-	      __webpack_require__(259)
+	      __webpack_require__(259),
+	      __webpack_require__(261)
 	    );
 	  } else {
 	    // browser global
@@ -32792,7 +32872,7 @@
 	}.call(window));
 
 /***/ },
-/* 257 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32825,10 +32905,10 @@
 	    // CommonJS - Browserify, Webpack
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(258),
-	      __webpack_require__(259),
 	      __webpack_require__(260),
-	      __webpack_require__(262)
+	      __webpack_require__(261),
+	      __webpack_require__(262),
+	      __webpack_require__(264)
 	    );
 	  } else {
 	    // browser global
@@ -33700,7 +33780,7 @@
 	}.call(window));
 
 /***/ },
-/* 258 */
+/* 260 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -33820,7 +33900,7 @@
 	}.call(window));
 
 /***/ },
-/* 259 */
+/* 261 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34040,7 +34120,7 @@
 	}.call(window));
 
 /***/ },
-/* 260 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34069,7 +34149,7 @@
 	    // CommonJS
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(261)
+	      __webpack_require__(263)
 	    );
 	  } else {
 	    // browser global
@@ -34286,7 +34366,7 @@
 	}.call(window));
 
 /***/ },
-/* 261 */
+/* 263 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34350,7 +34430,7 @@
 	}.call(window));
 
 /***/ },
-/* 262 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34375,8 +34455,8 @@
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS - Browserify, Webpack
 	    module.exports = factory(
-	      __webpack_require__(258),
-	      __webpack_require__(259)
+	      __webpack_require__(260),
+	      __webpack_require__(261)
 	    );
 	  } else {
 	    // browser global
@@ -34901,7 +34981,7 @@
 	}.call(window));
 
 /***/ },
-/* 263 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34930,7 +35010,7 @@
 	    // CommonJS
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(264)
+	      __webpack_require__(266)
 	    );
 	  } else {
 	    // browser global
@@ -35282,7 +35362,7 @@
 	}.call(window));
 
 /***/ },
-/* 264 */
+/* 266 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -35402,15 +35482,15 @@
 	}.call(window));
 
 /***/ },
-/* 265 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LogoutButton = __webpack_require__(266);
-	var UserEditButton = __webpack_require__(267);
+	var LogoutButton = __webpack_require__(268);
+	var UserEditButton = __webpack_require__(269);
 	var CurrentUserStore = __webpack_require__(211);
-	var Search = __webpack_require__(268);
+	var Search = __webpack_require__(270);
 	var Link = ReactRouter.Link;
 	
 	var SinterestHeader = React.createClass({
@@ -35578,7 +35658,7 @@
 	module.exports = SinterestHeader;
 
 /***/ },
-/* 266 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35616,7 +35696,7 @@
 	module.exports = LogoutButton;
 
 /***/ },
-/* 267 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35647,14 +35727,14 @@
 	module.exports = UserEditButton;
 
 /***/ },
-/* 268 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SearchResultsIndex = __webpack_require__(269);
-	var SearchResultsStore = __webpack_require__(270);
-	var SearchApiUtil = __webpack_require__(272);
+	var SearchResultsIndex = __webpack_require__(271);
+	var SearchResultsStore = __webpack_require__(272);
+	var SearchApiUtil = __webpack_require__(274);
 	
 	var Search = React.createClass({
 	  displayName: 'Search',
@@ -35705,7 +35785,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 269 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35878,10 +35958,10 @@
 	module.exports = SearchResultsIndex;
 
 /***/ },
-/* 270 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultConstants = __webpack_require__(271);
+	var SearchResultConstants = __webpack_require__(273);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
@@ -35911,7 +35991,7 @@
 	module.exports = SearchResultsStore;
 
 /***/ },
-/* 271 */
+/* 273 */
 /***/ function(module, exports) {
 
 	var SearchResultConstants = {
@@ -35921,10 +36001,10 @@
 	module.exports = SearchResultConstants;
 
 /***/ },
-/* 272 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultActions = __webpack_require__(273);
+	var SearchResultActions = __webpack_require__(275);
 	
 	var SearchApiUtil = {
 	
@@ -35944,10 +36024,10 @@
 	module.exports = SearchApiUtil;
 
 /***/ },
-/* 273 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultConstants = __webpack_require__(271);
+	var SearchResultConstants = __webpack_require__(273);
 	
 	var SearchResultActions = {
 	
@@ -35962,13 +36042,13 @@
 	module.exports = SearchResultActions;
 
 /***/ },
-/* 274 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(265);
-	var BoardsIndex = __webpack_require__(275);
+	var SinterestHeader = __webpack_require__(267);
+	var BoardsIndex = __webpack_require__(277);
 	
 	var BoardsIndexPage = React.createClass({
 	  displayName: 'BoardsIndexPage',
@@ -35989,14 +36069,14 @@
 	module.exports = BoardsIndexPage;
 
 /***/ },
-/* 275 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var BoardStore = __webpack_require__(276);
-	var ApiUtil = __webpack_require__(248);
-	var BoardIndexItem = __webpack_require__(277);
+	var BoardStore = __webpack_require__(278);
+	var ApiUtil = __webpack_require__(250);
+	var BoardIndexItem = __webpack_require__(279);
 	
 	var BoardsIndex = React.createClass({
 	  displayName: 'BoardsIndex',
@@ -36044,7 +36124,7 @@
 	module.exports = BoardsIndex;
 
 /***/ },
-/* 276 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -36103,13 +36183,13 @@
 	module.exports = BoardStore;
 
 /***/ },
-/* 277 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var Link = ReactRouter.Link;
-	var FollowButton = __webpack_require__(278);
+	var FollowButton = __webpack_require__(280);
 	
 	var BoardIndexItem = React.createClass({
 	  displayName: 'BoardIndexItem',
@@ -36167,13 +36247,13 @@
 	module.exports = BoardIndexItem;
 
 /***/ },
-/* 278 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowStore = __webpack_require__(279);
-	var ApiUtil = __webpack_require__(248);
+	var FollowStore = __webpack_require__(281);
+	var ApiUtil = __webpack_require__(250);
 	
 	var FollowButton = React.createClass({
 	  displayName: 'FollowButton',
@@ -36219,7 +36299,7 @@
 	module.exports = FollowButton;
 
 /***/ },
-/* 279 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FollowConstants = __webpack_require__(240);
@@ -36227,14 +36307,6 @@
 	var AppDispatcher = __webpack_require__(231);
 	
 	var FollowStore = new Store(AppDispatcher);
-	
-	FollowStore.addChangeHandler = function (callback) {
-	  this.on(FOLLOW_CHANGE, callback);
-	};
-	
-	FollowStore.removeChangeHandler = function (callback) {
-	  this.removeListener(FOLLOW_CHANGE, callback);
-	};
 	
 	FollowStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
@@ -36247,17 +36319,17 @@
 	module.exports = FollowStore;
 
 /***/ },
-/* 280 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowButton = __webpack_require__(278);
-	var SinterestHeader = __webpack_require__(265);
-	var SinsIndex = __webpack_require__(244);
-	var BoardStore = __webpack_require__(276);
+	var FollowButton = __webpack_require__(280);
+	var SinterestHeader = __webpack_require__(267);
+	var SinsIndex = __webpack_require__(246);
+	var BoardStore = __webpack_require__(278);
 	var CurrentUserStore = __webpack_require__(211);
-	var ApiUtil = __webpack_require__(248);
+	var ApiUtil = __webpack_require__(250);
 	var Link = ReactRouter.Link;
 	
 	var BoardShow = React.createClass({
@@ -36349,13 +36421,13 @@
 	module.exports = BoardShow;
 
 /***/ },
-/* 281 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(265);
-	var BoardForm = __webpack_require__(282);
+	var SinterestHeader = __webpack_require__(267);
+	var BoardForm = __webpack_require__(284);
 	
 	var NewBoard = React.createClass({
 	  displayName: 'NewBoard',
@@ -36380,12 +36452,12 @@
 	module.exports = NewBoard;
 
 /***/ },
-/* 282 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ApiUtil = __webpack_require__(248);
+	var ApiUtil = __webpack_require__(250);
 	var SessionsApiUtil = __webpack_require__(234);
 	
 	var BoardForm = React.createClass({
@@ -36449,13 +36521,13 @@
 	module.exports = BoardForm;
 
 /***/ },
-/* 283 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(265);
-	var SinForm = __webpack_require__(284);
+	var SinterestHeader = __webpack_require__(267);
+	var SinForm = __webpack_require__(286);
 	
 	var NewSin = React.createClass({
 	  displayName: 'NewSin',
@@ -36480,7 +36552,7 @@
 	module.exports = NewSin;
 
 /***/ },
-/* 284 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36642,7 +36714,7 @@
 	module.exports = SinForm;
 
 /***/ },
-/* 285 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36718,12 +36790,12 @@
 	module.exports = SessionForm;
 
 /***/ },
-/* 286 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var UsersApiUtil = __webpack_require__(287);
+	var UsersApiUtil = __webpack_require__(289);
 	var Link = ReactRouter.Link;
 	
 	var UserForm = React.createClass({
@@ -36779,10 +36851,10 @@
 	module.exports = UserForm;
 
 /***/ },
-/* 287 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserActions = __webpack_require__(288);
+	var UserActions = __webpack_require__(290);
 	var CurrentUserActions = __webpack_require__(235);
 	var ApiActions = __webpack_require__(236);
 	
@@ -36853,10 +36925,10 @@
 	module.exports = UsersApiUtil;
 
 /***/ },
-/* 288 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserConstants = __webpack_require__(289);
+	var UserConstants = __webpack_require__(291);
 	
 	var UserActions = {
 	  receiveUsers: function (users) {
@@ -36877,7 +36949,7 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 289 */
+/* 291 */
 /***/ function(module, exports) {
 
 	var UserConstants = {
@@ -36888,16 +36960,16 @@
 	module.exports = UserConstants;
 
 /***/ },
-/* 290 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var Link = ReactRouter.Link;
-	var SinterestHeader = __webpack_require__(265);
+	var SinterestHeader = __webpack_require__(267);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
-	var UsersApiUtil = __webpack_require__(287);
+	var UsersApiUtil = __webpack_require__(289);
 	
 	var UserEdit = React.createClass({
 	  displayName: 'UserEdit',
@@ -37065,16 +37137,16 @@
 	module.exports = UserEdit;
 
 /***/ },
-/* 291 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowButton = __webpack_require__(278);
-	var SinterestHeader = __webpack_require__(265);
-	var UsersApiUtil = __webpack_require__(287);
-	var UserStore = __webpack_require__(292);
-	var BoardsIndex = __webpack_require__(275);
+	var FollowButton = __webpack_require__(280);
+	var SinterestHeader = __webpack_require__(267);
+	var UsersApiUtil = __webpack_require__(289);
+	var UserStore = __webpack_require__(294);
+	var BoardsIndex = __webpack_require__(277);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -37140,10 +37212,10 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 292 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserConstants = __webpack_require__(289);
+	var UserConstants = __webpack_require__(291);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
@@ -37155,19 +37227,11 @@
 	
 	var UserStore = new Store(AppDispatcher);
 	
-	UserStore.addChangeHandler = function (callback) {
-	  this.on(CHANGE_EVENT, callback);
-	};
-	
-	UserStore.removeChangeHandler = function (callback) {
-	  this.removeListener(CHANGE_EVENT, callback);
-	};
-	
 	UserStore.all = function () {
 	  return _users.slice();
 	};
 	
-	AppDispatcher.__onDispatch = function (payload) {
+	UserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	
 	    case UserConstants.RECEIVE_USERS:
@@ -37193,93 +37257,6 @@
 	};
 	
 	module.exports = UserStore;
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var FlashStore = __webpack_require__(294);
-	
-	FlashIndex = React.createClass({
-	  displayName: 'FlashIndex',
-	
-	
-	  getInitialState: function () {
-	    return { flash: FlashStore.all() };
-	  },
-	
-	  componentDidMount: function () {
-	    this.flashToken = FlashStore.addListener(this.handleChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.flashToken.remove();
-	  },
-	
-	  handleChange: function () {
-	    this.setState({ flash: FlashStore.all() });
-	  },
-	
-	  render: function () {
-	    var content = React.createElement('ul', { className: 'flash hidden' });
-	    if (this.state.flash.length > 0) {
-	      content = React.createElement(
-	        'ul',
-	        { className: 'flash display' },
-	        this.state.flash.map(function (message, i) {
-	          return React.createElement(
-	            'li',
-	            { key: i },
-	            message
-	          );
-	        })
-	      );
-	    }
-	    return React.createElement(
-	      'div',
-	      null,
-	      content
-	    );
-	  }
-	});
-	
-	module.exports = FlashIndex;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var FlashConstants = __webpack_require__(242);
-	var Store = __webpack_require__(213).Store;
-	var AppDispatcher = __webpack_require__(231);
-	
-	var _flash = [];
-	
-	var resetFlash = function (flash) {
-	  _flash = flash;
-	};
-	
-	var FlashStore = new Store(AppDispatcher);
-	
-	FlashStore.all = function () {
-	  return _flash.slice();
-	};
-	
-	FlashStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case FlashConstants.ERRORS_RECEIVED:
-	      resetFlash(payload.flash);
-	      FlashStore.__emitChange();
-	      setTimeout(function () {
-	        resetFlash([]);
-	        FlashStore.__emitChange();
-	      }, 3000);
-	      break;
-	  }
-	};
-	
-	module.exports = FlashStore;
 
 /***/ }
 /******/ ]);

@@ -19,7 +19,7 @@ CommentStore.all =function () {
   return _comments.slice();
 };
 
-CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
+CommentStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case SinConstants.SIN_RECEIVED:
       resetComments(payload.sin.comments);
@@ -30,7 +30,7 @@ CommentStore.dispatcherID = AppDispatcher.register(function (payload) {
       CommentStore.__emitChange();
       break;
   }
-});
+};
 
 
 module.exports = CommentStore;
