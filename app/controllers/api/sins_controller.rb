@@ -2,27 +2,26 @@ class Api::SinsController < ApplicationController
 
   def index
     if !params[:boardIds] || params[:boardIds].empty?
-      if current_user.all_followed_boards_ids.empty?
+      board_ids = current_user.all_followed_boards_ids
+
+      if board_ids.empty?
         board_ids = Board.all.ids
-      else
-        board_ids = current_user.all_followed_boards_ids
       end
+
     else
       board_ids = params[:boardIds]
       board_ids = board_ids.map(&:to_i)
     end
 
-    @sins = []
     offset = params[:offset].to_i
 
-    boards = Board.includes(:sins, :author).where({id: board_ids})
-    sin_boards = SinBoard.includes(:sin, :board).where(board_id: board_ids)
     @sins = Sin
-      .includes(:sin_boards, :boards, :images, :user, :comments, :users_liked)
+      .limit(25)
       .offset(offset)
-      .select{ |s| sin_boards.any?{ |sb| s.sin_boards.include?(sb) }}[0..24]
-
-    @sins = @sins.sort_by { |sin| sin.created_at }.reverse
+      .joins(:boards)
+      .where(boards: {id: board_ids})
+      .includes(:boards, :images, :user, :users_liked)
+      .order(created_at: :asc)
   end
 
   def show

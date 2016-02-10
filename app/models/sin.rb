@@ -10,6 +10,7 @@ class Sin < ActiveRecord::Base
 
   belongs_to :user
   has_many   :sin_boards
+  has_many   :board_ids, through: :sin_boards, source: :board_id
   has_many   :boards, through: :sin_boards, source: :board
   has_many   :comments
   has_many   :images, as: :imageable, inverse_of: :imageable
