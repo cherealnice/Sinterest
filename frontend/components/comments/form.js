@@ -1,9 +1,10 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var ApiUtil = require('../../util/api_util');
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var CommentForm = React.createClass({
-  mixins: [React.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   blankAttrs: {
     body: ''

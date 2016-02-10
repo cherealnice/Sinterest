@@ -5,9 +5,10 @@ var SinterestHeader = require('./../pages/sinterest_header');
 var CurrentUserStore = require('../../stores/current_user_store');
 var SessionsApiUtil = require('../../util/sessions_api_util');
 var UsersApiUtil = require('../../util/users_api_util');
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var UserEdit = React.createClass({
-  mixins: [React.LinkedStateMixin, ReactRouter.History],
+  mixins: [LinkedStateMixin, ReactRouter.History],
 
   blankAttrs: {
     email: '',

@@ -13,9 +13,9 @@ var BoardIndexItem = React.createClass({
     var author;
     if (board.images) {
       sinsData = (
-        board.images.map(function (i) {
+        board.images.map(function (i, idx) {
           return (
-            <li className='sin-image'>
+            <li key={idx} className='sin-image'>
               <img src={i} />
             </li>
           );

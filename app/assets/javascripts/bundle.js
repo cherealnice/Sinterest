@@ -32219,11 +32219,12 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var ApiUtil = __webpack_require__(250);
+	var LinkedStateMixin = __webpack_require__(295);
 	
 	var CommentForm = React.createClass({
 	  displayName: 'CommentForm',
 	
-	  mixins: [React.LinkedStateMixin],
+	  mixins: [LinkedStateMixin],
 	
 	  blankAttrs: {
 	    body: ''
@@ -36201,10 +36202,10 @@
 	    var sinsData;
 	    var author;
 	    if (board.images) {
-	      sinsData = board.images.map(function (i) {
+	      sinsData = board.images.map(function (i, idx) {
 	        return React.createElement(
 	          'li',
-	          { className: 'sin-image' },
+	          { key: idx, className: 'sin-image' },
 	          React.createElement('img', { src: i })
 	        );
 	      });
@@ -36303,15 +36304,36 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var FollowConstants = __webpack_require__(240);
+	var CurrentUserConstants = __webpack_require__(212);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
+	var _follows = {};
+	
 	var FollowStore = new Store(AppDispatcher);
+	
+	FollowStore.updateFollow = function (follow) {
+	  var type;
+	  if (follow.followable_type === 'Board') {
+	    type = 'Board';
+	  } else if (follow.followable_type === 'User') {
+	    type = 'User';
+	  }
+	  _follows[type][follow.followable_id] = follow.followable_bool;
+	};
+	
+	FollowStore.setFollows = function (follows) {};
 	
 	FollowStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case FollowConstants.FOLLOW_CHANGED:
+	      FollowStore.updateFollow(payload.follow);
 	      FollowStore.__emitChange();
+	      break;
+	    case CurrentUserConstants.RECEIVE_CURRENT_USER:
+	      debugger;
+	      FollowStore.setFollows(payload.currentUser);
+	      FollowStore.__emitChane();
 	      break;
 	  }
 	};
@@ -36328,6 +36350,7 @@
 	var SinterestHeader = __webpack_require__(267);
 	var SinsIndex = __webpack_require__(246);
 	var BoardStore = __webpack_require__(278);
+	var SinStore = __webpack_require__(256);
 	var CurrentUserStore = __webpack_require__(211);
 	var ApiUtil = __webpack_require__(250);
 	var Link = ReactRouter.Link;
@@ -36459,11 +36482,12 @@
 	var ReactRouter = __webpack_require__(159);
 	var ApiUtil = __webpack_require__(250);
 	var SessionsApiUtil = __webpack_require__(234);
+	var LinkedStateMixin = __webpack_require__(295);
 	
 	var BoardForm = React.createClass({
 	  displayName: 'BoardForm',
 	
-	  mixins: [React.LinkedStateMixin, ReactRouter.History],
+	  mixins: [LinkedStateMixin, ReactRouter.History],
 	
 	  blankAttrs: {
 	    title: '',
@@ -36559,11 +36583,12 @@
 	var ReactRouter = __webpack_require__(159);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
+	var LinkedStateMixin = __webpack_require__(295);
 	
 	var SinForm = React.createClass({
 	  displayName: 'SinForm',
 	
-	  mixins: [React.LinkedStateMixin, ReactRouter.History],
+	  mixins: [LinkedStateMixin, ReactRouter.History],
 	
 	  blankAttrs: {
 	    title: '',
@@ -36970,11 +36995,12 @@
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
 	var UsersApiUtil = __webpack_require__(289);
+	var LinkedStateMixin = __webpack_require__(295);
 	
 	var UserEdit = React.createClass({
 	  displayName: 'UserEdit',
 	
-	  mixins: [React.LinkedStateMixin, ReactRouter.History],
+	  mixins: [LinkedStateMixin, ReactRouter.History],
 	
 	  blankAttrs: {
 	    email: '',
@@ -37257,6 +37283,236 @@
 	};
 	
 	module.exports = UserStore;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(296);
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	var ReactLink = __webpack_require__(297);
+	var ReactStateSetters = __webpack_require__(298);
+	
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+	
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+	
+	var React = __webpack_require__(2);
+	
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+	
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+	
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+	
+	module.exports = ReactLink;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+	
+	'use strict';
+	
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+	
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+	
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+	
+	module.exports = ReactStateSetters;
 
 /***/ }
 /******/ ]);

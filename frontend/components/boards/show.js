@@ -4,6 +4,7 @@ var FollowButton = require('./../buttons/follow_button');
 var SinterestHeader = require('./../pages/sinterest_header');
 var SinsIndex = require('./../sins/index');
 var BoardStore = require('../../stores/board_store');
+var SinStore = require('../../stores/sin_store');
 var CurrentUserStore = require('../../stores/current_user_store');
 var ApiUtil = require('../../util/api_util');
 var Link = ReactRouter.Link;

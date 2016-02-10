@@ -7,7 +7,6 @@ class Api::SessionsController < ApplicationController
     end
 
     @user = current_user
-    render "api/users/show_detail"
   end
 
   def create
