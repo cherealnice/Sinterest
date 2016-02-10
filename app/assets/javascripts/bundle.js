@@ -49,15 +49,15 @@
 	var ReactRouter = __webpack_require__(159);
 	var App = __webpack_require__(210);
 	var SinterestLanding = __webpack_require__(245);
-	var BoardsIndexPage = __webpack_require__(276);
-	var BoardShow = __webpack_require__(282);
-	var NewBoard = __webpack_require__(283);
-	var NewSin = __webpack_require__(285);
+	var BoardsIndexPage = __webpack_require__(280);
+	var BoardShow = __webpack_require__(286);
+	var NewBoard = __webpack_require__(287);
+	var NewSin = __webpack_require__(289);
 	var SinShow = __webpack_require__(251);
-	var SessionForm = __webpack_require__(287);
-	var UserForm = __webpack_require__(288);
-	var UserEdit = __webpack_require__(292);
-	var UserShow = __webpack_require__(293);
+	var SessionForm = __webpack_require__(291);
+	var UserForm = __webpack_require__(292);
+	var UserEdit = __webpack_require__(296);
+	var UserShow = __webpack_require__(297);
 	
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
@@ -31636,8 +31636,8 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var SinsIndex = __webpack_require__(246);
-	var SinStore = __webpack_require__(256);
-	var SinterestHeader = __webpack_require__(267);
+	var SinStore = __webpack_require__(260);
+	var SinterestHeader = __webpack_require__(271);
 	
 	var SinterestLanding = React.createClass({
 	  displayName: 'SinterestLanding',
@@ -31667,8 +31667,8 @@
 	var ReactRouter = __webpack_require__(159);
 	var SinIndexItem = __webpack_require__(247);
 	var SinShow = __webpack_require__(251);
-	var Masonry = __webpack_require__(257);
-	var SinStore = __webpack_require__(256);
+	var Masonry = __webpack_require__(261);
+	var SinStore = __webpack_require__(260);
 	var ApiUtil = __webpack_require__(250);
 	
 	var masonryOptions = {
@@ -31691,7 +31691,6 @@
 	  },
 	
 	  componentDidMount: function () {
-	    debugger;
 	    window.addEventListener("scroll", this.handleScroll);
 	    this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
 	    ApiUtil.fetchSins(this.props.boardIds);
@@ -31944,12 +31943,14 @@
 	};
 	
 	LikeStore.setLikes = function (likes) {
-	  likes.liked_boards.forEach(function (board) {
-	    _likes.Board[board.id] = true;
-	  });
-	  likes.liked_sins.forEach(function (sin) {
-	    _likes.Sin[sin.id] = true;
-	  });
+	  if (!!likes) {
+	    likes.liked_boards.forEach(function (board) {
+	      _likes.Board[board.id] = true;
+	    });
+	    likes.liked_sins.forEach(function (sin) {
+	      _likes.Sin[sin.id] = true;
+	    });
+	  }
 	};
 	
 	LikeStore.__onDispatch = function (payload) {
@@ -32126,9 +32127,9 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var CommentForm = __webpack_require__(252);
-	var CommentsIndex = __webpack_require__(253);
+	var CommentsIndex = __webpack_require__(257);
 	var LikeButton = __webpack_require__(248);
-	var SinStore = __webpack_require__(256);
+	var SinStore = __webpack_require__(260);
 	var ApiUtil = __webpack_require__(250);
 	var Link = ReactRouter.Link;
 	
@@ -32253,7 +32254,7 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var ApiUtil = __webpack_require__(250);
-	var LinkedStateMixin = __webpack_require__(295);
+	var LinkedStateMixin = __webpack_require__(253);
 	
 	var CommentForm = React.createClass({
 	  displayName: 'CommentForm',
@@ -32298,10 +32299,240 @@
 /* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(254);
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	var ReactLink = __webpack_require__(255);
+	var ReactStateSetters = __webpack_require__(256);
+	
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+	
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+	
+	var React = __webpack_require__(2);
+	
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+	
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+	
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+	
+	module.exports = ReactLink;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+	
+	'use strict';
+	
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+	
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+	
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+	
+	module.exports = ReactStateSetters;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var CommentIndexItem = __webpack_require__(254);
-	var CommentStore = __webpack_require__(255);
+	var CommentIndexItem = __webpack_require__(258);
+	var CommentStore = __webpack_require__(259);
 	
 	var CommentsIndex = React.createClass({
 	  displayName: 'CommentsIndex',
@@ -32337,7 +32568,7 @@
 	module.exports = CommentsIndex;
 
 /***/ },
-/* 254 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32374,7 +32605,7 @@
 	module.exports = CommentIndexItem;
 
 /***/ },
-/* 255 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -32414,7 +32645,7 @@
 	module.exports = CommentStore;
 
 /***/ },
-/* 256 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -32485,7 +32716,7 @@
 	module.exports = SinStore;
 
 /***/ },
-/* 257 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32493,8 +32724,8 @@
 	(function() {
 	
 	var isBrowser = (typeof window !== 'undefined');
-	var Masonry = isBrowser ? window.Masonry || __webpack_require__(258) : null;
-	var imagesloaded = isBrowser ? __webpack_require__(265) : null;
+	var Masonry = isBrowser ? window.Masonry || __webpack_require__(262) : null;
+	var imagesloaded = isBrowser ? __webpack_require__(269) : null;
 	var React = __webpack_require__(1);
 	var refName = 'masonryContainer';
 	
@@ -32691,7 +32922,7 @@
 	}.call(window));
 
 /***/ },
-/* 258 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32719,8 +32950,8 @@
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
 	    module.exports = factory(
-	      __webpack_require__(259),
-	      __webpack_require__(261)
+	      __webpack_require__(263),
+	      __webpack_require__(265)
 	    );
 	  } else {
 	    // browser global
@@ -32907,7 +33138,7 @@
 	}.call(window));
 
 /***/ },
-/* 259 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -32940,10 +33171,10 @@
 	    // CommonJS - Browserify, Webpack
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(260),
-	      __webpack_require__(261),
-	      __webpack_require__(262),
-	      __webpack_require__(264)
+	      __webpack_require__(264),
+	      __webpack_require__(265),
+	      __webpack_require__(266),
+	      __webpack_require__(268)
 	    );
 	  } else {
 	    // browser global
@@ -33815,7 +34046,7 @@
 	}.call(window));
 
 /***/ },
-/* 260 */
+/* 264 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -33935,7 +34166,7 @@
 	}.call(window));
 
 /***/ },
-/* 261 */
+/* 265 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34155,7 +34386,7 @@
 	}.call(window));
 
 /***/ },
-/* 262 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34184,7 +34415,7 @@
 	    // CommonJS
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(263)
+	      __webpack_require__(267)
 	    );
 	  } else {
 	    // browser global
@@ -34401,7 +34632,7 @@
 	}.call(window));
 
 /***/ },
-/* 263 */
+/* 267 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34465,7 +34696,7 @@
 	}.call(window));
 
 /***/ },
-/* 264 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -34490,8 +34721,8 @@
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS - Browserify, Webpack
 	    module.exports = factory(
-	      __webpack_require__(260),
-	      __webpack_require__(261)
+	      __webpack_require__(264),
+	      __webpack_require__(265)
 	    );
 	  } else {
 	    // browser global
@@ -35016,7 +35247,7 @@
 	}.call(window));
 
 /***/ },
-/* 265 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -35045,7 +35276,7 @@
 	    // CommonJS
 	    module.exports = factory(
 	      window,
-	      __webpack_require__(266)
+	      __webpack_require__(270)
 	    );
 	  } else {
 	    // browser global
@@ -35397,7 +35628,7 @@
 	}.call(window));
 
 /***/ },
-/* 266 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/*** IMPORTS FROM imports-loader ***/
@@ -35517,15 +35748,15 @@
 	}.call(window));
 
 /***/ },
-/* 267 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LogoutButton = __webpack_require__(268);
-	var UserEditButton = __webpack_require__(269);
+	var LogoutButton = __webpack_require__(272);
+	var UserEditButton = __webpack_require__(273);
 	var CurrentUserStore = __webpack_require__(211);
-	var Search = __webpack_require__(270);
+	var Search = __webpack_require__(274);
 	var Link = ReactRouter.Link;
 	
 	var SinterestHeader = React.createClass({
@@ -35693,7 +35924,7 @@
 	module.exports = SinterestHeader;
 
 /***/ },
-/* 268 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35731,7 +35962,7 @@
 	module.exports = LogoutButton;
 
 /***/ },
-/* 269 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35762,14 +35993,14 @@
 	module.exports = UserEditButton;
 
 /***/ },
-/* 270 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SearchResultsIndex = __webpack_require__(271);
-	var SearchResultsStore = __webpack_require__(272);
-	var SearchApiUtil = __webpack_require__(274);
+	var SearchResultsIndex = __webpack_require__(275);
+	var SearchResultsStore = __webpack_require__(276);
+	var SearchApiUtil = __webpack_require__(278);
 	
 	var Search = React.createClass({
 	  displayName: 'Search',
@@ -35820,7 +36051,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 271 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35993,10 +36224,10 @@
 	module.exports = SearchResultsIndex;
 
 /***/ },
-/* 272 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultConstants = __webpack_require__(273);
+	var SearchResultConstants = __webpack_require__(277);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
@@ -36026,7 +36257,7 @@
 	module.exports = SearchResultsStore;
 
 /***/ },
-/* 273 */
+/* 277 */
 /***/ function(module, exports) {
 
 	var SearchResultConstants = {
@@ -36036,10 +36267,10 @@
 	module.exports = SearchResultConstants;
 
 /***/ },
-/* 274 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultActions = __webpack_require__(275);
+	var SearchResultActions = __webpack_require__(279);
 	
 	var SearchApiUtil = {
 	
@@ -36059,10 +36290,10 @@
 	module.exports = SearchApiUtil;
 
 /***/ },
-/* 275 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchResultConstants = __webpack_require__(273);
+	var SearchResultConstants = __webpack_require__(277);
 	
 	var SearchResultActions = {
 	
@@ -36077,13 +36308,13 @@
 	module.exports = SearchResultActions;
 
 /***/ },
-/* 276 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(267);
-	var BoardsIndex = __webpack_require__(277);
+	var SinterestHeader = __webpack_require__(271);
+	var BoardsIndex = __webpack_require__(281);
 	
 	var BoardsIndexPage = React.createClass({
 	  displayName: 'BoardsIndexPage',
@@ -36104,14 +36335,14 @@
 	module.exports = BoardsIndexPage;
 
 /***/ },
-/* 277 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var BoardStore = __webpack_require__(278);
+	var BoardStore = __webpack_require__(282);
 	var ApiUtil = __webpack_require__(250);
-	var BoardIndexItem = __webpack_require__(279);
+	var BoardIndexItem = __webpack_require__(283);
 	
 	var BoardsIndex = React.createClass({
 	  displayName: 'BoardsIndex',
@@ -36159,7 +36390,7 @@
 	module.exports = BoardsIndex;
 
 /***/ },
-/* 278 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SinConstants = __webpack_require__(237);
@@ -36218,13 +36449,13 @@
 	module.exports = BoardStore;
 
 /***/ },
-/* 279 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var Link = ReactRouter.Link;
-	var FollowButton = __webpack_require__(280);
+	var FollowButton = __webpack_require__(284);
 	
 	var BoardIndexItem = React.createClass({
 	  displayName: 'BoardIndexItem',
@@ -36282,12 +36513,12 @@
 	module.exports = BoardIndexItem;
 
 /***/ },
-/* 280 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowStore = __webpack_require__(281);
+	var FollowStore = __webpack_require__(285);
 	var ApiUtil = __webpack_require__(250);
 	
 	var FollowButton = React.createClass({
@@ -36336,7 +36567,7 @@
 	module.exports = FollowButton;
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FollowConstants = __webpack_require__(240);
@@ -36363,12 +36594,14 @@
 	};
 	
 	FollowStore.setFollows = function (follows) {
-	  follows.followed_boards.forEach(function (board) {
-	    _follows.Board[board.id] = true;
-	  });
-	  follows.followed_users.forEach(function (user) {
-	    _follows.User[user.id] = true;
-	  });
+	  if (!!follows) {
+	    follows.followed_boards.forEach(function (board) {
+	      _follows.Board[board.id] = true;
+	    });
+	    follows.followed_users.forEach(function (user) {
+	      _follows.User[user.id] = true;
+	    });
+	  }
 	};
 	
 	FollowStore.__onDispatch = function (payload) {
@@ -36387,16 +36620,16 @@
 	module.exports = FollowStore;
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowButton = __webpack_require__(280);
-	var SinterestHeader = __webpack_require__(267);
+	var FollowButton = __webpack_require__(284);
+	var SinterestHeader = __webpack_require__(271);
 	var SinsIndex = __webpack_require__(246);
-	var BoardStore = __webpack_require__(278);
-	var SinStore = __webpack_require__(256);
+	var BoardStore = __webpack_require__(282);
+	var SinStore = __webpack_require__(260);
 	var CurrentUserStore = __webpack_require__(211);
 	var ApiUtil = __webpack_require__(250);
 	var Link = ReactRouter.Link;
@@ -36490,13 +36723,13 @@
 	module.exports = BoardShow;
 
 /***/ },
-/* 283 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(267);
-	var BoardForm = __webpack_require__(284);
+	var SinterestHeader = __webpack_require__(271);
+	var BoardForm = __webpack_require__(288);
 	
 	var NewBoard = React.createClass({
 	  displayName: 'NewBoard',
@@ -36521,14 +36754,14 @@
 	module.exports = NewBoard;
 
 /***/ },
-/* 284 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var ApiUtil = __webpack_require__(250);
 	var SessionsApiUtil = __webpack_require__(234);
-	var LinkedStateMixin = __webpack_require__(295);
+	var LinkedStateMixin = __webpack_require__(253);
 	
 	var BoardForm = React.createClass({
 	  displayName: 'BoardForm',
@@ -36591,13 +36824,13 @@
 	module.exports = BoardForm;
 
 /***/ },
-/* 285 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var SinterestHeader = __webpack_require__(267);
-	var SinForm = __webpack_require__(286);
+	var SinterestHeader = __webpack_require__(271);
+	var SinForm = __webpack_require__(290);
 	
 	var NewSin = React.createClass({
 	  displayName: 'NewSin',
@@ -36622,14 +36855,14 @@
 	module.exports = NewSin;
 
 /***/ },
-/* 286 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
-	var LinkedStateMixin = __webpack_require__(295);
+	var LinkedStateMixin = __webpack_require__(253);
 	
 	var SinForm = React.createClass({
 	  displayName: 'SinForm',
@@ -36785,7 +37018,7 @@
 	module.exports = SinForm;
 
 /***/ },
-/* 287 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36861,12 +37094,12 @@
 	module.exports = SessionForm;
 
 /***/ },
-/* 288 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var UsersApiUtil = __webpack_require__(289);
+	var UsersApiUtil = __webpack_require__(293);
 	var Link = ReactRouter.Link;
 	
 	var UserForm = React.createClass({
@@ -36922,10 +37155,10 @@
 	module.exports = UserForm;
 
 /***/ },
-/* 289 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserActions = __webpack_require__(290);
+	var UserActions = __webpack_require__(294);
 	var CurrentUserActions = __webpack_require__(235);
 	var ApiActions = __webpack_require__(236);
 	
@@ -36996,10 +37229,10 @@
 	module.exports = UsersApiUtil;
 
 /***/ },
-/* 290 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserConstants = __webpack_require__(291);
+	var UserConstants = __webpack_require__(295);
 	
 	var UserActions = {
 	  receiveUsers: function (users) {
@@ -37020,7 +37253,7 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 291 */
+/* 295 */
 /***/ function(module, exports) {
 
 	var UserConstants = {
@@ -37031,17 +37264,17 @@
 	module.exports = UserConstants;
 
 /***/ },
-/* 292 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var Link = ReactRouter.Link;
-	var SinterestHeader = __webpack_require__(267);
+	var SinterestHeader = __webpack_require__(271);
 	var CurrentUserStore = __webpack_require__(211);
 	var SessionsApiUtil = __webpack_require__(234);
-	var UsersApiUtil = __webpack_require__(289);
-	var LinkedStateMixin = __webpack_require__(295);
+	var UsersApiUtil = __webpack_require__(293);
+	var LinkedStateMixin = __webpack_require__(253);
 	
 	var UserEdit = React.createClass({
 	  displayName: 'UserEdit',
@@ -37209,16 +37442,16 @@
 	module.exports = UserEdit;
 
 /***/ },
-/* 293 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowButton = __webpack_require__(280);
-	var SinterestHeader = __webpack_require__(267);
-	var UsersApiUtil = __webpack_require__(289);
-	var UserStore = __webpack_require__(294);
-	var BoardsIndex = __webpack_require__(277);
+	var FollowButton = __webpack_require__(284);
+	var SinterestHeader = __webpack_require__(271);
+	var UsersApiUtil = __webpack_require__(293);
+	var UserStore = __webpack_require__(298);
+	var BoardsIndex = __webpack_require__(281);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -37286,10 +37519,10 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 294 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserConstants = __webpack_require__(291);
+	var UserConstants = __webpack_require__(295);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
@@ -37331,236 +37564,6 @@
 	};
 	
 	module.exports = UserStore;
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(296);
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule LinkedStateMixin
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	var ReactLink = __webpack_require__(297);
-	var ReactStateSetters = __webpack_require__(298);
-	
-	/**
-	 * A simple mixin around ReactLink.forState().
-	 */
-	var LinkedStateMixin = {
-	  /**
-	   * Create a ReactLink that's linked to part of this component's state. The
-	   * ReactLink will have the current value of this.state[key] and will call
-	   * setState() when a change is requested.
-	   *
-	   * @param {string} key state key to update. Note: you may want to use keyOf()
-	   * if you're using Google Closure Compiler advanced mode.
-	   * @return {ReactLink} ReactLink instance linking to the state.
-	   */
-	  linkState: function (key) {
-	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
-	  }
-	};
-	
-	module.exports = LinkedStateMixin;
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactLink
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	/**
-	 * ReactLink encapsulates a common pattern in which a component wants to modify
-	 * a prop received from its parent. ReactLink allows the parent to pass down a
-	 * value coupled with a callback that, when invoked, expresses an intent to
-	 * modify that value. For example:
-	 *
-	 * React.createClass({
-	 *   getInitialState: function() {
-	 *     return {value: ''};
-	 *   },
-	 *   render: function() {
-	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
-	 *     return <input valueLink={valueLink} />;
-	 *   },
-	 *   _handleValueChange: function(newValue) {
-	 *     this.setState({value: newValue});
-	 *   }
-	 * });
-	 *
-	 * We have provided some sugary mixins to make the creation and
-	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
-	 */
-	
-	var React = __webpack_require__(2);
-	
-	/**
-	 * @param {*} value current value of the link
-	 * @param {function} requestChange callback to request a change
-	 */
-	function ReactLink(value, requestChange) {
-	  this.value = value;
-	  this.requestChange = requestChange;
-	}
-	
-	/**
-	 * Creates a PropType that enforces the ReactLink API and optionally checks the
-	 * type of the value being passed inside the link. Example:
-	 *
-	 * MyComponent.propTypes = {
-	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
-	 * }
-	 */
-	function createLinkTypeChecker(linkType) {
-	  var shapes = {
-	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
-	    requestChange: React.PropTypes.func.isRequired
-	  };
-	  return React.PropTypes.shape(shapes);
-	}
-	
-	ReactLink.PropTypes = {
-	  link: createLinkTypeChecker
-	};
-	
-	module.exports = ReactLink;
-
-/***/ },
-/* 298 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactStateSetters
-	 */
-	
-	'use strict';
-	
-	var ReactStateSetters = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (component, funcReturningState) {
-	    return function (a, b, c, d, e, f) {
-	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
-	      if (partialState) {
-	        component.setState(partialState);
-	      }
-	    };
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (component, key) {
-	    // Memoize the setters.
-	    var cache = component.__keySetters || (component.__keySetters = {});
-	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
-	  }
-	};
-	
-	function createStateKeySetter(component, key) {
-	  // Partial state is allocated outside of the function closure so it can be
-	  // reused with every call, avoiding memory allocation when this function
-	  // is called.
-	  var partialState = {};
-	  return function stateKeySetter(value) {
-	    partialState[key] = value;
-	    component.setState(partialState);
-	  };
-	}
-	
-	ReactStateSetters.Mixin = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateSetter(function(xValue) {
-	   *     return {x: xValue};
-	   *   })(1);
-	   *
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (funcReturningState) {
-	    return ReactStateSetters.createStateSetter(this, funcReturningState);
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateKeySetter('x')(1);
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (key) {
-	    return ReactStateSetters.createStateKeySetter(this, key);
-	  }
-	};
-	
-	module.exports = ReactStateSetters;
 
 /***/ }
 /******/ ]);

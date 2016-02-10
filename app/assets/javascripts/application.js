@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bundle.js
 //= require jquery.serializejson.js
+//= require bundle
+//= require_tree .

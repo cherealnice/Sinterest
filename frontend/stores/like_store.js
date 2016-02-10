@@ -22,12 +22,14 @@ LikeStore.all = function () {
 };
 
 LikeStore.setLikes = function (likes) {
-  likes.liked_boards.forEach(function (board) {
-    _likes.Board[board.id] = true;
-  });
-  likes.liked_sins.forEach(function (sin) {
-    _likes.Sin[sin.id] = true;
-  });
+  if (!!likes) {
+    likes.liked_boards.forEach(function (board) {
+      _likes.Board[board.id] = true;
+    });
+    likes.liked_sins.forEach(function (sin) {
+      _likes.Sin[sin.id] = true;
+    });
+  }
 };
 
 LikeStore.__onDispatch = function (payload) {

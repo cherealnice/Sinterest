@@ -22,12 +22,14 @@ FollowStore.all = function () {
 };
 
 FollowStore.setFollows = function (follows) {
-  follows.followed_boards.forEach(function (board) {
-    _follows.Board[board.id] = true;
-  });
-  follows.followed_users.forEach(function (user) {
-    _follows.User[user.id] = true;
-  });
+  if (!!follows) {
+    follows.followed_boards.forEach(function (board) {
+      _follows.Board[board.id] = true;
+    });
+    follows.followed_users.forEach(function (user) {
+      _follows.User[user.id] = true;
+    });
+  }
 };
 
 FollowStore.__onDispatch = function (payload) {
