@@ -36951,7 +36951,7 @@
 	      boardSelect = boards.map(function (board) {
 	        return React.createElement(
 	          'option',
-	          { value: board.id },
+	          { key: board.id, value: board.id },
 	          board.title
 	        );
 	      });

@@ -86,7 +86,7 @@ var SinForm = React.createClass({
     var boardSelect;
     if (boards) {
       boardSelect = boards.map(function (board) {
-        return (<option value={board.id}>{board.title}</option>);
+        return (<option key={board.id} value={board.id}>{board.title}</option>);
       });
     }
     return (
