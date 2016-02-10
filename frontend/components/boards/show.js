@@ -58,9 +58,9 @@ var BoardShow = React.createClass({
 
       followButton = (
             <FollowButton
-              followClass='Board'
-              target={board}
-              followed={followed}/>
+              type='Board'
+              id={board.id}
+            />
       );
 
       if (board.author_id === CurrentUserStore.currentUser().id) {

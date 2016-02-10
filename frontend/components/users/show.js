@@ -34,6 +34,7 @@ var UserShow = React.createClass({
     var content;
     var user = this.state.user;
     var username;
+    var followButton;
     if (!user) {
       content = (
           <p>There does not seem to be a user here.</p>
@@ -47,13 +48,14 @@ var UserShow = React.createClass({
         </div>
       );
       username = user.username;
+      followButton = <FollowButton type='User' id={user.id} />;
     }
 
     return (
       <div className="user-wrapper">
         <SinterestHeader
           title={username}
-          button={FollowButton}
+          button={followButton}
           user={user} />
           { content }
       </div>

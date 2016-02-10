@@ -49,9 +49,9 @@ var SinShow = React.createClass({
       var liked = sin.liked ? true : false;
 
       likeButton = <LikeButton
-        likeClass='Sin'
-        target={sin}
-        liked={liked} />;
+        type='Sin'
+        id={sin.id}
+      />;
 
       var board = sin.boards[0];
       boardLink = (

@@ -6,7 +6,9 @@ var ApiUtil = require('../../util/api_util');
 var LikeButton = React.createClass({
 
   getInitialState: function () {
-    return {liked: this.props.liked};
+    var type = this.props.type;
+    var id = this.props.id;
+    return { liked: LikeStore.all()[type][id] };
   },
 
   componentDidMount: function () {
@@ -17,28 +19,25 @@ var LikeButton = React.createClass({
     this.likeStoreToken.remove();
   },
 
-  _onLikeChange: function (id, likeClass) {
-    if (
-      this.props.target.id === id &&
-      this.props.likeClass === likeClass
-    ) {
-      this.setState({ liked: !this.state.liked });
-    }
+  _onLikeChange: function () {
+    var type = this.props.type;
+    var id = this.props.id;
+    this.setState({ liked: LikeStore.all()[type][id] });
   },
 
   _handleClick: function (e) {
     e.preventDefault();
 
     ApiUtil.setLike(
-      this.props.likeClass,
-      this.props.target.id,
-      !this.state.liked
+      this.props.type,
+      this.props.id,
+      !this.state.liked || 'false'
     );
   },
 
   render: function () {
     var className = this.state.liked ? ' liked' : ' unliked';
-    className += (this.props.likeClass === 'Sin' ? ' small' : ' big');
+    className += (this.props.type === 'Sin' ? ' small' : ' big');
     var text = this.state.liked ? 'Unlike' : 'Like';
     return (
       <button onClick={this._handleClick} className={'like-button' + className}>

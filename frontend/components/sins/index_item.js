@@ -11,7 +11,7 @@ var SinIndexItem = React.createClass({
     return (
       <li className="tile sin">
         <h3 key={sin.id}>
-          <LikeButton likeClass='Sin' target={sin} liked={liked} />
+          <LikeButton type='Sin' id={sin.id} />
           <div
             onClick={this.props.showSin}
             id={sin.id}

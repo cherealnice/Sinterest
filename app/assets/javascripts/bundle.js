@@ -31833,7 +31833,7 @@
 	      React.createElement(
 	        'h3',
 	        { key: sin.id },
-	        React.createElement(LikeButton, { likeClass: 'Sin', target: sin, liked: liked }),
+	        React.createElement(LikeButton, { type: 'Sin', id: sin.id }),
 	        React.createElement(
 	          'div',
 	          {
@@ -31880,7 +31880,9 @@
 	
 	
 	  getInitialState: function () {
-	    return { liked: this.props.liked };
+	    var type = this.props.type;
+	    var id = this.props.id;
+	    return { liked: LikeStore.all()[type][id] };
 	  },
 	
 	  componentDidMount: function () {
@@ -31891,21 +31893,21 @@
 	    this.likeStoreToken.remove();
 	  },
 	
-	  _onLikeChange: function (id, likeClass) {
-	    if (this.props.target.id === id && this.props.likeClass === likeClass) {
-	      this.setState({ liked: !this.state.liked });
-	    }
+	  _onLikeChange: function () {
+	    var type = this.props.type;
+	    var id = this.props.id;
+	    this.setState({ liked: LikeStore.all()[type][id] });
 	  },
 	
 	  _handleClick: function (e) {
 	    e.preventDefault();
 	
-	    ApiUtil.setLike(this.props.likeClass, this.props.target.id, !this.state.liked);
+	    ApiUtil.setLike(this.props.type, this.props.id, !this.state.liked || 'false');
 	  },
 	
 	  render: function () {
 	    var className = this.state.liked ? ' liked' : ' unliked';
-	    className += this.props.likeClass === 'Sin' ? ' small' : ' big';
+	    className += this.props.type === 'Sin' ? ' small' : ' big';
 	    var text = this.state.liked ? 'Unlike' : 'Like';
 	    return React.createElement('button', { onClick: this._handleClick, className: 'like-button' + className });
 	  }
@@ -31918,14 +31920,45 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var LikeConstants = __webpack_require__(241);
+	var CurrentUserConstants = __webpack_require__(212);
 	var Store = __webpack_require__(213).Store;
 	var AppDispatcher = __webpack_require__(231);
 	
+	var _likes = { Board: {}, Sin: {} };
+	
 	var LikeStore = new Store(AppDispatcher);
+	
+	LikeStore.updateLike = function (like) {
+	  var type;
+	  if (like.likeable_type === 'Board') {
+	    type = 'Board';
+	  } else if (like.likeable_type === 'Sin') {
+	    type = 'Sin';
+	  }
+	  _likes[type][like.likeable_id] = like.bool;
+	};
+	
+	LikeStore.all = function () {
+	  return Object.assign({}, _likes);
+	};
+	
+	LikeStore.setLikes = function (likes) {
+	  likes.liked_boards.forEach(function (board) {
+	    _likes.Board[board.id] = true;
+	  });
+	  likes.liked_sins.forEach(function (sin) {
+	    _likes.Sin[sin.id] = true;
+	  });
+	};
 	
 	LikeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case LikeConstants.LIKE_CHANGED:
+	      LikeStore.updateLike(payload.like);
+	      LikeStore.__emitChange();
+	      break;
+	    case CurrentUserConstants.RECEIVE_CURRENT_USER:
+	      LikeStore.setLikes(payload.currentUser.likes);
 	      LikeStore.__emitChange();
 	      break;
 	  }
@@ -32142,9 +32175,9 @@
 	      var liked = sin.liked ? true : false;
 	
 	      likeButton = React.createElement(LikeButton, {
-	        likeClass: 'Sin',
-	        target: sin,
-	        liked: liked });
+	        type: 'Sin',
+	        id: sin.id
+	      });
 	
 	      var board = sin.boards[0];
 	      boardLink = React.createElement(
@@ -36416,9 +36449,9 @@
 	      description = board.description;
 	
 	      followButton = React.createElement(FollowButton, {
-	        followClass: 'Board',
-	        target: board,
-	        followed: followed });
+	        type: 'Board',
+	        id: board.id
+	      });
 	
 	      if (board.author_id === CurrentUserStore.currentUser().id) {
 	        createSin = React.createElement(
@@ -37216,6 +37249,7 @@
 	    var content;
 	    var user = this.state.user;
 	    var username;
+	    var followButton;
 	    if (!user) {
 	      content = React.createElement(
 	        'p',
@@ -37233,6 +37267,7 @@
 	        )
 	      );
 	      username = user.username;
+	      followButton = React.createElement(FollowButton, { type: 'User', id: user.id });
 	    }
 	
 	    return React.createElement(
@@ -37240,7 +37275,7 @@
 	      { className: 'user-wrapper' },
 	      React.createElement(SinterestHeader, {
 	        title: username,
-	        button: FollowButton,
+	        button: followButton,
 	        user: user }),
 	      content
 	    );
