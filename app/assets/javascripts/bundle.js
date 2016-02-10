@@ -31684,7 +31684,7 @@
 
 	  getInitialState: function () {
 	    return {
-	      loadingFlag: false,
+	      loadingFlag: true,
 	      sins: [],
 	      detailSinId: null
 	    };
@@ -31693,7 +31693,7 @@
 	  componentDidMount: function () {
 	    window.addEventListener("scroll", this.handleScroll);
 	    this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
-	    ApiUtil.fetchSins(this.props.boardIds);
+	    ApiUtil.fetchSins(this.props.boardIds, 0, this.toggleLoadingFlag);
 	  },
 
 	  componentWillUnmount: function () {
@@ -31759,11 +31759,13 @@
 	  },
 
 	  render: function () {
-	    var detailSinId = this.state.detailSinId;
-	    var sinShow;
-	    var indexHiddenClass;
-	    var createSin;
-	    var className = 'sin-index';
+	    var detailSinId = this.state.detailSinId,
+	        sinShow,
+	        indexHiddenClass,
+	        createSin,
+	        className = 'sin-index',
+	        spinner1,
+	        spinner2;
 
 	    if (this.props.createSin) {
 	      createSin = this.props.createSin;
@@ -31780,6 +31782,17 @@
 	      });
 	      indexHiddenClass = ' hidden';
 	    }
+	    if (this.state.loadingFlag) {
+	      var spinner = React.createElement('img', {
+	        className: 'spinner',
+	        src: 'http://www.svanemerket.no/Templates/Main/Styles/Images/spinner.gif'
+	      });
+	      if (this.state.sins.length === 0) {
+	        spinner1 = spinner;
+	      } else {
+	        spinner2 = spinner;
+	      }
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'sin-index' },
@@ -31787,6 +31800,7 @@
 	      React.createElement(
 	        'div',
 	        null,
+	        spinner1,
 	        React.createElement(
 	          Masonry,
 	          {
@@ -31802,7 +31816,8 @@
 	              key: sin.id,
 	              showSin: this._showSin });
 	          }.bind(this))
-	        )
+	        ),
+	        spinner2
 	      ),
 	      sinShow
 	    );

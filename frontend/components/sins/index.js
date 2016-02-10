@@ -17,7 +17,7 @@ var SinsIndex = React.createClass({
 
   getInitialState: function () {
     return ({
-      loadingFlag: false,
+      loadingFlag: true,
       sins: [],
       detailSinId: null
     });
@@ -26,7 +26,11 @@ var SinsIndex = React.createClass({
   componentDidMount: function () {
     window.addEventListener("scroll", this.handleScroll);
     this.sinStoreToken = SinStore.addListener(this._onSinsIndexChange);
-    ApiUtil.fetchSins(this.props.boardIds);
+    ApiUtil.fetchSins(
+      this.props.boardIds,
+      0,
+      this.toggleLoadingFlag
+    );
   },
 
   componentWillUnmount: function () {
@@ -95,11 +99,13 @@ var SinsIndex = React.createClass({
   },
 
   render: function () {
-    var detailSinId = this.state.detailSinId;
-    var sinShow;
-    var indexHiddenClass;
-    var createSin;
-    var className = 'sin-index';
+    var detailSinId = this.state.detailSinId,
+      sinShow,
+      indexHiddenClass,
+      createSin,
+      className = 'sin-index',
+      spinner1,
+      spinner2;
 
     if (this.props.createSin) {
       createSin = this.props.createSin;
@@ -116,11 +122,24 @@ var SinsIndex = React.createClass({
       />;
       indexHiddenClass = ' hidden';
     }
+    if (this.state.loadingFlag) {
+      var spinner = (
+        <img
+          className='spinner'
+          src='http://www.svanemerket.no/Templates/Main/Styles/Images/spinner.gif'
+        />
+      );
+      if (this.state.sins.length === 0) {
+        spinner1 = spinner;
+      } else {
+        spinner2 = spinner;
+      }
+    }
     return (
       <div className='sin-index'>
       {createSin}
         <div>
-
+        {spinner1}
         <Masonry
           className={'my-gallery-class sins group ' + indexHiddenClass}
           id='sins-container'
@@ -135,6 +154,7 @@ var SinsIndex = React.createClass({
               showSin={this._showSin} />;
           }.bind(this))}
         </Masonry>
+        {spinner2}
         </div>
         {sinShow}
       </div>
