@@ -17,3 +17,7 @@
 
 # Ignore unnecessary npm files
 /node_modules/
+
+# Ignore bundled files
+bundle.js
+bundle.js.map
