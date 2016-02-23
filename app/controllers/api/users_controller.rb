@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:boards, :image).find(params[:id])
+    @user = User.includes(:boards, :images).find(params[:id])
     render :show
   end
 
